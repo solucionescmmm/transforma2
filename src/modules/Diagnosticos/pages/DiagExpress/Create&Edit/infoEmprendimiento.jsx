@@ -583,7 +583,13 @@ const InfoEmprendimiento = ({
                                     label="¿Tiene productos/servicios nuevos en el último año o se encuentra renovando los productos actuales?"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                        handlerChangeData(
+                                            "strProductoServiciosNuevosUltimoAño",
+                                            e.target.value
+                                        );
+                                    }}
                                     select
                                     fullWidth
                                     variant="standard"
@@ -623,10 +629,9 @@ const InfoEmprendimiento = ({
                                     label="¿Cuáles son estos productos nuevos?"
                                     name={name}
                                     value={value}
-                                    disabled={disabled}
+                                    disabled={data.strProductoServiciosNuevosUltimoAño !== "Si" ? true : disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento
@@ -655,9 +660,24 @@ const InfoEmprendimiento = ({
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                        handlerChangeData(
+                                            "strProductoServiciosEnValidacion",
+                                            e.target.value
+                                        );
+
+                                        setValue(
+                                            "objInfoEmprendimiento.strNivelDlloProductoServicios",
+                                            ""
+                                        );
+
+                                        setValue(
+                                            "objInfoEmprendimiento.strEtapaValidProductoServicios",
+                                            ""
+                                        );
+                                    }}
                                     fullWidth
-                                    
                                     variant="standard"
                                     error={
                                         errors?.objInfoEmprendimiento
@@ -687,7 +707,7 @@ const InfoEmprendimiento = ({
                                     label="Nivel de desarrollo del producto/servicio"
                                     name={name}
                                     value={value}
-                                    disabled={disabled}
+                                    disabled={data.strProductoServiciosEnValidacion !== "Sí" ? true : disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     
@@ -720,7 +740,7 @@ const InfoEmprendimiento = ({
                                     label="¿En qué etapa de validación se encuentra el producto/servicio?"
                                     name={name}
                                     value={value}
-                                    disabled={disabled}
+                                    disabled={data.strProductoServiciosEnValidacion !== "Sí" ? true : disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
                                     

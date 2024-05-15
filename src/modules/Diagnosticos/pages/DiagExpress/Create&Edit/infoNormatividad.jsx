@@ -144,7 +144,14 @@ const InfoNormatividad = ({
                                     name={name}
                                     value={value}
                                     disabled={disabled}
-                                    onChange={(e) => onChange(e)}
+                                    onChange={(e) => {
+                                        onChange(e)
+                                        handlerChangeData(
+                                            "strPermisoFuncionamiento",
+                                            e.target.value
+                                        );
+                                        setValue("objInfoNormatividad.strCertificadosRequeridos", "")
+                                    }}
                                     error={
                                         errors?.objInfoNormatividad
                                             ?.strPermisoFuncionamiento
@@ -173,7 +180,7 @@ const InfoNormatividad = ({
                                     label="¿Cuáles son las certificaciones que requieren?"
                                     name={name}
                                     value={value}
-                                    disabled={disabled}
+                                    disabled={data.strPermisoFuncionamiento !== "Sí" ? true : disabled}
                                     onChange={(e) => onChange(e)}
                                     error={
                                         errors?.objInfoNormatividad
@@ -284,7 +291,7 @@ const InfoNormatividad = ({
                                     value={value}
                                     disabled={
                                         !data.strPatentesUtilidad ||
-                                        data.strPatentesUtilidad === "NO"
+                                        data.strPatentesUtilidad !== "Sí"
                                             ? true
                                             : disabled
                                     }
