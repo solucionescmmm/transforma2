@@ -47,7 +47,7 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
             let data = [];
 
             for (let i = 0; i < array.length; i++) {
-                let objDataUser = dataUsuario?.find((u)=>u.strEmail === array[i]?.strUsuarioCreacion)
+                let objDataUser = dataUsuario?.find((u) => u.strEmail === array[i]?.strUsuarioCreacion)
                 let objInfoGeneral = {
                     intId: array[i].intId,
                     intIdDiagnostico: array[i]?.intIdDiagnostico,
@@ -59,7 +59,7 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
                     strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
                     dtmActualizacion: array[i]?.dtmActualizacion,
-                    strUsuarioResponsable:`${objDataUser?.strNombre || ""} - ${objDataUser?.strEmail || ""}`,
+                    strUsuarioResponsable: objDataUser ? `${objDataUser?.strNombre || ""} - ${objDataUser?.strEmail || ""}`: array[i]?.strUsuarioCreacion,
                 };
                 let objInfoFamiliar = {
                     strTrabajanFamiliares: array[i]?.strTrabajanFamiliares,

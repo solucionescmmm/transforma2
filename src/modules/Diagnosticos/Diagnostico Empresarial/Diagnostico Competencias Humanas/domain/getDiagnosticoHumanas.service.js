@@ -71,7 +71,7 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
                     dtmActualizacion: array[i]?.dtmActualizacion,
                     strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
-                    strUsuarioResponsable:`${objDataUser?.strNombre || ""} - ${objDataUser?.strEmail || ""}`,
+                    strUsuarioResponsable: objDataUser ? `${objDataUser?.strNombre || ""} - ${objDataUser?.strEmail || ""}`: array[i]?.strUsuarioCreacion,
                     objEmpresario: {
                         strNombreCompleto: objDataEmpresario.strNombres + " " + objDataEmpresario.strApellidos,
                         intId: array[i]?.intIdEmpresario,
