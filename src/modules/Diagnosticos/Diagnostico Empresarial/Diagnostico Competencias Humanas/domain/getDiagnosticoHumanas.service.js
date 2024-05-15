@@ -4,6 +4,7 @@ const validator = require("validator").default;
 
 //service
 const serviceGetEmpresario = require("../../../../Empresarios/domian/getEmpresario.service")
+const serviceGetUsuario = require("../../../../Usuarios/domain/getUsuarios.service")
 
 const getDiagnosticoHumanas = async (objParams, strDataUser) => {
     let { intId, intIdDiagnostico } = objParams;
@@ -21,6 +22,16 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
             "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
         );
     }
+
+    let queryGetUsuarios = await serviceGetUsuario({
+        strApp: "Transforma",
+    })
+
+    if (queryGetUsuarios.error) {
+        throw new Error(queryGetUsuarios.msg)
+    }
+
+    const dataUsuario = queryGetUsuarios.data
 
     let dao = new classInterfaceDAODiagnostico();
 
@@ -47,6 +58,7 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
                 }
 
                 let objDataEmpresario = queryGetEmpresario.data[0]
+                let objDataUser = dataUsuario?.find((u)=>u.strEmail === array[i]?.strUsuarioCreacion)
 
                 let objInfoGeneral = {
                     intId: array[i].intId,
@@ -59,6 +71,7 @@ const getDiagnosticoHumanas = async (objParams, strDataUser) => {
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
                     dtmActualizacion: array[i]?.dtmActualizacion,
                     strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
+                    strUsuarioResponsable:`${objDataUser?.strNombre || ""} - ${objDataUser?.strEmail || ""}`,
                     objEmpresario: {
                         strNombreCompleto: objDataEmpresario.strNombres + " " + objDataEmpresario.strApellidos,
                         intId: array[i]?.intIdEmpresario,

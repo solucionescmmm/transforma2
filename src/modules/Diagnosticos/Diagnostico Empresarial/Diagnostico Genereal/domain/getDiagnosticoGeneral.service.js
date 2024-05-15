@@ -2,6 +2,9 @@
 const classInterfaceDAODiagnostico = require("../infra/conectors/interfaseDAODiagnosticoGeneral");
 const validator = require("validator").default;
 
+//service
+const serviceGetUsuario = require("../../../../Usuarios/domain/getUsuarios.service")
+
 const getDiagnosticoGeneral = async (objParams, strDataUser) => {
     let { intId, intIdDiagnostico } = objParams;
 
@@ -19,6 +22,16 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
         );
     }
 
+    let queryGetUsuarios = await serviceGetUsuario({
+        strApp: "Transforma",
+    })
+
+    if (queryGetUsuarios.error) {
+        throw new Error(queryGetUsuarios.msg)
+    }
+
+    const dataUsuario = queryGetUsuarios.data
+
     let dao = new classInterfaceDAODiagnostico();
     let query = {
         intId,
@@ -34,6 +47,7 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
             let data = [];
 
             for (let i = 0; i < array.length; i++) {
+                let objDataUser = dataUsuario?.find((u)=>u.strEmail === array[i]?.strUsuarioCreacion)
                 let objInfoGeneral = {
                     intId: array[i].intId,
                     intIdDiagnostico: array[i]?.intIdDiagnostico,
@@ -45,6 +59,7 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
                     strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
                     dtmActualizacion: array[i]?.dtmActualizacion,
+                    strUsuarioResponsable:`${objDataUser?.strNombre || ""} - ${objDataUser?.strEmail || ""}`,
                 };
                 let objInfoFamiliar = {
                     strTrabajanFamiliares: array[i]?.strTrabajanFamiliares,
