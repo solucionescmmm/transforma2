@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: "center",
         fontSize: "12px",
-        color: "#505050",
+        color: "black",
         fontFamily: "Roboto",
     },
     footerTitle: {
@@ -323,7 +323,7 @@ const PDFProduct = ({ intId, values }) => {
                             <span style="color: #00BBB4">Responsable del diagnóstico: </span>
                             ${
                                 values?.objInfoGeneral?.find(
-                                    (v) => v.parent === "strUsuarioCreacion"
+                                    (v) => v.parent === "strUsuarioResponsable"
                                 )?.value
                             } 
                         </p>
@@ -351,20 +351,14 @@ const PDFProduct = ({ intId, values }) => {
                         </html>
                       `}
                     </Html>
-
+                    
                     <Text style={styles.footerTitle}>
                         Transformamos la vida de las personas emprendedoras y
                         empresarias desde el ser y el hacer
                     </Text>
 
-                    <Text style={styles.footerContact}>Contacto</Text>
-
                     <Text style={styles.footerContact}>
-                        Email: asistentedesarrollo@demismanos.org
-                    </Text>
-
-                    <Text style={styles.footerPhoneEmail}>
-                        Teléfono: 318 656 65 08
+                        Correo electrónico: asistentedesarrollo@demismanos.org - Teléfono: 318 656 65 08
                     </Text>
 
                     <Text

@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: "center",
         fontSize: "12px",
-        color: "#505050",
+        color: "black",
         fontFamily: "Roboto",
     },
     footerTitle: {
@@ -139,8 +139,7 @@ const PDFProduct = ({ intId, values }) => {
                     htmlTemasFortalecer =
                         htmlTemasFortalecer +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente mercadeo - comercial   
-                        <hr />     
+                        Componente mercadeo - comercial     
                     </div>
                     
                     ${tema.objMercadeoFortalecer
@@ -157,8 +156,7 @@ const PDFProduct = ({ intId, values }) => {
                     htmlTemasFortalecer =
                         htmlTemasFortalecer +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente técnico  - productivo    
-                        <hr />         
+                        Componente técnico  - productivo           
                     </div>
                     
                     ${tema.objProductivoFortalecer
@@ -175,8 +173,7 @@ const PDFProduct = ({ intId, values }) => {
                     htmlTemasFortalecer =
                         htmlTemasFortalecer +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente contable  - financiero        
-                        <hr />     
+                        Componente contable  - financiero         
                     </div>
                     
                     ${tema.objFinancieroFortalecer
@@ -193,8 +190,7 @@ const PDFProduct = ({ intId, values }) => {
                     htmlTemasFortalecer =
                         htmlTemasFortalecer +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente administrativo    
-                        <hr />         
+                        Componente administrativo        
                     </div>
                     
                     ${tema.objAdministrativoFortalecer
@@ -211,8 +207,7 @@ const PDFProduct = ({ intId, values }) => {
                     htmlTemasFortalecer =
                         htmlTemasFortalecer +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente asociativo 
-                        <hr />            
+                        Componente asociativo          
                     </div>
                     
                     ${tema.objAsociativoFortalecer
@@ -234,8 +229,7 @@ const PDFProduct = ({ intId, values }) => {
                         htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
                         Componente mercadeo - comercial   
-                        <hr />          
-                    </div>
+                   </div>
                     
                     ${tema.objMercadeoFortalezas
                         .map(
@@ -251,8 +245,7 @@ const PDFProduct = ({ intId, values }) => {
                     htmlFortalezas =
                         htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente técnico  - productivo  
-                        <hr />           
+                        Componente técnico  - productivo         
                     </div>
                     
                     ${tema.objProductivoFortalezas
@@ -269,8 +262,7 @@ const PDFProduct = ({ intId, values }) => {
                     htmlFortalezas =
                         htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente contable  - financiero 
-                        <hr />            
+                        Componente contable  - financiero      
                     </div>
                     
                     ${tema.objFinancieroFortalezas
@@ -287,8 +279,7 @@ const PDFProduct = ({ intId, values }) => {
                     htmlFortalezas =
                         htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente administrativo        
-                        <hr />     
+                        Componente administrativo           
                     </div>
                     
                     ${tema.objAdministrativoFortalezas
@@ -305,8 +296,7 @@ const PDFProduct = ({ intId, values }) => {
                     htmlFortalezas =
                         htmlFortalezas +
                         `<div class="title" style="margin-bottom: 10px; margin-top: 10px">
-                        Componente asociativo   
-                        <hr />          
+                        Componente asociativo       
                     </div>
                     
                     ${tema.objAsociativoFortalezas
@@ -469,7 +459,7 @@ const PDFProduct = ({ intId, values }) => {
                             <span style="color: #00BBB4">Responsable del diagnóstico: </span>
                             ${
                                 values?.objInfoGeneral?.find(
-                                    (v) => v.parent === "strUsuarioCreacion"
+                                    (v) => v.parent === "strUsuarioResponsable"
                                 )?.value
                             } 
                         </p>
@@ -517,7 +507,7 @@ const PDFProduct = ({ intId, values }) => {
 
                     <Image
                         source={values?.imgChart}
-                        style={{ width: "260px", alignSelf: "center" }}
+                        style={{ width: "300px", alignSelf: "center" }}
                     />
 
                     <Html>
@@ -617,17 +607,12 @@ const PDFProduct = ({ intId, values }) => {
                     </Html>
 
                     <Text style={styles.footerTitle}>
-                    Transformamos la vida de las personas emprendedoras y empresarias desde el ser y el hacer
+                        Transformamos la vida de las personas emprendedoras y
+                        empresarias desde el ser y el hacer
                     </Text>
-
-                    <Text style={styles.footerContact}>Contacto</Text>
 
                     <Text style={styles.footerContact}>
-                        Email: asistentedesarrollo@demismanos.org
-                    </Text>
-
-                    <Text style={styles.footerPhoneEmail}>
-                        Teléfono: 318 656 65 08
+                        Correo electrónico: asistentedesarrollo@demismanos.org - Teléfono: 318 656 65 08
                     </Text>
 
                     <Text

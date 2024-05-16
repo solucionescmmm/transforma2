@@ -33,7 +33,7 @@ import { LoadingButton } from "@mui/lab";
 import { makeStyles } from "@mui/styles";
 
 //Imagenes
-import LogoImg from "../../static/img/LogoLogin.svg";
+import LogoImg from "../../static/img/Transforma.png";
 import BtnMicrosoft from "../../static/img/Microsoft_logo.svg.png";
 
 const loginStyles = makeStyles((theme) => ({
@@ -236,7 +236,7 @@ const Login = () => {
                                             <img
                                                 src={LogoImg}
                                                 className={classes.logo}
-                                                alt="logo choucair"
+                                                alt="logo"
                                             />
                                         </Box>
                                     </Grid>

@@ -25,7 +25,6 @@ import {
     Container,
     Alert,
     TextField,
-    MenuItem,
 } from "@mui/material";
 
 import { LoadingButton } from "@mui/lab";
@@ -127,8 +126,6 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
     const [loading, setLoading] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
-
-    const [dataObj, setDataObj] = useState([]);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -548,7 +545,6 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                         remove={remove}
                                         watch={watch}
                                         intIdIdea={intIdIdea}
-                                        setDataObj={setDataObj}
                                     />
                                 )}
 

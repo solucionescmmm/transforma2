@@ -234,7 +234,7 @@ const Main = ({ children }) => {
                                 <img
                                     style={{ marginLeft: "5px" }}
                                     className={classes.hiddenElements}
-                                    src="https://demismanos.org/wp-content/uploads/2020/07/Recurso-1.png"
+                                    src="https://demismanos.org/wp-content/uploads/2020/07/Copia-de-Logo-DMM-Horizontal-300x91.png"
                                     alt="Logo"
                                     width="80px"
                                 />

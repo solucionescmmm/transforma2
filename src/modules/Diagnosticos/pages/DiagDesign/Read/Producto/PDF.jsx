@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: "center",
         fontSize: "12px",
-        color: "#505050",
+        color: "black",
         fontFamily: "Roboto",
     },
     footerTitle: {
@@ -217,7 +217,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objInnovacionBajo
                     .map(
                         (e) =>
-                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -234,7 +234,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objPersepcionBajo
                     .map(
                         (e) =>
-                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -251,7 +251,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objExperienciaBajo
                     .map(
                         (e) =>
-                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -268,7 +268,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objMarcaBajo
                     .map(
                         (e) =>
-                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -289,7 +289,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objInnovacionMedio
                     .map(
                         (e) =>
-                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -306,7 +306,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objPersepcionMedio
                     .map(
                         (e) =>
-                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -323,7 +323,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objExperienciaMedio
                     .map(
                         (e) =>
-                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -340,7 +340,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 ${valuesPDF?.[0].objMarcaMedio
                     .map(
                         (e) =>
-                            `<div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            `<div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>`
                     )
@@ -365,7 +365,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             .map(
                                 (e) => `
                    
-                                <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                                <div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                     e.label
                                 }:</span> ${e.value || "No diligenciado"}</div>
                             `
@@ -389,7 +389,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         .map(
                             (e) => `
                         
-                            <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            <div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>
                         
@@ -409,7 +409,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     ${e.objEsteticaFortalezas
                         .map(
                             (e) => `         
-                            <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            <div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>
                         `
@@ -429,7 +429,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     ${e.objExperienciaFortalezas
                         .map(
                             (e) => `
-                            <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            <div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>
                         `
@@ -449,7 +449,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     ${e.objMarcaFortalezas
                         .map(
                             (e) => `
-                            <div style="color: #505050; font-size: 11px"><span style="color: #00BBB4">${
+                            <div style="color: #505050; font-size: 11px; padding: 10px"><span style="color: #00BBB4">${
                                 e.label
                             }:</span> ${e.value || "No diligenciado"}</div>
                         `
@@ -609,7 +609,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                                 <span style="color: #00BBB4">Responsable del diagnóstico: </span>
                                 ${
                                     values?.objInfoGeneral?.find(
-                                        (v) => v.parent === "strUsuarioCreacion"
+                                        (v) => v.parent === "strUsuarioResponsable"
                                     )?.value
                                 } 
                             </p>
@@ -894,14 +894,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         empresarias desde el ser y el hacer
                     </Text>
 
-                    <Text style={styles.footerContact}>Contacto</Text>
-
                     <Text style={styles.footerContact}>
-                        Email: asistentedesarrollo@demismanos.org
-                    </Text>
-
-                    <Text style={styles.footerPhoneEmail}>
-                        Teléfono: 318 656 65 08
+                        Correo electrónico: asistentedesarrollo@demismanos.org - Teléfono: 318 656 65 08
                     </Text>
 
                     <Text

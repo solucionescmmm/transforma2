@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     title: {
         textAlign: "center",
         fontSize: "14px",
-        color: "#00BBB4",
+        color: "black",
         fontFamily: "Roboto",
     },
     footerTitle: {
@@ -589,7 +589,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
          <span style="color: #00BBB4">Responsable del diagnóstico: </span>
          ${
              values?.objInfoGeneral?.find(
-                 (v) => v.parent === "strUsuarioCreacion"
+                 (v) => v.parent === "strUsuarioResponsable"
              )?.value
          }
      </p>
@@ -721,14 +721,8 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         empresarias desde el ser y el hacer
                     </Text>
 
-                    <Text style={styles.footerContact}>Contacto</Text>
-
                     <Text style={styles.footerContact}>
-                        Email: asistentedesarrollo@demismanos.org
-                    </Text>
-
-                    <Text style={styles.footerPhoneEmail}>
-                        Teléfono: 318 656 65 08
+                        Correo electrónico: asistentedesarrollo@demismanos.org - Teléfono: 318 656 65 08
                     </Text>
 
                     <Text
