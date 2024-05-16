@@ -151,6 +151,7 @@ const SearchEmpresario = ({ isEdit, intIdIdea, onChangeRoute, values }) => {
                                 objEmprPrincipal.strCondicionDiscapacidad || "",
                             strEstrato: objEmprPrincipal.strEstrato || "",
                             btPerfilSensible: objEmprPrincipal?.btPerfilSensible,
+                            arrPais: objEmprPrincipal.arrPais || [],
                             arrDepartamento:
                                 objEmprPrincipal.arrDepartamento || [],
                             arrCiudad: objEmprPrincipal.arrCiudad || [],

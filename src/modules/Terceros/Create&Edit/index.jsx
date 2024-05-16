@@ -164,6 +164,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                 objEmprPrincipal.strCondicionDiscapacidad || "",
                             strEstrato: objEmprPrincipal.strEstrato || "",
                             btPerfilSensible: objEmprPrincipal.btPerfilSensible || "",
+                            arrPais: objEmprPrincipal.arrPais || [],
                             arrDepartamento:
                                 objEmprPrincipal.arrDepartamento || [],
                             arrCiudad: objEmprPrincipal.arrCiudad || [],
