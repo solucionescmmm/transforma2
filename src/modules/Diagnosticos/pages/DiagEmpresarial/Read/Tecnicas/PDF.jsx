@@ -345,7 +345,7 @@ const PDFProduct = ({ intId, values }) => {
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
                     <Text style={styles.title}>
-                     Diagnóstico empresarial - componente técnico
+                     Diagnóstico empresarial - Componente técnico
                     </Text>
                     <Html>
                         {`
@@ -507,7 +507,7 @@ const PDFProduct = ({ intId, values }) => {
 
                     <Image
                         source={values?.imgChart}
-                        style={{ width: "300px", alignSelf: "center" }}
+                        style={{ width: "350px", alignSelf: "center" }}
                     />
 
                     <Html>
@@ -607,6 +607,7 @@ const PDFProduct = ({ intId, values }) => {
                     </Html>
 
                     <Text style={styles.footerTitle}>
+                        <hr />
                         Transformamos la vida de las personas emprendedoras y
                         empresarias desde el ser y el hacer
                     </Text>
