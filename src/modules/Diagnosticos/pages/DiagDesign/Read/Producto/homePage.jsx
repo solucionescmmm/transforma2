@@ -406,7 +406,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                 case "strUsabilidad":
                                     return "Usabilidad";
 
-                                case "strDisenioExperiencia":
+                                case "strDiseñoExperiencia":
                                     return "Diseño de Experiencia";
 
                                 case "strLineaGrafica":
@@ -578,7 +578,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                     (key === "strRiesgoUso" ||
                                         key === "strEmpaqueEtiqueta" ||
                                         key === "strUsabilidad" ||
-                                        key === "strDisenioExperiencia") &&
+                                        key === "strDiseñoExperiencia") &&
                                     objInfoCategoria1[key] !== ""
                                 ) {
                                     if (

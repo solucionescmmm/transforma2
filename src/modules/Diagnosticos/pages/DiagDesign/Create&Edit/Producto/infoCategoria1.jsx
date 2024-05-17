@@ -106,9 +106,9 @@ const InfoCategoria1 = ({
         strUsabilidad: "",
         strUsabilidadDetalle: "",
         strUsabilidadNivel: "",
-        strDisenioExperiencia: "",
-        strDisenioExperienciaDetalle: "",
-        strDisenioExperienciaNivel: "",
+        strDiseñoExperiencia: "",
+        strDiseñoExperienciaDetalle: "",
+        strDiseñoExperienciaNivel: "",
     });
 
     const [openCollapese, setOpenCollapse] = useState(false);
@@ -203,11 +203,11 @@ const InfoCategoria1 = ({
                 strUsabilidad: values.strUsabilidad || "",
                 strUsabilidadDetalle: values.strUsabilidadDetalle || "",
                 strUsabilidadNivel: values.strUsabilidadNivel || "",
-                strDisenioExperiencia: values.strDisenioExperiencia || "",
-                strDisenioExperienciaDetalle:
-                    values.strDisenioExperienciaDetalle || "",
-                strDisenioExperienciaNivel:
-                    values.strDisenioExperienciaNivel || "",
+                strDiseñoExperiencia: values.strDiseñoExperiencia || "",
+                strDiseñoExperienciaDetalle:
+                    values.strDiseñoExperienciaDetalle || "",
+                strDiseñoExperienciaNivel:
+                    values.strDiseñoExperienciaNivel || "",
             });
         }
 
@@ -239,8 +239,8 @@ const InfoCategoria1 = ({
                                 : "inherit",
                         }}
                     >
-                        Categoría # 1: Diseño Desde lo Físico, lo Técnico y lo
-                        Tangible.
+                        Categoría # 1: Diseño desde lo físico, lo técnico y lo
+                        tangible
                     </Typography>
                 </Box>
 
@@ -2481,8 +2481,8 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={7}>
                                 <Controller
-                                    name="objInfoCategoria1.strDisenioExperiencia"
-                                    defaultValue={data.strDisenioExperiencia}
+                                    name="objInfoCategoria1.strDiseñoExperiencia"
+                                    defaultValue={data.strDiseñoExperiencia}
                                     render={({
                                         field: { name, onChange, value },
                                     }) => (
@@ -2494,19 +2494,19 @@ const InfoCategoria1 = ({
                                             onChange={(e) => {
                                                 onChange(e);
                                                 handlerChangeData(
-                                                    "strDisenioExperiencia",
+                                                    "strDiseñoExperiencia",
                                                     e.target.value
                                                 );
                                             }}
                                             error={
                                                 errors?.objInfoCategoria1
-                                                    ?.strDisenioExperiencia
+                                                    ?.strDiseñoExperiencia
                                                     ? true
                                                     : false
                                             }
                                             helperText={
                                                 errors?.objInfoCategoria1
-                                                    ?.strDisenioExperiencia
+                                                    ?.strDiseñoExperiencia
                                                     ?.message ||
                                                 "Seleccione una opción"
                                             }
@@ -2520,9 +2520,9 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={3}>
                                 <Controller
-                                    name="objInfoCategoria1.strDisenioExperienciaDetalle"
+                                    name="objInfoCategoria1.strDiseñoExperienciaDetalle"
                                     defaultValue={
-                                        data.strDisenioExperienciaDetalle
+                                        data.strDiseñoExperienciaDetalle
                                     }
                                     render={({
                                         field: { name, onChange, value },
@@ -2535,13 +2535,13 @@ const InfoCategoria1 = ({
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria1
-                                                    ?.strDisenioExperienciaDetalle
+                                                    ?.strDiseñoExperienciaDetalle
                                                     ? true
                                                     : false
                                             }
                                             helperText={
                                                 errors?.objInfoCategoria1
-                                                    ?.strDisenioExperienciaDetalle
+                                                    ?.strDiseñoExperienciaDetalle
                                                     ?.message ||
                                                 "Digite el detalle en caso de que aplique"
                                             }
@@ -2556,9 +2556,9 @@ const InfoCategoria1 = ({
 
                             <Grid item xs={12} md={2}>
                                 <Controller
-                                    name="objInfoCategoria1.strDisenioExperienciaNivel"
+                                    name="objInfoCategoria1.strDiseñoExperienciaNivel"
                                     defaultValue={
-                                        data.strDisenioExperienciaNivel
+                                        data.strDiseñoExperienciaNivel
                                     }
                                     render={({
                                         field: { name, onChange, value },
@@ -2568,18 +2568,18 @@ const InfoCategoria1 = ({
                                             name={name}
                                             value={value}
                                             valueList={
-                                                data.strDisenioExperiencia
+                                                data.strDiseñoExperiencia
                                             }
                                             onChange={(e) => onChange(e)}
                                             error={
                                                 errors?.objInfoCategoria1
-                                                    ?.strDisenioExperienciaNivel
+                                                    ?.strDiseñoExperienciaNivel
                                                     ? true
                                                     : false
                                             }
                                             helperText={
                                                 errors?.objInfoCategoria1
-                                                    ?.strDisenioExperienciaNivel
+                                                    ?.strDiseñoExperienciaNivel
                                                     ?.message || "Nivel"
                                             }
                                             strGrupo="DiagnosticoProducto"
