@@ -155,7 +155,7 @@ const ReadPersonaSecundaria = ({
                 open={openModalRepresentante}
                 refresh={refresh}
                 arrEmpresarios={data?.[0]?.objEmpresario.filter(
-                    (p) => p.strTipoEmpresario !== "Principal"
+                    (p) => p.strTipoEmpresario !== "Principal" && p?.strEstado === "Activo"
                 )}
                 intIdIdea={intIdIdea}
             />
@@ -289,7 +289,7 @@ const ReadPersonaSecundaria = ({
                                                 <EditIcon
                                                     color={
                                                         rowData.strTipoEmpresario ===
-                                                        "Principal"
+                                                        "Principal" || rowData.strEstado === "Desvinculado"
                                                             ? "gray"
                                                             : "success"
                                                     }
@@ -305,7 +305,7 @@ const ReadPersonaSecundaria = ({
                                             tooltip: "Editar",
                                             disabled:
                                                 rowData.strTipoEmpresario ===
-                                                "Principal",
+                                                "Principal" || rowData.strEstado === "Desvinculado",
                                         };
                                     },
                                     (rowData) => {
@@ -315,14 +315,15 @@ const ReadPersonaSecundaria = ({
                                                     <CancelIcon
                                                         color={
                                                             rowData.strTipoEmpresario ===
-                                                            "Principal"
+                                                            "Principal" || rowData.strEstado ===
+                                                            "Desvinculado"
                                                                 ? "gray"
                                                                 : "error"
                                                         }
                                                         fontSize="small"
                                                     />
                                                 ),
-                                                disabled:rowData.strTipoEmpresario === "Principal",
+                                                disabled:rowData.strTipoEmpresario === "Principal" || rowData.strEstado === "Desvinculado",
                                                 onClick: (event, rowData) => {
                                                     setSelectedData(rowData);
                                                     handlerOpenModalCancelacion();
@@ -397,7 +398,7 @@ const ReadPersonaSecundaria = ({
                                                             }
                                                             variant="contained"
                                                         >
-                                                            Agregar persona
+                                                            Agregar/vincular persona
                                                         </Button>
 
                                                         <Button

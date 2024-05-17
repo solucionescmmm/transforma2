@@ -72,6 +72,7 @@ const ModalRepresentante = ({
         control,
         formState: { errors },
         handleSubmit,
+        reset,
         watch,
         getValues,
     } = useForm({ mode: "onChange" });
@@ -162,6 +163,7 @@ const ModalRepresentante = ({
     useEffect(() => {
         if (success) {
             handleOpenDialog();
+            reset()
             refresh({ intIdIdea });
            
             setSucces(false);
@@ -250,7 +252,10 @@ const ModalRepresentante = ({
                 </LoadingButton>
 
                 <Button
-                    onClick={() => handleOpenDialog()}
+                    onClick={() => {
+                        reset()
+                        handleOpenDialog()
+                    }}
                     color="inherit"
                     type="button"
                     disabled={loading}
