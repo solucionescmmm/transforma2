@@ -279,7 +279,7 @@ const ReadPersonaSecundaria = ({
                                 isLoading={data === undefined ? true : false}
                                 data={
                                     !data?.error && data
-                                        ? data[0].objEmpresario.filter((e)=> e.btNoContactar === false)
+                                        ? data[0].objEmpresario
                                         : []
                                 }
                                 actions={[

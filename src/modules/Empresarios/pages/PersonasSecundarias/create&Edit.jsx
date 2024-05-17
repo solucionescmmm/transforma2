@@ -325,6 +325,12 @@ const CreateEditPersonasSec = ({
     }, [data, reset, isEdit]);
 
     useEffect(() => {
+        if (values && !isEdit) {
+            reset(values);
+        }
+    }, [data, reset, values, isEdit]);
+
+    useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
 
         if (flagSubmit) {
