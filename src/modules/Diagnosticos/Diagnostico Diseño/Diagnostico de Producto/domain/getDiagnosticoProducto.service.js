@@ -154,11 +154,11 @@ const getDiagnosticoProducto = async (objParams, strDataUser) => {
                     strUsabilidad: array[i]?.strUsabilidad,
                     strUsabilidadDetalle: array[i]?.strUsabilidadDetalle,
                     strUsabilidadNivel: array[i]?.strUsabilidadNivel,
-                    strDisenioExperiencia: array[i]?.strDisenioExperiencia,
-                    strDisenioExperienciaDetalle:
-                        array[i]?.strDisenioExperienciaDetalle,
-                    strDisenioExperienciaNivel:
-                        array[i]?.strDisenioExperienciaNivel,
+                    strDiseñoExperiencia: array[i]?.strDiseñoExperiencia,
+                    strDiseñoExperienciaDetalle:
+                        array[i]?.strDiseñoExperienciaDetalle,
+                    strDiseñoExperienciaNivel:
+                        array[i]?.strDiseñoExperienciaNivel,
                 };
                 let objInfoCategoria2 = {
                     strLineaGrafica: array[i]?.strLineaGrafica,

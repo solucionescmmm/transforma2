@@ -169,11 +169,11 @@ const getDiagnosticoProducto = async (objParams, strDataUser) => {
                     strUsabilidad: array[i]?.strUsabilidad,
                     strUsabilidadDetalle: array[i]?.strUsabilidadDetalle,
                     strUsabilidadNivel: array[i]?.strUsabilidadNivel,
-                    strDisenioExperiencia: array[i]?.strDisenioExperiencia,
-                    strDisenioExperienciaDetalle:
-                        array[i]?.strDisenioExperienciaDetalle,
-                    strDisenioExperienciaNivel:
-                        array[i]?.strDisenioExperienciaNivel,
+                    strDiseñoExperiencia: array[i]?.strDiseñoExperiencia,
+                    strDiseñoExperienciaDetalle:
+                        array[i]?.strDiseñoExperienciaDetalle,
+                    strDiseñoExperienciaNivel:
+                        array[i]?.strDiseñoExperienciaNivel,
                 };
                 let objInfoCategoria2 = {
                     strLineaGrafica: array[i]?.strLineaGrafica,
@@ -274,7 +274,7 @@ const getDiagnosticoProducto = async (objParams, strDataUser) => {
                         case "strUsabilidad":
                             return "Usabilidad";
 
-                        case "strDisenioExperiencia":
+                        case "strDiseñoExperiencia":
                             return "Diseño de Experiencia";
 
                         case "strLineaGrafica":
@@ -494,7 +494,7 @@ const getDiagnosticoProducto = async (objParams, strDataUser) => {
                             (key === "strRiesgoUso" ||
                                 key === "strEmpaqueEtiqueta" ||
                                 key === "strUsabilidad" ||
-                                key === "strDisenioExperiencia") &&
+                                key === "strDiseñoExperiencia") &&
                             objInfoCategoria1[key] !== ""
                         ) {
                             if (
