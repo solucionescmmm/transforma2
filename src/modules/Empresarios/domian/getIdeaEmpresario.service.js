@@ -41,8 +41,8 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                 let objEmpresario = []
                 let objInfoPrincipal = {}
 
-                let dataEmpresarioPrincipal = arrayEmpresario.find((i) => i.strTipoEmpresario === "Principal")
-                let dataIdeaEmpresarioPrincipal = arrayIdeaEmpresario.find((i) => i.strTipoEmpresario === "Principal")
+                let dataEmpresarioPrincipal = arrayEmpresario?.find((i) => i.strTipoEmpresario === "Principal")
+                let dataIdeaEmpresarioPrincipal = arrayIdeaEmpresario?.find((i) => i.strTipoEmpresario === "Principal")
 
                 objEmpresario.push({
                     ...dataEmpresarioPrincipal,
@@ -73,7 +73,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                             dtFechaVinculacion: arrayIdeaEmpresario[j]?.dtFechaVinculacion,
                             intIdEstadoVinculacion: arrayIdeaEmpresario[j]?.intIdEstadoVinculacionEmpresario,
                             strTipoVinculacion: arrayIdeaEmpresario[j]?.strTipoVinculacion,
-                            strEstado: arrayIdeaEmpresario.find((e)=> e.intIdEmpresario === arrayEmpresario[j].intId)?.strEstado || "Desvinculado",
+                            strEstado: arrayIdeaEmpresario?.find((e)=> e.intIdEmpresario === arrayEmpresario[j].intId)?.strEstado || "Desvinculado",
                             strEstadoVinculacion: arrayIdeaEmpresario[j]?.strEstadoVinculacion
                         })
                     }

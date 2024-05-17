@@ -81,7 +81,6 @@ const getDiagnosticoTecnicas = async (objParams, strDataUser) => {
                     }
                 };
                 let objInfoComMercadeo = {
-                    ...array[i],
                     strCaractEmpresaComp: array[i]?.strCaractEmpresaComp,
                     strCaractEmpresaCompDetalle: array[i]?.strCaractEmpresaCompDetalle,
                     strCaractEmpresaCompNivel: arrDataNiveles?.data?.flat().find(objeto => objeto['strCaractEmpresaComp'])?.strNivel,
