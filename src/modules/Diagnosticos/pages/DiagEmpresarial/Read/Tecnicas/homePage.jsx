@@ -1674,7 +1674,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                                             <Grid
                                                                 item
                                                                 xs={12}
-                                                                md={e.datelle ? 8: 10}
+                                                                md={8}
                                                             >
                                                                 <p
                                                                     style={{
