@@ -33,7 +33,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
-            let array = arrayData.data.reverse();
+            let array = arrayData.data;
             let data = [];
             for (let i = 0; i < array.length; i++) {
                 let arrayEmpresario = array[i].objInfoEmpresario
@@ -73,7 +73,7 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                             dtFechaVinculacion: arrayIdeaEmpresario[j]?.dtFechaVinculacion,
                             intIdEstadoVinculacion: arrayIdeaEmpresario[j]?.intIdEstadoVinculacionEmpresario,
                             strTipoVinculacion: arrayIdeaEmpresario[j]?.strTipoVinculacion,
-                            strEstado: arrayIdeaEmpresario[j]?.strEstado,
+                            strEstado: arrayIdeaEmpresario.find((e)=> e.intIdEmpresario === arrayEmpresario[j].intId)?.strEstado || "Desvinculado",
                             strEstadoVinculacion: arrayIdeaEmpresario[j]?.strEstadoVinculacion
                         })
                     }

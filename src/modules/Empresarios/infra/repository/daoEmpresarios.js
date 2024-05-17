@@ -869,7 +869,6 @@ class daoEmpresarios {
             EstadoVinculacion.strNombre as strEstadoVinculacion,
             (
                 SELECT
-
                 IdeaEmpresario.intId,
                 IdeaEmpresario.intIdIdea,
                 IdeaEmpresario.intIdEmpresario,
@@ -889,18 +888,19 @@ class daoEmpresarios {
                 Tipo.strNombre as strTipoEmpresario,
                 Estados.strNombre as strEstado,
                 EstadosVinculacion.strNombre as strEstadoVinculacion
-
+ 
                 FROM tbl_Idea_Empresario IdeaEmpresario
-
+ 
                 INNER JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
                 LEFT JOIN tbl_EstadoVinculacion EstadosVinculacion ON EstadosVinculacion.intId = IdeaEmpresario.intIdEstadoVinculacionEmpresario
                 INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
-
+ 
                 WHERE IdeaEmpresario.intIdIdea = Idea.intId AND Estados.strNombre = 'Activo'
                 FOR JSON PATH
             ) as objInfoIdeaEmpresario,
             (
                 SELECT
+                
                 Empresario.intId,
                 Empresario.strNombres,
                 Empresario.strApellidos,
@@ -927,7 +927,7 @@ class daoEmpresarios {
                 Empresario.strBarrio,
                 Empresario.strDireccionResidencia,
                 Empresario.strUrlFileFoto,
-                Empresario.intIdEstado,
+                IdeaEmpresario.intIdEstado,
                 Empresario.btNoContactar,
                 Empresario.dtmCreacion,
                 Empresario.dtmActualizacion,
@@ -938,17 +938,25 @@ class daoEmpresarios {
                 Sedes.strNombre as strNombreSedes
 
                 FROM tbl_Empresario Empresario
-
-                INNER JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
+                INNER JOIN (
+                    SELECT IdeaEmpresario.*
+                    FROM tbl_Idea_Empresario IdeaEmpresario
+                    INNER JOIN (
+                        SELECT intIdEmpresario, MAX(dtmCreacion) as dtmUltimaCreacion
+                        FROM tbl_Idea_Empresario
+                        GROUP BY intIdEmpresario
+                    ) UltimosEstados ON IdeaEmpresario.intIdEmpresario = UltimosEstados.intIdEmpresario
+                    AND IdeaEmpresario.dtmCreacion = UltimosEstados.dtmUltimaCreacion
+                ) IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
                 LEFT JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
                 INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
                 LEFT JOIN tbl_Sedes Sedes ON Sedes.intId = Empresario.intIdSede
-
-                WHERE IdeaEmpresario.intIdIdea = Idea.intId AND Estados.strNombre = 'Activo'
-                FOR JSON PATH
+                WHERE IdeaEmpresario.intIdIdea = Idea.intId
+	            FOR JSON PATH
             ) as objInfoEmpresario,
             (
-                SELECT * FROM tbl_InfoEmpresa Empresa
+                SELECT * 
+                FROM tbl_InfoEmpresa Empresa
                 WHERE Empresa.intIdIdea = Idea.intId
                 FOR JSON PATH
             ) as objInfoEmpresa,
@@ -958,9 +966,7 @@ class daoEmpresarios {
                 WHERE Adicional.intIdIdea = Idea.intId
                 FOR JSON PATH
             ) as objInfoAdicional
-
             FROM tbl_Idea Idea
-
             LEFT JOIN tbl_EstadoVinculacion EstadoVinculacion ON EstadoVinculacion.intId = Idea.intIdEstadoVinculacion
             
             WHERE (Idea.intId = ${data.intId} OR ${data.intId} IS NULL)`;
