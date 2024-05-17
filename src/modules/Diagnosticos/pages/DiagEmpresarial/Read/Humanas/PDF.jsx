@@ -209,7 +209,7 @@ const PDFProduct = ({ intId, values }) => {
                     <Image src="/Logo.png" style={styles.image} />
 
                     <Text style={styles.title}>
-                        Diagnóstico empresarial - componente humano
+                        Diagnóstico empresarial - Componente humano
                     </Text>
 
                     <Html>
@@ -353,6 +353,7 @@ const PDFProduct = ({ intId, values }) => {
                     </Html>
                     
                     <Text style={styles.footerTitle}>
+                        <hr />
                         Transformamos la vida de las personas emprendedoras y
                         empresarias desde el ser y el hacer
                     </Text>

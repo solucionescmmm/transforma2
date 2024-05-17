@@ -472,6 +472,10 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
 
+                    <Text style={styles.title}>
+                     Diagnóstico express
+                    </Text>
+
                     <Html>
                         {`
  <html>
@@ -717,6 +721,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     </View>
 
                     <Text style={styles.footerTitle}>
+                        <hr />
                         Transformamos la vida de las personas emprendedoras y
                         empresarias desde el ser y el hacer
                     </Text>

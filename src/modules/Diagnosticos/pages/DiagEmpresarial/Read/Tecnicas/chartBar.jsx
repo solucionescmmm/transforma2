@@ -66,7 +66,7 @@ const ChartBar = ({ values, labels, title, maxValues }) => {
         labels,
         datasets: [
             {
-                label: 'Puntaje',
+                label: 'Puntaje actual',
                 data: values,
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgb(255, 99, 132)',
@@ -76,7 +76,7 @@ const ChartBar = ({ values, labels, title, maxValues }) => {
                 pointHoverBorderColor: 'rgb(255, 99, 132)'
             },
             {
-                label: 'Ideal',
+                label: 'Puntaje máximo',
                 data: maxValues,
                 fill:false,
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
