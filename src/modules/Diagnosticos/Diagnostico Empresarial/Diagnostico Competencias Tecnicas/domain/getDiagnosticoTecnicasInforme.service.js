@@ -4,6 +4,7 @@ const validator = require("validator").default;
 
 //service
 const serviceGetEmpresario = require("../../../../Empresarios/domian/getEmpresario.service")
+const serviceGetUsuario = require("../../../../Usuarios/domain/getUsuarios.service")
 
 const getDiagnosticoTecnicasInforme = async (objParams, strDataUser) => {
     let { intId, intIdDiagnostico } = objParams;
@@ -22,11 +23,22 @@ const getDiagnosticoTecnicasInforme = async (objParams, strDataUser) => {
         );
     }
 
+    let queryGetUsuarios = await serviceGetUsuario({
+        strApp: "Transforma",
+    })
+
+    if (queryGetUsuarios.error) {
+        throw new Error(queryGetUsuarios.msg)
+    }
+
+    const dataUsuario = queryGetUsuarios.data
+
     let dao = new classInterfaceDAODiagnostico();
     let query = {
         intId,
         intIdDiagnostico
     };
+    
 
     let arrayData = await dao.getDiagnosticoTecnicas(query);
     let arrDataNiveles = await dao.getDiagnosticoTecnicasNivel(query)
@@ -46,6 +58,7 @@ const getDiagnosticoTecnicasInforme = async (objParams, strDataUser) => {
                 }
 
                 let objDataEmpresario = queryGetEmpresario.data[0]
+                let objDataUser = dataUsuario?.find((u)=>u.strEmail === array[i]?.strUsuarioCreacion)
 
                 let objInfoGeneral = {
                     intId: array[i].intId,
@@ -57,6 +70,7 @@ const getDiagnosticoTecnicasInforme = async (objParams, strDataUser) => {
                     strUsuarioCreacion: array[i]?.strUsuarioCreacion,
                     dtmActualizacion: array[i]?.dtmActualizacion,
                     strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
+                    strUsuarioResponsable: objDataUser ? `${objDataUser?.strNombre || ""} - ${objDataUser?.strEmail || ""}`: array[i]?.strUsuarioCreacion,
                     objEmpresario: {
                         strNombreCompleto: objDataEmpresario.strNombres + " " + objDataEmpresario.strApellidos,
                         intId: array[i]?.intIdEmpresario,
