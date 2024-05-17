@@ -942,9 +942,9 @@ class daoEmpresarios {
                     SELECT IdeaEmpresario.*
                     FROM tbl_Idea_Empresario IdeaEmpresario
                     INNER JOIN (
-                        SELECT intIdEmpresario, MAX(dtmCreacion) as dtmUltimaCreacion
+                        SELECT intIdEmpresario, intIdIdea, MAX(dtmCreacion) as dtmUltimaCreacion
                         FROM tbl_Idea_Empresario
-                        GROUP BY intIdEmpresario
+                        GROUP BY intIdEmpresario, intIdIdea
                     ) UltimosEstados ON IdeaEmpresario.intIdEmpresario = UltimosEstados.intIdEmpresario
                     AND IdeaEmpresario.dtmCreacion = UltimosEstados.dtmUltimaCreacion
                 ) IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
