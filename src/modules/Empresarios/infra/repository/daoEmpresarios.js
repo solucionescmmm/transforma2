@@ -928,6 +928,7 @@ class daoEmpresarios {
                 Empresario.strDireccionResidencia,
                 Empresario.strUrlFileFoto,
                 IdeaEmpresario.intIdEstado,
+                Empresario.intIdEstado as intIdEstadoEmpresario,
                 Empresario.btNoContactar,
                 Empresario.dtmCreacion,
                 Empresario.dtmActualizacion,
@@ -935,7 +936,9 @@ class daoEmpresarios {
                 IdeaEmpresario.intIdTipoEmpresario,
                 IdeaEmpresario.strTipoRelacionPrincipal as strTipoRelacion,
                 Tipo.strNombre as strTipoEmpresario,
-                Sedes.strNombre as strNombreSedes
+                Sedes.strNombre as strNombreSedes,
+                EstadosEmpresario.strNombre as strEstadoPersona,
+                Estados.strNombre as strEstadoPersonaIdea
 
                 FROM tbl_Empresario Empresario
                 INNER JOIN (
@@ -949,6 +952,7 @@ class daoEmpresarios {
                     AND IdeaEmpresario.dtmCreacion = UltimosEstados.dtmUltimaCreacion
                 ) IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
                 LEFT JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
+				LEFT JOIN tbl_Estados EstadosEmpresario ON EstadosEmpresario.intId = Empresario.intIdEstado
                 INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
                 LEFT JOIN tbl_Sedes Sedes ON Sedes.intId = Empresario.intIdSede
                 WHERE IdeaEmpresario.intIdIdea = Idea.intId

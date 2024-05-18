@@ -66,13 +66,7 @@ class interfaceDAOEmpresarios {
         let result = await dao.updateInfoAdicional(data)
         return result
     }
-
-    async sp_SetInfoPrincipalIdea(data){
-        const dao = new classDaoSql()
-        let result = await dao.sp_SetInfoPrincipalIdea(data)
-        return result;
-    }
-
+    
     async updateNoContactarEmpresario(data){
         const dao = new classDaoSql()
         let result = await dao.updateNoContactarEmpresario(data)

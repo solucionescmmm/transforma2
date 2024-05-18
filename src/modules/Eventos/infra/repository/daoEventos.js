@@ -707,7 +707,8 @@ class daoEventos {
             
             FROM tbl_AsistentesSesionesEventos 
 
-            WHERE (intIdSesion = ${data.intIdSesion} OR ${data.intIdSesion} IS NULL)`;
+            WHERE (intIdSesion = ${data.intIdSesion} OR ${data.intIdSesion} IS NULL)
+            AND (intIdAsistenteEvento = ${data.intIdAsistenteEvento} OR ${data.intIdAsistenteEvento} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 

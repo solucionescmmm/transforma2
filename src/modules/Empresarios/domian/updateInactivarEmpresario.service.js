@@ -29,6 +29,7 @@ class updateInactivarEmpresario {
         await this.#getIdEstadoActivo();
         await this.#getIdEstadoInactivo();
         await this.#updateInactivarEmpresario();
+        await this.#sp_SetInfoPrincipalIdea();
 
         return this.#objResult;
     }
@@ -88,9 +89,9 @@ class updateInactivarEmpresario {
     async #updateInactivarEmpresario() {
         let newData = {
             //...this.#objData,
-            intIdIdea:this.#objData.intIdIdea,
+            intIdIdea: this.#objData.intIdIdea,
             intIdEmpresario: this.#objData.intId,
-            intIdEstadoActivo:this.#intIdEstadoActivo,
+            intIdEstadoActivo: this.#intIdEstadoActivo,
             intIdEstadoInactivo: this.#intIdEstadoInactivo,
             strUsuarioActualizacion: this.#objUser.strEmail,
             dtFechaFin: new Date(),
@@ -104,6 +105,16 @@ class updateInactivarEmpresario {
             data: query.data,
             msg: query.msg,
         };
+    }
+
+    async #sp_SetInfoPrincipalIdea() {
+        const dao = new classInterfaceDAOEmpresarios
+
+        let query = dao.sp_SetInfoPrincipalIdea({ intIdIdea: this.#objData.intIdIdea, })
+
+        if (query.error) {
+            throw new Error(query.msg)
+        }
     }
 }
 module.exports = updateInactivarEmpresario;
