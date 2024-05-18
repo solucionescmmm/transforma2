@@ -224,7 +224,7 @@ const ModalDesvincular = ({ handleOpenDialog, open, intIdIdea, refresh, selected
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas inactivar esta persona empresaria de la idea?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas desvincular esta persona empresaria de la idea?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>

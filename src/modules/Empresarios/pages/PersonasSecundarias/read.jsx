@@ -76,17 +76,22 @@ const ReadPersonaSecundaria = ({
             type: "string",
         },
         {
-            title: "Fecha de registro en la aplicación",
+            title: "Fecha registro en la aplicación",
             field: "dtmCreacion",
             type: "date",
         },
         {
-            title: "Estado de vinculación con la empresa",
+            title: "Estado vinculación con la empresa",
             field: "strEstado",
             type: "string",
         },
         {
-            title: "Tipo de relación",
+            title: "Estado persona empresaria",
+            field: "strEstadoPersona",
+            type: "string",
+        },
+        {
+            title: "Tipo relación",
             field: "strTipoRelacion",
             type: "string",
         },
@@ -143,7 +148,7 @@ const ReadPersonaSecundaria = ({
         // eslint-disable-next-line
     }, [openModalRe]);
 
-
+    console.log(data);
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
