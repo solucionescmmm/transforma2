@@ -35,7 +35,6 @@ const SelectTipoAct = ({
     useEffect(() => {
         if (value) {
             const objValue = data?.find((s) => s.intId === value)
-            console.log(objValue)
             setObjValueInactivo(objValue)
         }
     }, [data, value]);

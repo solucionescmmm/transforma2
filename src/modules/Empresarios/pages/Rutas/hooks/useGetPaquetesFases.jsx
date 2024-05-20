@@ -33,7 +33,7 @@ import { toast } from "react-hot-toast";
     function refreshGetData({strGrupo, strCodigo})
  *
  */
-const useGetServiciosFases = ({ autoLoad = true, intIdFase = null, intIdServicio = null, intIdPaqueteFase = null, } = {}) => {
+const useGetPaquetesFases = ({ autoLoad = true, intIdPaqueteFase = null } = {}) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -48,16 +48,14 @@ const useGetServiciosFases = ({ autoLoad = true, intIdFase = null, intIdServicio
     //========================================== Funciones  =========================================================================================
     //===============================================================================================================================================
     const getData = useCallback(
-        async ({ signalSubmitData, intIdFase, intIdServicio, intIdPaqueteFase }) => {
+        async ({ signalSubmitData, intIdPaqueteFase }) => {
             return await axios(
                 {
                     method: "GET",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${process.env.REACT_APP_API_TRANSFORMA_RUTAS_GET_SERVICIOS_FASES}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_RUTAS_GET_PAQUETES_FASES}`,
                     params:{
-                        intIdFase,
-                        intIdServicio,
-                        intIdPaqueteFase
+                        intIdPaqueteFase,
                     },
                     headers: {
                         token,
@@ -103,21 +101,17 @@ const useGetServiciosFases = ({ autoLoad = true, intIdFase = null, intIdServicio
 
         setData();
 
-        getData({ signalSubmitData, intIdFase, intIdServicio, intIdPaqueteFase });
+        getData({ signalSubmitData, intIdPaqueteFase });
     };
 
     const getUniqueData = async ({
-        intIdFase = null,
-        intIdServicio = null,
-        intIdPaqueteFase = null
+        intIdPaqueteFase = null,
     }) => {
         let signalSubmitData = axios.CancelToken.source();
 
         let query = await getData({
             signalSubmitData,
-            intIdFase,
-            intIdServicio,
-            intIdPaqueteFase
+            intIdPaqueteFase,
         });
 
         return query;
@@ -126,17 +120,17 @@ const useGetServiciosFases = ({ autoLoad = true, intIdFase = null, intIdServicio
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
-    // useEffect(() => {
-    //     let signalSubmitData = axios.CancelToken.source();
+    useEffect(() => {
+        let signalSubmitData = axios.CancelToken.source();
 
-    //     if (autoLoad) {
-    //         getData({ signalSubmitData, intIdFase, intIdServicio });
-    //     }
+        if (autoLoad) {
+            getData({ signalSubmitData, intIdPaqueteFase });
+        }
 
-    //     return () => {
-    //         signalSubmitData.cancel("Petición abortada.");
-    //     };
-    // }, [getData, autoLoad, intIdFase, intIdServicio]);
+        return () => {
+            signalSubmitData.cancel("Petición abortada.");
+        };
+    }, [getData, autoLoad, intIdPaqueteFase]);
 
     //===============================================================================================================================================
     //========================================== Returns ============================================================================================
@@ -144,4 +138,4 @@ const useGetServiciosFases = ({ autoLoad = true, intIdFase = null, intIdServicio
     return { data, refreshGetData, getUniqueData };
 };
 
-export default useGetServiciosFases;
+export default useGetPaquetesFases;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useContext, useRef } from "react";
+import React, { useState, useEffect, useCallback, useContext, useRef, Fragment } from "react";
 
 //Librerias
 import axios from "axios";
@@ -32,6 +32,7 @@ import { AuthContext } from "../../../../../common/middlewares/Auth";
 
 //hooks
 import useGetServiciosFases from "../hooks/useGetServiciosFases";
+import useGetPaquetesFases from "../hooks/useGetPaquetesFases";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -52,14 +53,19 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
     const [success, setSucces] = useState(false);
 
     const [loading, setLoading] = useState(true);
+    const [loadingGetData, setLoadingGetData] = useState(false);
 
     const [flagSubmit, setFlagSubmit] = useState(false);
+
+    const [intIdPaqueteFase, setIntPaqueteFase] = useState(null)
+    const [bitFinalizarPaquete, setBitFinalizarPaquete] = useState(null)
 
     const [data, setData] = useState({
         intIdSesion: null,
         bitFinalizarAcompañamiento: null,
         arrObjetivos: null,
-        bitCumplieronServicio: null,
+        bitCumplieronServicio: false,
+        strTipoAcompañamiento: "",
     });
 
     //===============================================================================================================================================
@@ -68,14 +74,16 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
     const theme = useTheme();
     const bitMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-    const { getUniqueData } = useGetServiciosFases()
+    const { getUniqueData: getDataServ } = useGetServiciosFases()
+    const { getUniqueData: getDataPaq } = useGetPaquetesFases()
 
     //===============================================================================================================================================
     //========================================== Funciones ==========================================================================================
     //===============================================================================================================================================
     const classes = modalRejectStyles();
 
-    const refFntGetData = useRef(getUniqueData);
+    const refFntGetDataServ = useRef(getDataServ);
+    const refFntGetDataPaq = useRef(getDataPaq);
 
     const handlerChangeData = (name, value) => {
         setData((prevState) => ({
@@ -144,6 +152,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
     //===============================================================================================================================================
 
     useEffect(() => {
+        setLoading(true)
         if (intIdSesion) {
             setData({
                 intIdSesion,
@@ -154,7 +163,8 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
 
     useEffect(() => {
         if (values?.objInfoPrincipal?.strTipoAcompañamiento === "Asociado a ruta/servicio existente" && open === true) {
-            refFntGetData.current({
+            setLoadingGetData(true)
+            refFntGetDataServ.current({
                 intIdFase: values?.intIdFase,
                 intIdServicio: values?.intIdServicio
             }).then((res) => {
@@ -163,18 +173,85 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
                 }
 
                 const dataServ = res?.data?.data[0]
+                if (dataServ?.intIdPaqueteFase) {
+                    setIntPaqueteFase(dataServ?.intIdPaqueteFase)
+                    refFntGetDataServ.current({
+                        intIdPaqueteFase: dataServ?.intIdPaqueteFase
+                    }).then((res) => {
+                        if (res?.data?.error) {
+                            toast.error(res.data.msg)
+                        }
 
-                setData((prevState) => ({
-                    ...prevState,
-                    arrObjetivos: dataServ?.arrObjetivos
-                }))
+                        const dataServPaq = res?.data?.data
+                        let countServFinalizados = 0
 
+                        dataServPaq?.map((s) => {
+                            if (s.btFinalizado === true) {
+                                countServFinalizados += 1
+                            }
+                            if (s.intIdFase === values?.intIdFase && s.intIdServicio === values?.intIdServicio) {
+                                setData((prevState) => ({
+                                    ...prevState,
+                                    intIdServicioFase: s.intId,
+                                    arrObjetivos: s?.arrObjetivos,
+                                    strTipoAcompañamiento: values?.objInfoPrincipal?.strTipoAcompañamiento
+                                }))
+                            }
+                            return s
+                        })
+
+                        if ((dataServPaq?.length - countServFinalizados) === 1) {
+                            setBitFinalizarPaquete(true)
+                        }
+
+                        setLoadingGetData(false);
+                    }).catch((error) => {
+                        toast.error(error?.message);
+                    })
+                } else {
+                    setData((prevState) => ({
+                        ...prevState,
+                        intIdServicioFase: dataServ?.intId,
+                        arrObjetivosServ: dataServ?.arrObjetivos,
+                        strTipoAcompañamiento: values?.objInfoPrincipal?.strTipoAcompañamiento
+                    }))
+                    setBitFinalizarPaquete(true)
+                }
+
+                setLoadingGetData(false);
             }).catch((error) => {
                 toast.error(error?.message);
             })
+            setLoadingGetData(false);
         }
-        setLoading(false);
     }, [values, open]);
+
+    useEffect(() => {
+        if (intIdPaqueteFase && open === true && bitFinalizarPaquete === true) {
+            setLoadingGetData(true)
+            refFntGetDataPaq.current({
+                intIdPaqueteFase: intIdPaqueteFase
+            }).then((res) => {
+                if (res?.data?.error) {
+                    toast.error(res.data.msg)
+                }
+
+                const dataPaq = res?.data?.data[0]
+
+                setData((prevState) => ({
+                    ...prevState,
+                    intIdPaqueteFase: dataPaq?.intId,
+                    arrObjetivosPaq: dataPaq?.arrObjetivos,
+                    strTipoAcompañamiento: values?.objInfoPrincipal?.strTipoAcompañamiento
+                }))
+
+                setLoadingGetData(false);
+            }).catch((error) => {
+                toast.error(error?.message);
+            })
+            setLoadingGetData(false);
+        }
+    }, [values, open, intIdPaqueteFase, bitFinalizarPaquete]);
 
     useEffect(() => {
         let signalSubmitData = axios.CancelToken.source();
@@ -257,7 +334,7 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
     return (
         <Dialog
             fullScreen={bitMobile}
-            open={loading ? true : open}
+            open={open}
             onClose={handleOpenDialog}
             fullWidth
             PaperProps={{
@@ -266,64 +343,66 @@ const ModalFinalizacion = ({ handleOpenDialog, open, intIdSesion, intIdIdea, int
                 },
             }}
         >
-            {loading ? (
+            {loadingGetData ? (
                 <LinearProgress className={classes.linearProgress} />
-            ) : null}
-            <DialogTitle>{`Finalizar la sesión del acompañamiento`}</DialogTitle>
+            ) : (<Fragment>
+                <DialogTitle>{`Finalizar la sesión del acompañamiento`}</DialogTitle>
 
-            <DialogContent>
-                <DialogContentText>
-                    ¿Deseas finalizar la sesión del acompañamiento?
-                </DialogContentText>
-                {values.bitUltimaSesion ?
-                    <Grid item xs={12}>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={data.bitFinalizarAcompañamiento}
-                                    onChange={(e)=>{
-                                        handlerChangeData("bitFinalizarAcompañamiento", e.target.checked)
-                                    }}
-                                    inputProps={{ 'aria-label': 'controlled' }}
-                                />}
-                            label="¿Deseas finalizar el acompañamiento?"
-                        />
-                    </Grid> : null}
-                {data.bitFinalizarAcompañamiento &&
-                    values?.objInfoPrincipal?.strTipoAcompañamiento === "Asociado a ruta/servicio existente" ?
-                    <Grid item xs={12}>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={data.bitCumplieronServicio}
-                                    onChange={(e)=>{
-                                        handlerChangeData("bitCumplieronServicio", e.target.checked)
-                                    }}
-                                    inputProps={{ 'aria-label': 'controlled' }}
-                                />}
-                            label="¿Se cumplieron los objetivos del servicio?"
-                        />
-                    </Grid> : null}
-            </DialogContent>
+                <DialogContent>
+                    <DialogContentText>
+                        ¿Deseas finalizar la sesión del acompañamiento?
+                    </DialogContentText>
+                    {values.bitUltimaSesion ?
+                        <Grid item xs={12}>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={data.bitFinalizarAcompañamiento}
+                                        onChange={(e) => {
+                                            handlerChangeData("bitFinalizarAcompañamiento", e.target.checked)
+                                        }}
+                                        inputProps={{ 'aria-label': 'controlled' }}
+                                    />}
+                                label={values?.objInfoPrincipal?.strTipoAcompañamiento === "Asociado a ruta/servicio existente" ?
+                                `¿Deseas finalizar el acompañamiento y el servicio asociado?`:`¿Deseas finalizar el acompañamiento?`}
+                            />
+                        </Grid> : null}
+                    {data.bitFinalizarAcompañamiento &&
+                        bitFinalizarPaquete ?
+                        <Grid item xs={12}>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={data.bitCumplieronServicio}
+                                        onChange={(e) => {
+                                            handlerChangeData("bitCumplieronServicio", e.target.checked)
+                                        }}
+                                        inputProps={{ 'aria-label': 'controlled' }}
+                                    />}
+                                label="¿Se cumplieron los objetivos del servicio?"
+                            />
+                        </Grid> : null}
+                </DialogContent>
 
-            <DialogActions>
-                <LoadingButton
-                    color="error"
-                    loading={loading}
-                    type="button"
-                    onClick={() => setFlagSubmit(true)}
-                >
-                    aceptar
-                </LoadingButton>
+                <DialogActions>
+                    <LoadingButton
+                        color="error"
+                        loading={loading}
+                        type="button"
+                        onClick={() => setFlagSubmit(true)}
+                    >
+                        aceptar
+                    </LoadingButton>
 
-                <Button
-                    onClick={() => handleOpenDialog()}
-                    color="inherit"
-                    disabled={loading}
-                >
-                    cancelar
-                </Button>
-            </DialogActions>
+                    <Button
+                        onClick={() => handleOpenDialog()}
+                        color="inherit"
+                        disabled={loading}
+                    >
+                        cancelar
+                    </Button>
+                </DialogActions>
+            </Fragment>)}
         </Dialog>
     );
 };

@@ -51,7 +51,7 @@ const DropdownServicios = ({
 
     useEffect(() => {
         if (data?.length > 0) {
-            setOptions(data);
+            setOptions(data?.filter((s)=> !s.btFinalizado));
         }
     }, [data]);
 
