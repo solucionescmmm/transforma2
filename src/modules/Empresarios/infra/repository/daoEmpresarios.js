@@ -630,12 +630,13 @@ class daoEmpresarios {
 
             UPDATE tbl_Idea_Empresario
 
-            SET dtFechaFin              = COALESCE(${data.dtFechaFin}, dtFechaFin),
-                intIdEstado             = COALESCE(${data.intIdEstadoInactivo}, intIdEstado),
-                dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion),
-                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
+            SET dtFechaFin                       = COALESCE(${data.dtFechaFin}, dtFechaFin),
+                intIdEstado                      = COALESCE(${data.intIdEstadoInactivo}, intIdEstado),
+                intIdEstadoVinculacionEmpresario = COALESCE(${data.intIdEstadoInactivo}, intIdEstadoVinculacionEmpresario),
+                dtmActualizacion                 = COALESCE(GETDATE(), dtmActualizacion),
+                strUsuarioActualizacion          = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 
-            WHERE (intIdEmpresario = ${data.intIdEmpresario})
+            WHERE (intIdEmpresario = ${data.intIdEmpresario}) 
             AND   (intIdIdea = ${data.intIdIdea})
             AND   (intIdEstado =${data.intIdEstadoActivo})
  
