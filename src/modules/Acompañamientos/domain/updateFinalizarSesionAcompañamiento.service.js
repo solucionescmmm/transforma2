@@ -3,6 +3,10 @@ const validator = require("validator").default;
 
 //class
 const classInterfaceDAOAcompañamientos = require("../infra/conectors/interfaceDaoAcompañamientos");
+//Service
+
+const serviceCheckServicioFase = require("../../Rutas/domain/checkServicioFase.service");
+const serviceCheckPaqueteFase = require("../../Rutas/domain/checkPaqueteFase.service");
 
 class updateFinalizarSesionAcompañamiento {
     #objData;
@@ -15,11 +19,21 @@ class updateFinalizarSesionAcompañamiento {
     }
 
     async main() {
+        console.log(this.#objData?.arrObjetivosServ)
+        console.log(this.#objData?.arrObjetivosPaq)
         console.log(this.#objData)
+        if (this.#objData?.arrObjetivosServ) {
+            await this.#checkServicioFase()
+        }
+
+        if (this.#objData?.arrObjetivosPaq) {
+            await this.#checkPaqueteFase()
+        }
         await this.#validations();
         await this.#updateFinalizarSesionAcompañamiento();
         await this.#sp_flujoFinalizarAcompañamiento()
         return this.#objResult;
+
     }
 
     async #validations() {
@@ -36,6 +50,52 @@ class updateFinalizarSesionAcompañamiento {
         if (!this.#objData?.intId) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+    }
+
+    async #checkServicioFase() {
+        let arrNewObj = this.#objData?.arrObjetivosServ?.map((o)=>{
+
+            let objNew = {
+                ...o,
+                btCumplio: this.#objData?.bitCumplieronServicio ? true : false
+            }
+            return objNew
+        })
+
+        const clsCheckServicio = new serviceCheckServicioFase({
+            intIdServicioFase: this.#objData?.intIdServicioFase,
+            arrObjetivos: arrNewObj
+        },this.#objUser)
+
+        const queryCheck = await clsCheckServicio.main()
+
+        if (queryCheck.error) {
+            throw new Error(queryCheck.msg)
+        }
+
+    }
+
+    async #checkPaqueteFase() {
+        let arrNewObj = this.#objData?.arrObjetivosPaq?.map((o)=>{
+
+            let objNew = {
+                ...o,
+                btCumplio: this.#objData?.bitCumplieronServicio ? true : false
+            }
+            return objNew
+        })
+
+        const clsCheckServicio = new serviceCheckPaqueteFase({
+            intIdServicioFase: this.#objData?.intIdServicioFase,
+            arrObjetivos: arrNewObj
+        },this.#objUser)
+
+        const queryCheck = await clsCheckServicio.main()
+
+        if (queryCheck.error) {
+            throw new Error(queryCheck.msg)
+        }
+
     }
 
     async #updateFinalizarSesionAcompañamiento() {

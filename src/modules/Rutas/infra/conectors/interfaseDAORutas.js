@@ -97,6 +97,12 @@ class interfaceDAORutas {
         return query;
     }
 
+    async getPaqueteFases(data) {
+        let dao = new classDAO();
+        let query = await dao.getPaqueteFases(data);
+        return query;
+    }
+
     async updateRutas(data) {
         let dao = new classDAO();
         let query = await dao.updateRutas(data);

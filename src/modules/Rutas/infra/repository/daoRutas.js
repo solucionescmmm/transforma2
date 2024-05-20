@@ -872,7 +872,9 @@ class daoRutas {
             )as arrObjetivos
 
             FROM tbl_Servicios_Fases FasesServicios
-            WHERE FasesServicios.intIdFase = ${data.intIdFase} AND FasesServicios.intIdServicio = ${data.intIdServicio}`;
+            WHERE (FasesServicios.intIdFase = ${data.intIdFase} OR ${data.intIdFase} IS NULL) 
+            AND   (FasesServicios.intIdServicio = ${data.intIdServicio} OR ${data.intIdServicio} IS NULL)
+            AND   (FasesServicios.intIdPaqueteFase = ${data.intIdPaqueteFase} OR ${data.intIdPaqueteFase} IS NULL)`;
 
             let arrNewData = response.recordsets[0];
 
@@ -900,6 +902,85 @@ class daoRutas {
                 msg:
                     error.message ||
                     "Error en el metodo getServicioFases de la clase daoRutas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getPaqueteFases(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`
+
+            SELECT 
+                        
+            FasesPaquetes.intId,
+            FasesPaquetes.intIdFase,
+            FasesPaquetes.intIdPaquete,
+            FasesPaquetes.intIdSedeTipoTarifaPaqRef,
+            FasesPaquetes.ValorReferenciaPaquete,
+            FasesPaquetes.ValorTotalPaquete,
+            FasesPaquetes.intDuracionHorasReferenciaPaquete,
+            FasesPaquetes.intDuracionHorasTotalPaquete,
+            FasesPaquetes.btFinalizado,
+            FasesPaquetes.strResponsables,
+            FasesPaquetes.dtmCreacion,
+            FasesPaquetes.strUsuarioCreacion,
+            FasesPaquetes.dtmActualizacion,
+            FasesPaquetes.strUsuarioActualizacion,
+            (
+                SELECT 
+                FasesObjPaquetes.intId,
+                FasesObjPaquetes.intIdPaquetes_Fases,
+                FasesObjPaquetes.intIdObjetivo,
+                FasesObjPaquetes.btCumplio,
+                FasesObjPaquetes.strObservacionesCumplimiento,
+                FasesObjPaquetes.dtmCreacion,
+                FasesObjPaquetes.strUsuarioCreacion,
+                FasesObjPaquetes.dtmActualizacion,
+                FasesObjPaquetes.strUsuarioActualizacion,
+                Objetivo.strNombre
+                
+                FROM tbl_Objetivos_Paquetes_Fases FasesObjPaquetes
+
+                INNER JOIN tbl_Objetivos Objetivo on Objetivo.intId = FasesObjPaquetes.intIdObjetivo
+
+                WHERE FasesObjPaquetes.intIdPaquetes_Fases = FasesPaquetes.intId 
+                FOR JSON PATH
+            )as arrObjetivos
+            
+            FROM tbl_Paquetes_Fases FasesPaquetes
+            WHERE FasesPaquetes.intId = ${data.intIdPaqueteFase}`;
+
+            let arrNewData = response.recordsets[0];
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                let { arrObjetivos } = arrNewData[i];
+
+                if (validator.isJSON(arrObjetivos || "")) {
+                    arrObjetivos = JSON.parse(arrObjetivos);
+                    arrNewData[i].arrObjetivos = arrObjetivos;
+                }
+                
+            }
+
+            let result = {
+                error: false,
+                data: response.recordsets[0],
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getPaqueteFases de la clase daoRutas",
             };
 
             sql.close(conexion);

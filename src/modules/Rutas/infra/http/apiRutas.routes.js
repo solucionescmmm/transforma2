@@ -53,6 +53,14 @@ routes.get(
     }
 );
 
+routes.get(
+    "/transforma/api/rutas/getPaquetesFases",
+    async (req, res) => {
+        let controllerRutas = new classController();
+        await controllerRutas.getPaquetesFases(req, res);
+    }
+);
+
 routes.put(
     "/transforma/api/rutas/updateRutas",
     async (req, res) => {
