@@ -55,7 +55,7 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Fecha de ultima actualización",
             },
             {
-                parent: "strUsuarioCreacion",
+                parent: "strUsuarioResponsable",
                 value: "",
                 label: "Responsable del diagnóstico",
             },
@@ -226,6 +226,8 @@ const ResumenHumanas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             : null,
                         strUsuarioActualizacion:
                             data.objInfoGeneral.strUsuarioActualizacion || "",
+                        strUsuarioResponsable:
+                            data.objInfoGeneral.strUsuarioResponsable || "",
                     };
 
                     const objInfoEncuestaHumanas = data.objInfoEncuestaHumanas;

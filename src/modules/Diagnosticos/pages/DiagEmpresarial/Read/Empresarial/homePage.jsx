@@ -57,7 +57,7 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Fecha de ultima actualización",
             },
             {
-                parent: "strUsuarioCreacion",
+                parent: "strUsuarioResponsable",
                 value: "",
                 label: "Responsable del diagnóstico",
             },
@@ -569,6 +569,8 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             : null,
                         strUsuarioActualizacion:
                             data.objInfoGeneral.strUsuarioActualizacion || "",
+                        strUsuarioResponsable:
+                            data.objInfoGeneral.strUsuarioResponsable || "",
                     };
 
                     const objInfoFamiliar = data.objInfoFamiliar;
@@ -883,11 +885,14 @@ const ResumenEmp = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                                             }
 
                                             if (
-                                                key === "intMargenRentabilidad" &&
+                                                key ===
+                                                    "intMargenRentabilidad" &&
                                                 objInfoPerfilEco[key]
                                             ) {
                                                 // Multiplica por 100 y redondea a 2 decimales
-                                                const valorRedondeado = (objInfoPerfilEco[key] * 100).toFixed(2);
+                                                const valorRedondeado = (
+                                                    objInfoPerfilEco[key] * 100
+                                                ).toFixed(2);
                                                 e.value = `${valorRedondeado}%`;
                                                 return;
                                             }

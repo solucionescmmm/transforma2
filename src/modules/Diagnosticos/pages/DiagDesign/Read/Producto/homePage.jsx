@@ -2911,7 +2911,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                 id="chart-diag-prod"
                                             >
                                                 <ChartBar
-                                                    title="DETALLE DEL DIAGNÓSTICO (No alimentos)"
+                                                    title=""
                                                     labels={[
                                                         "Innovación",
                                                         "Estética",
@@ -2952,7 +2952,7 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                 id="chart-diag-prod"
                                             >
                                                 <ChartBar
-                                                    title="DETALLE DEL DIAGNÓSTICO (Alimentos)"
+                                                    title=""
                                                     labels={[
                                                         "Innovación",
                                                         "Presentación y calidad",

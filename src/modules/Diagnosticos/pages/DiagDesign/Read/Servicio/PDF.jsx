@@ -208,9 +208,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
             </p>`)
         );
 
-        htmlTemasFortalecer =
-            htmlTemasFortalecer +
-            `<p>Lorem BAJO, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
+        // htmlTemasFortalecer =
+        //     htmlTemasFortalecer +
+        //     `<p>Lorem BAJO, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
 
         if (valuesPDF?.[0].objInnovacionBajo?.length > 0) {
             htmlTemasFortalecer =
@@ -280,9 +280,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     .join("")}`;
         }
 
-        htmlTemasFortalecer =
-        htmlTemasFortalecer +
-        `<p>Lorem MEDIO, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
+        // htmlTemasFortalecer =
+        // htmlTemasFortalecer +
+        // `<p>Lorem MEDIO, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
 
 
         if (valuesPDF?.[0].objInnovacionMedio?.length > 0) {
@@ -353,9 +353,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     .join("")}`;
         }
         
-        htmlFortalezas =
-        htmlFortalezas +
-        `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus asperiores odit provident magnam dolorum vero nisi rerum ea voluptatem maiores placeat possimus minus vitae, excepturi cum distinctio quae? Suscipit, quis!</p>`;
+        // htmlFortalezas =
+        // htmlFortalezas +
+        // `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus asperiores odit provident magnam dolorum vero nisi rerum ea voluptatem maiores placeat possimus minus vitae, excepturi cum distinctio quae? Suscipit, quis!</p>`;
 
         values?.objInfoFortalezas.forEach((e) => {
             if (e.objInnovacionFortalezas) {
@@ -616,9 +616,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     <p class="pMargin">
                     <span style="color: #00BBB4">Responsable del diagnóstico: </span>
                     ${
-                        values?.objInfoGeneral?.find(
-                            (v) => v.parent === "strUsuarioResponsable"
-                        )?.value
+                        valuesPDF?.[0]?.objInfoGeneral?.strUsuarioResponsable
                     } 
                 </p>
 
@@ -635,15 +633,34 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae voluptas quas veniam cum illo temporibus alias, quaerat doloremque voluptate a ex dolores. Dolorem natus vel sit iure libero magnam mollitia.</p>
 
+
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+
                             <h5 class="pMargin"> <span style="color: #00BBB4">Gráfico resumen </span></h5>
                             <hr />
                         </body>
                         </html>
                       `}
                     </Html>
+
                     <Image
                         source={values?.imgChart}
-                        style={{ width: "280px", alignSelf: "center" }}
+                        style={{ width: "400px", alignSelf: "center" }}
                     />
 
                     <Html>
@@ -727,10 +744,6 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             ${htmlInfoServicios}
 
                             <br/>
-
-                            <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quaerat mollitia non consequuntur iste quae, ea exercitationem ullam nam magnam sit velit doloribus vel ipsum sapiente! Vitae dolor mollitia aspernatur?
-                            </p>
                              </body>
                           </html>
                         `}

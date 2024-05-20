@@ -203,9 +203,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
             </p>`)
         );
 
-        htmlTemasFortalecer =
-            htmlTemasFortalecer +
-            `<p>Lorem BAJO, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
+        // htmlTemasFortalecer =
+        //     htmlTemasFortalecer +
+        //     `<p>Lorem BAJO, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
 
         if (valuesPDF?.[0].objInnovacionBajo?.length > 0) {
             htmlTemasFortalecer =
@@ -275,9 +275,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     .join("")}`;
         }
 
-        htmlTemasFortalecer =
-            htmlTemasFortalecer +
-            `<p>Lorem MEDIO, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
+        // htmlTemasFortalecer =
+        //     htmlTemasFortalecer +
+        //     `<p>Lorem MEDIO, ipsum dolor sit amet consectetur adipisicing elit. Dicta voluptates excepturi impedit, ea debitis nam doloremque quo ipsum pariatur deleniti maxime illo consequatur, quibusdam perferendis corporis unde quia fuga quaerat?</p>`;
 
         if (valuesPDF?.[0].objInnovacionMedio?.length > 0) {
             htmlTemasFortalecer =
@@ -347,9 +347,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                     .join("")}`;
         }
 
-        htmlFortalezas =
-            htmlFortalezas +
-            `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus asperiores odit provident magnam dolorum vero nisi rerum ea voluptatem maiores placeat possimus minus vitae, excepturi cum distinctio quae? Suscipit, quis!</p>`;
+        // htmlFortalezas =
+        //     htmlFortalezas +
+        //     `<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus asperiores odit provident magnam dolorum vero nisi rerum ea voluptatem maiores placeat possimus minus vitae, excepturi cum distinctio quae? Suscipit, quis!</p>`;
 
         values?.objInfoFortalezas.forEach((e) => {
             if (e.objInnovacionFortalezas) {
@@ -608,9 +608,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             <p class="pMargin">
                                 <span style="color: #00BBB4">Responsable del diagnóstico: </span>
                                 ${
-                                    values?.objInfoGeneral?.find(
-                                        (v) => v.parent === "strUsuarioResponsable"
-                                    )?.value
+                                    valuesPDF?.[0]?.objInfoGeneral?.strUsuarioResponsable
                                 } 
                             </p>
 
@@ -629,6 +627,23 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quaerat mollitia non consequuntur iste quae, ea exercitationem ullam nam magnam sit velit doloribus vel ipsum sapiente! Vitae dolor mollitia aspernatur?
                             </p>
 
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+
                             <h5 class="pMargin"> <span style="color: #00BBB4">Gráfico resumen </span></h5>
                             <hr />
                         </body>
@@ -638,7 +653,7 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
                     <Image
                         source={values?.imgChart}
-                        style={{ width: "280px", alignSelf: "center" }}
+                        style={{ width: "450px", alignSelf: "center" }}
                     />
 
                     <Html>
@@ -722,35 +737,6 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                              </body>
                           </html>
                         `}
-                    </Html>
-
-                    <Html>
-                        {`
-                        <html>
-                        <style>
-                        div {
-                            font-family: Roboto;
-                        }
-                        p {
-                            font-size: 11px;
-                            font-family: Roboto;
-                            color: #505050;
-                        }
-
-                        h5 {
-                            font-family: Roboto;
-                        }
-
-                        .pMargin {
-                           margin-bottom: -10px;
-                        }
-                        </style>
-                        <body>
-                             <p class="pMargin">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam pariatur illum dolores quam ab reprehenderit, esse dolorem earum alias quasi, nulla quidem molestias placeat corporis, dignissimos aperiam voluptatem doloremque odio.</p>
-                        </body>
-                       
-                        </html>
-                     `}
                     </Html>
 
                     <Html>

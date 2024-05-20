@@ -15,6 +15,7 @@ import {
 import { Box, CircularProgress } from "@mui/material";
 
 import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
+import useGetDataPDFTecnico from "../../../../hooks/useGetDataPDFTecnico";
 
 // Register Font
 Font.register({
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const PDFProduct = ({ intId, values }) => {
+const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -110,6 +111,11 @@ const PDFProduct = ({ intId, values }) => {
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const { data } = useGetEmpresarios({ autoload: true, intId });
+    const { data: valuesPDF } = useGetDataPDFTecnico({
+        autoload: true,
+        intIdIdea: intId,
+        intIdDiagnostico,
+    });
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
@@ -345,7 +351,7 @@ const PDFProduct = ({ intId, values }) => {
                 <Page size="A4" style={styles.page}>
                     <Image src="/Logo.png" style={styles.image} />
                     <Text style={styles.title}>
-                     Diagnóstico empresarial - Componente técnico
+                        Diagnóstico empresarial - Componente técnico
                     </Text>
                     <Html>
                         {`
@@ -458,9 +464,8 @@ const PDFProduct = ({ intId, values }) => {
                         <p class="pMargin">
                             <span style="color: #00BBB4">Responsable del diagnóstico: </span>
                             ${
-                                values?.objInfoGeneral?.find(
-                                    (v) => v.parent === "strUsuarioResponsable"
-                                )?.value
+                                valuesPDF?.[0]?.objInfoGeneral
+                                    ?.strUsuarioResponsable
                             } 
                         </p>
 
@@ -507,7 +512,7 @@ const PDFProduct = ({ intId, values }) => {
 
                     <Image
                         source={values?.imgChart}
-                        style={{ width: "350px", alignSelf: "center" }}
+                        style={{ width: "400px", alignSelf: "center" }}
                     />
 
                     <Html>
@@ -613,7 +618,8 @@ const PDFProduct = ({ intId, values }) => {
                     </Text>
 
                     <Text style={styles.footerContact}>
-                        Correo electrónico: asistentedesarrollo@demismanos.org - Teléfono: 318 656 65 08
+                        Correo electrónico: asistentedesarrollo@demismanos.org -
+                        Teléfono: 318 656 65 08
                     </Text>
 
                     <Text
