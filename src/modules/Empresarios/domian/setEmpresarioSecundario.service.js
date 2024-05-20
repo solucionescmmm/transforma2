@@ -191,8 +191,6 @@ class setEmpresarioSecundario {
 
         let query = await dao.updateEmpresario(newData);
 
-        console.log(query)
-
         if (query.error) {
             throw new Error(query.msg);
         }
