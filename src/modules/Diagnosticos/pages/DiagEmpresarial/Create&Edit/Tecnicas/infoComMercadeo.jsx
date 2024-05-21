@@ -48,19 +48,19 @@ export const propiedades = [
         nombre: "strAnalizoObjetivoEmpresa",
         label: "Conozco y analizo el público objetivo de mi empresa",
         strGrupo: "DiagnosticoTecnico",
-        strCodigo: "CaractEmpresaComp",
+        strCodigo: "AnalizoObjetivoEmpresa",
     },
     {
         nombre: "strAnalizoObjetivoEmpresaDetalle",
         label: "Detalle",
         strGrupo: "DiagnosticoTecnico",
-        strCodigo: "CaractEmpresaComp",
+        strCodigo: "AnalizoObjetivoEmpresa",
     },
     {
         nombre: "strAnalizoObjetivoEmpresaNivel",
         label: "Nivel",
         strGrupo: "DiagnosticoTecnico",
-        strCodigo: "CaractEmpresaComp",
+        strCodigo: "AnalizoObjetivoEmpresa",
     },
     {
         nombre: "strAnalizoCompetiEmpresa",

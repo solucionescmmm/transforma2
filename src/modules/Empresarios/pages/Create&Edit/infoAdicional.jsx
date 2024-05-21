@@ -200,7 +200,6 @@ const InfoAdicional = ({
                                     select
                                     fullWidth
                                     variant="standard"
-                                    required
                                     disabled={disabled}
                                     error={
                                         errors?.objInfoAdicional?.btInteresadoProcesoCMM
@@ -218,13 +217,6 @@ const InfoAdicional = ({
                                 </TextField>
                             )}
                             control={control}
-                            rules={{
-                                validate: (value) => {
-                                    if (value === "" || value === undefined) {
-                                        return "Por favor, selecciona sí tiene interés en hacer parte del proceso de formación, capacitación y asesoría de De Mis Manos";
-                                    }
-                                },
-                            }}
                         />
                     </Grid>
 
@@ -239,9 +231,6 @@ const InfoAdicional = ({
                                     value={value}
                                     onChange={(e, value) => onChange(value)}
                                     multiple
-                                    disabled={
-                                        !data.btInteresadoProcesoCMM ? true : disabled
-                                    }
                                     error={
                                         errors?.objInfoAdicional?.arrTemasCapacitacion
                                             ? true
@@ -256,15 +245,6 @@ const InfoAdicional = ({
                                 />
                             )}
                             control={control}
-                            rules={{
-                                validate: (value) => {
-                                    if (data.btInteresadoProcesoCMM) {
-                                        if (value?.length === 0) {
-                                            return "Por favor, Selecciona en que temas le gustaría recibir asesoría o capacitación y quiere inscribirse";
-                                        }
-                                    }
-                                },
-                            }}
                         />
                     </Grid>
 

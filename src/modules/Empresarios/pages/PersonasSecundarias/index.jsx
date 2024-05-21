@@ -276,7 +276,7 @@ const SearchEmpresario = ({ isEdit, intIdIdea, onChangeRoute, values }) => {
                                             color="primary"
                                             variant="h6"
                                         >
-                                            REGISTRAR PERSONA SECUNDARIA
+                                            AGREGAR / RE-VINCULAR PERSONA
                                         </Typography>
                                     </Box>
                                 </Box>

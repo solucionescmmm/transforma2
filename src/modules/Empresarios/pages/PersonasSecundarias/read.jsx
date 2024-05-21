@@ -403,7 +403,7 @@ const ReadPersonaSecundaria = ({
                                                             }
                                                             variant="contained"
                                                         >
-                                                            Agregar/vincular persona
+                                                            Agregar/Re-vincular persona
                                                         </Button>
 
                                                         <Button

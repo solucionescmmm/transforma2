@@ -1224,7 +1224,6 @@ const InfoPerfilEco = ({
                                     disabled={disabled}
                                     onChange={(e) => onChange(e)}
                                     fullWidth
-                                    required
                                     variant="standard"
                                     error={
                                         errors?.objInfoPerfilEco
@@ -1242,9 +1241,6 @@ const InfoPerfilEco = ({
                                 />
                             )}
                             control={control}
-                            rules={{
-                                required: "Por favor, degita tu respuesta",
-                            }}
                         />
                     </Grid>
 

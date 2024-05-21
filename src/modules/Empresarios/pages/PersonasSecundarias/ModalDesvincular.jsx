@@ -228,7 +228,7 @@ const ModalDesvincular = ({ handleOpenDialog, open, intIdIdea, refresh, selected
 
             <DialogContent>
                 <DialogContentText>
-                    El proceso es reversible y lo si lo quieres volver adicionar a la idea debes volver agregarlo como secundario.
+                    El proceso es reversible y si requiere volver adicionar a la persona a la idea debe volver agregarlo como secundario.
                 </DialogContentText>
             </DialogContent>
 
