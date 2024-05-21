@@ -15,7 +15,6 @@ import {
 import { Box, CircularProgress } from "@mui/material";
 
 import useGetEmpresarios from "../../../../../Empresarios/hooks/useGetEmpresarios";
-import useGetDataPDFTecnico from "../../../../hooks/useGetDataPDFTecnico";
 
 // Register Font
 Font.register({
@@ -111,11 +110,6 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const { data } = useGetEmpresarios({ autoload: true, intId });
-    const { data: valuesPDF } = useGetDataPDFTecnico({
-        autoload: true,
-        intIdIdea: intId,
-        intIdDiagnostico,
-    });
 
     //===============================================================================================================================================
     //========================================== useEffects =========================================================================================
@@ -464,8 +458,9 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         <p class="pMargin">
                             <span style="color: #00BBB4">Responsable del diagnóstico: </span>
                             ${
-                                valuesPDF?.[0]?.objInfoGeneral
-                                    ?.strUsuarioResponsable
+                                values?.objInfoGeneral?.find(
+                                    (v) => v.parent === "strUsuarioResponsable"
+                                )?.value
                             } 
                         </p>
 
