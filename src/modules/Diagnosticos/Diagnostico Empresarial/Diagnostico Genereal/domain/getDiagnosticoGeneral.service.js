@@ -51,7 +51,6 @@ const getDiagnosticoGeneral = async (objParams, strDataUser) => {
                 let objInfoGeneral = {
                     intId: array[i].intId,
                     intIdDiagnostico: array[i]?.intIdDiagnostico,
-                    intIdEmpresario: array[i]?.intIdEmpresario,
                     btFinalizado: array[i]?.btFinalizado,
                     strUbicacionVivienda: array[i]?.strUbicacionVivienda,
                     strLugarSesion: array[i]?.strLugarSesion,

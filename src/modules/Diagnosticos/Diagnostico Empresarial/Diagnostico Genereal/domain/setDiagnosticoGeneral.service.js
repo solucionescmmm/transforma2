@@ -248,8 +248,13 @@ class setDiagnosticoGeneral {
             arrPais: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrPais || null),
             arrDepartamento: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrDepartamento || null),
             arrCiudad: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrCiudad || null),
-            strMediosDigitales: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrMediosDigitales || null),
             strCategoriasSecundarias: JSON.stringify(this.#objData.objInfoEmprendimiento?.arrCategoriasSecundarias || null),
+            strMediosDigitales: JSON.stringify(
+                this.#objData.objInfoCanalesVenta?.arrMediosDigitales || null
+            ),
+            strFormasComercializacion: JSON.stringify(
+                this.#objData.objInfoCanalesVenta?.arrFormasComercializacion || null
+            ),
             dblValorVentasMes: this.#objData.objInfoPerfilEco.dblValorVentasMes,
             intNumeroEmpleados: parseInt(this.#objData.objInfoPerfilEco.intNumeroEmpleados, 10),
             strUsuarioActualizacion: this.#objUser.strEmail,

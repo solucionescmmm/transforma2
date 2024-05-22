@@ -74,7 +74,7 @@ class daoDiagnosticoGeneral {
                 ${data.strRolesEmprendimiento},
                 ${data.strDiasProduccion},
                 ${data.strGeneraEmpleoRiesgoPobreza},
-                ${data.valorGananciasMes},
+                ${data.dblValorGananciasMes},
                 ${data.strActivos},
                 ${data.ValorActivos},
                 ${data.strEtapaDllo},
@@ -177,7 +177,7 @@ class daoDiagnosticoGeneral {
                 strRolesEmprendimiento                    = COALESCE(${data.strRolesEmprendimiento}, strRolesEmprendimiento),
                 strDiasProduccion                         = COALESCE(${data.strDiasProduccion}, strDiasProduccion),
                 strGeneraEmpleoRiesgoPobreza              = COALESCE(${data.strGeneraEmpleoRiesgoPobreza}, strGeneraEmpleoRiesgoPobreza),
-                ValorGananciasMes                         = COALESCE(${data.valorGananciasMes}, ValorGananciasMes),
+                ValorGananciasMes                         = COALESCE(${data.dblValorGananciasMes}, ValorGananciasMes),
                 strActivos                                = COALESCE(${data.strActivos}, strActivos),
                 strMediosDigitales                        = COALESCE(${data.strRedesSociales}, strMediosDigitales),
                 ValorActivos                              = COALESCE(${data.ValorActivos}, ValorActivos),
@@ -260,15 +260,7 @@ class daoDiagnosticoGeneral {
 
             UPDATE tbl_Empresario
 
-            SET strNombres               = COALESCE(${data.strNombres}, strNombres),
-                strApellidos             = COALESCE(${data.strApellidos}, strApellidos),
-                strTipoDocto             = COALESCE(${data.strTipoDocto}, strTipoDocto),
-                strNroDocto              = COALESCE(${data.strNroDocto}, strNroDocto),
-                strLugarExpedicionDocto  = COALESCE(${data.strLugarExpedicionDocto}, strLugarExpedicionDocto),
-                dtFechaExpedicionDocto   = COALESCE(${data.dtFechaExpedicionDocto}, dtFechaExpedicionDocto),
-                dtFechaNacimiento        = COALESCE(${data.dtFechaNacimiento}, dtFechaNacimiento),
-                strGenero                = COALESCE(${data.strGenero}, strGenero),
-                strCelular1              = COALESCE(${data.strCelular1}, strCelular1),
+            SET strCelular1              = COALESCE(${data.strCelular1}, strCelular1),
                 strCelular2              = COALESCE(${data.strCelular2}, strCelular2),
                 strCorreoElectronico1    = COALESCE(${data.strCorreoElectronico1}, strCorreoElectronico1),
                 strCorreoElectronico2    = COALESCE(${data.strCorreoElectronico2}, strCorreoElectronico2),
@@ -280,7 +272,6 @@ class daoDiagnosticoGeneral {
                 strCiudad                = COALESCE(${data.arrCiudad}, strCiudad),
                 strBarrio                = COALESCE(${data.strBarrio}, strBarrio),
                 strDireccionResidencia   = COALESCE(${data.strDireccionResidencia}, strDireccionResidencia),
-                strUrlFileFoto           = COALESCE(${data.strURLFileFoto}, strUrlFileFoto),
                 dtmActualizacion         = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuario               = COALESCE(${data.strUsuarioActualizacion}, strUsuario)
 
@@ -336,6 +327,7 @@ class daoDiagnosticoGeneral {
                 valorVentasMes                    = COALESCE(${data.dblValorVentasMes}, valorVentasMes),
                 strRut                            = COALESCE(${data.strRut}, strRut),
                 strMediosDigitales                = COALESCE(${data.strMediosDigitales}, strMediosDigitales),
+                strFormasComercializacion         = COALESCE(${data.strFormasComercializacion}, strFormasComercializacion),
                 dtmActualizacion                  = COALESCE(GETDATE(), dtmActualizacion),
                 strUsuarioActualizacion           = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion)
 
