@@ -164,8 +164,8 @@ const PDFProduct = ({ intId, values }) => {
         if (values?.objInfoAdicional) {
             htmlAdicional = `<p class="textObj">${
                 values.objInfoAdicional.find(
-                    (key) => key.parent === "strConclusiones"
-                ).value
+                    (key) => key.parent === "strObservaciones"
+                )?.value || ""
             }</p>`;
         }
 

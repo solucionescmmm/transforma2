@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useContext, useCallback } from "react";
 
 //Context
 import { AuthContext } from "../../../../../common/middlewares/Auth"; 

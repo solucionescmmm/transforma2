@@ -62,7 +62,7 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                 label: "Fecha de ultima actualización",
             },
             {
-                parent: "strUsuarioCreacion",
+                parent: "strUsuarioResponsable",
                 value: "",
                 label: "Responsable del diagnóstico",
             },
@@ -142,8 +142,8 @@ const ResumenTecnicas = ({ onChangeRoute, intIdIdea, intIdDiagnostico }) => {
                             : null,
                         strLugarSesion:
                             data.objInfoGeneral.strLugarSesion || "",
-                        strUsuarioCreacion:
-                            data.objInfoGeneral.strUsuarioCreacion || "",
+                            strUsuarioResponsable:
+                            data.objInfoGeneral.strUsuarioResponsable || "",
                         dtmActualizacion: data.objInfoGeneral.dtmActualizacion
                             ? parseISO(data.objInfoGeneral.dtmActualizacion)
                             : null,

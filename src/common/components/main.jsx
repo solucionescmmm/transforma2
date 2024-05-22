@@ -32,7 +32,11 @@ import {
 import { Menu as MenuIcon } from "@mui/icons-material";
 
 //Estilos de Material UI
-import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material/styles";
+import {
+    ThemeProvider,
+    StyledEngineProvider,
+    createTheme,
+} from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 
 //Iconos de Material UI
@@ -40,6 +44,8 @@ import { Person as PersonIcon } from "@mui/icons-material";
 
 //Componentes
 import MenuDrawer from "./Menu";
+
+import LogoImg from "../../static/img/Transforma.png";
 
 const themeOptions = createTheme(
     adaptV4Theme({
@@ -187,7 +193,9 @@ const Main = ({ children }) => {
     //===============================================================================================================================================
     useEffect(() => {
         if (localStorage.getItem("bitMenuDrawer") && !isMobile) {
-            let bitMenuDrawer = typeConvertor(localStorage.getItem("bitMenuDrawer"));
+            let bitMenuDrawer = typeConvertor(
+                localStorage.getItem("bitMenuDrawer")
+            );
             setOpenMenu(bitMenuDrawer);
         }
     }, [isMobile]);
@@ -200,7 +208,11 @@ const Main = ({ children }) => {
             <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={themeOptions}>
                     <AppBar
-                        className={!openMenu ? classes.appBar : classes.appBarMenuActive}
+                        className={
+                            !openMenu
+                                ? classes.appBar
+                                : classes.appBarMenuActive
+                        }
                         classes={{ root: classes.appColor }}
                     >
                         <Toolbar>
@@ -221,23 +233,25 @@ const Main = ({ children }) => {
                                 ) : null}
                                 <Typography
                                     variant="h6"
-                                    style={{ textOverflow: "ellipsis", color: "#00BAB3" }}
+                                    style={{
+                                        textOverflow: "ellipsis",
+                                        color: "#00BAB3",
+                                    }}
                                 >
                                     <Link
                                         className={classes.link}
                                         to="/transforma"
                                         style={{ color: "#00BAB3" }}
                                     >
-                                        Transforma
+                                        <img
+                                            style={{ marginLeft: "5px" }}
+                                            className={classes.hiddenElements}
+                                            src={LogoImg}
+                                            alt="Logo"
+                                            width="200px"
+                                        />
                                     </Link>
                                 </Typography>
-                                <img
-                                    style={{ marginLeft: "5px" }}
-                                    className={classes.hiddenElements}
-                                    src="https://demismanos.org/wp-content/uploads/2020/07/Copia-de-Logo-DMM-Horizontal-300x91.png"
-                                    alt="Logo"
-                                    width="80px"
-                                />
                             </Box>
                             <Box
                                 sx={{
@@ -278,8 +292,6 @@ const Main = ({ children }) => {
                                     </Avatar>
                                 </IconButton>
 
-
-
                                 <Menu
                                     anchorEl={anchorEl}
                                     open={openMenuProfile}
@@ -296,11 +308,15 @@ const Main = ({ children }) => {
                                     >
                                         <Box>
                                             <Avatar
-                                                className={classes.avatarInterno}
+                                                className={
+                                                    classes.avatarInterno
+                                                }
                                                 src={strInfoUser?.strURLImagen}
                                             >
                                                 <PersonIcon
-                                                    className={classes.avatarInterno}
+                                                    className={
+                                                        classes.avatarInterno
+                                                    }
                                                 />
                                             </Avatar>
                                         </Box>
@@ -332,14 +348,16 @@ const Main = ({ children }) => {
                                                         }`}
                                                     </b>
                                                 </Typography>
-                                                <Typography variant="caption" noWrap>
+                                                <Typography
+                                                    variant="caption"
+                                                    noWrap
+                                                >
                                                     {strInfoUser
                                                         ? strInfoUser.strEmail
                                                         : undefined}
                                                 </Typography>
                                             </Box>
                                             <Box>
-
                                                 <MenuItem
                                                     onClick={() => {
                                                         cerrarSesion();
