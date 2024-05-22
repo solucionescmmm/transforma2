@@ -384,9 +384,7 @@ const SearchEmpresario = ({ isEdit }) => {
                                 {data && !loadingGetData && documento && (
                                     <Alert severity="warning">
                                         Se encontro un registro con los
-                                        siguientes datos {data.objInfoEmpresarioPr.strEstado === "Activo" && data.objInfoEmpresarioPr.bitIsTercero ? "de una persona externa activa" : ""}
-                                        {data.objInfoEmpresarioPr.strEstado === "Activo" && data.objInfoEmpresarioPr.bitIsEmpresario ? "de una persona empresaria" : ""}
-                                        {data.objInfoEmpresarioPr.strEstado === "Inactivo" && data.objInfoEmpresarioPr.bitIsEmpresario ? "de una persona empresaria inactiva con las siguiente empresas asociadas" : ""}:
+                                        siguientes datos:
                                         <Avatar
                                             style={{ margin: "10px" }}
                                             alt={
@@ -396,6 +394,20 @@ const SearchEmpresario = ({ isEdit }) => {
                                             sx={{ width: 80, height: 80 }}
                                             src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${data.objInfoEmpresarioPr.strURLFileFoto}`}
                                         />
+                                        <p>
+                                            <b>Tipo: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .bitIsEmpresario ? "Persona empresaria" : "Tercero"
+                                            }{" "}
+                                        </p>
+                                        <p>
+                                            <b>Estado: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .strEstado
+                                            }{" "}
+                                        </p>
                                         <p>
                                             <b>Nombre: </b>{" "}
                                             {
@@ -438,15 +450,17 @@ const SearchEmpresario = ({ isEdit }) => {
                                             <b>Dirección de residencia: </b>{" "}
                                             {
                                                 data.objInfoEmpresarioPr
-                                                    .strDireccionResidencia || "No aplica"
+                                                    .strDireccionResidencia
                                             }{" "}
                                         </p>
-                                        {data.objIdeaEmpresario ?
+                                        {data.objIdeaEmpresario && (
                                             <table>
                                                 <tr
                                                     style={{ fontSize: "12px" }}
                                                 >
                                                     <th>Marca</th>
+                                                    <th>Estado empresa</th>
+                                                    <th>Estado Vinculacion</th>
                                                     <th>Rol</th>
                                                 </tr>
                                                 {data.objIdeaEmpresario.map(
@@ -465,6 +479,16 @@ const SearchEmpresario = ({ isEdit }) => {
                                                             </td>
                                                             <td>
                                                                 {
+                                                                    x.strEstadoVinculacion
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    x.strEstado === "Inactivo" ? "Desvinculado" : x.strEstado
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                {
                                                                     x.strTipoEmpresario
                                                                 }
                                                             </td>
@@ -472,9 +496,7 @@ const SearchEmpresario = ({ isEdit }) => {
                                                     )
                                                 )}
                                             </table>
-                                            : <Alert severity="warning">
-                                                No tiene ninguna idea asociada
-                                            </Alert>}
+                                        )}
                                         <p style={{ marginTop: "15px" }}>
                                             <b>Nota importante: </b>
                                             La información de la persona será

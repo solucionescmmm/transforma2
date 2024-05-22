@@ -116,7 +116,8 @@ const SearchEmpresario = ({ isEdit, intIdIdea, onChangeRoute, values }) => {
                     const objEmprPrincipal = data;
 
                     setData({
-                        intIdIdea: data.objInfoIdeaEmpresario?.[0]?.intIdIdea,
+                        intIdIdea: intIdIdea,
+                        objIdeaEmpresario: data.objInfoIdeaEmpresario,
                         objInfoEmpresarioPr: {
                             intId: objEmprPrincipal.intId,
                             strNombres: objEmprPrincipal.strNombres || "",
@@ -167,7 +168,7 @@ const SearchEmpresario = ({ isEdit, intIdIdea, onChangeRoute, values }) => {
                     });
 
                     for (let i = 0; i < objEmprPrincipal?.objInfoIdeaEmpresario?.length; i++) {
-                        if (objEmprPrincipal.objInfoIdeaEmpresario[i]?.intIdIdea === parseInt(intIdIdea)) {
+                        if (objEmprPrincipal.objInfoIdeaEmpresario[i]?.intIdIdea === parseInt(intIdIdea) && objEmprPrincipal.objInfoIdeaEmpresario[i]?.strEstado === "Activo") {
                             setBitMismaIdea(true)
                         }
                     }
@@ -342,9 +343,7 @@ const SearchEmpresario = ({ isEdit, intIdIdea, onChangeRoute, values }) => {
                                 {data && !loadingGetData && documento && (
                                     <Alert severity="warning">
                                         Se encontro un registro con los
-                                        siguientes datos {data.objInfoEmpresarioPr.strEstado === "Activo" && data.objInfoEmpresarioPr.bitIsTercero ? "de una persona externa activa" : ""}
-                                        {data.objInfoEmpresarioPr.strEstado === "Activo" && data.objInfoEmpresarioPr.bitIsEmpresario ? "de una persona empresaria" : ""}
-                                        {data.objInfoEmpresarioPr.strEstado === "Inactivo" && data.objInfoEmpresarioPr.bitIsEmpresario ? "de una persona empresaria inactiva con las siguiente empresas asociadas" : ""}:
+                                        siguientes datos:
                                         <Avatar
                                             style={{ margin: "10px" }}
                                             alt={
@@ -354,6 +353,20 @@ const SearchEmpresario = ({ isEdit, intIdIdea, onChangeRoute, values }) => {
                                             sx={{ width: 80, height: 80 }}
                                             src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${data.objInfoEmpresarioPr.strURLFileFoto}`}
                                         />
+                                        <p>
+                                            <b>Tipo: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .bitIsEmpresario ? "Persona empresaria" : "Tercero"
+                                            }{" "}
+                                        </p>
+                                        <p>
+                                            <b>Estado: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .strEstado
+                                            }{" "}
+                                        </p>
                                         <p>
                                             <b>Nombre: </b>{" "}
                                             {
@@ -405,6 +418,8 @@ const SearchEmpresario = ({ isEdit, intIdIdea, onChangeRoute, values }) => {
                                                     style={{ fontSize: "12px" }}
                                                 >
                                                     <th>Marca</th>
+                                                    <th>Estado empresa</th>
+                                                    <th>Estado Vinculacion</th>
                                                     <th>Rol</th>
                                                 </tr>
                                                 {data.objIdeaEmpresario.map(
@@ -419,6 +434,16 @@ const SearchEmpresario = ({ isEdit, intIdIdea, onChangeRoute, values }) => {
                                                             <td>
                                                                 {
                                                                     x.strNombreIdea
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    x.strEstadoVinculacion
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    x.strEstado === "Inactivo" ? "Desvinculado" : x.strEstado 
                                                                 }
                                                             </td>
                                                             <td>

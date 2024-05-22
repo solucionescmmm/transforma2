@@ -177,7 +177,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                             intIdEstado: objEmprPrincipal.intIdEstado || "",
                             bitIsEmpresario: objEmprPrincipal?.bitIsEmpresario || false,
                             bitIsTercero: objEmprPrincipal?.bitIsTercero || false,
-                            
+
                         },
                     });
                 } else {
@@ -401,8 +401,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                 {data && !loadingGetData && documento && (
                                     <Alert severity="warning">
                                         Se encontro un registro con los
-                                        siguientes datos {data.objInfoEmpresarioPr.strEstado === "Activo" && data.objInfoEmpresarioPr?.bitIsTercero ? "de una persona externa activa": ""}
-                                        {data.objInfoEmpresarioPr.strEstado === "Inactivo" && data.objInfoEmpresarioPr.bitIsEmpresario ? "de una persona empresaria inactiva con las siguiente empresas asociadas" : ""}:
+                                        siguientes datos:
                                         <Avatar
                                             style={{ margin: "10px" }}
                                             alt={
@@ -412,6 +411,20 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                             sx={{ width: 80, height: 80 }}
                                             src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${data.objInfoEmpresarioPr.strURLFileFoto}`}
                                         />
+                                        <p>
+                                            <b>Tipo: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .bitIsEmpresario ? "Persona empresaria" : "Tercero"
+                                            }{" "}
+                                        </p>
+                                        <p>
+                                            <b>Estado: </b>{" "}
+                                            {
+                                                data.objInfoEmpresarioPr
+                                                    .strEstado
+                                            }{" "}
+                                        </p>
                                         <p>
                                             <b>Nombre: </b>{" "}
                                             {
@@ -454,7 +467,7 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                             <b>Dirección de residencia: </b>{" "}
                                             {
                                                 data.objInfoEmpresarioPr
-                                                    .strDireccionResidencia || "No aplica"
+                                                    .strDireccionResidencia
                                             }{" "}
                                         </p>
                                         {data.objIdeaEmpresario && (
@@ -463,6 +476,8 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                                     style={{ fontSize: "12px" }}
                                                 >
                                                     <th>Marca</th>
+                                                    <th>Estado empresa</th>
+                                                    <th>Estado Vinculacion</th>
                                                     <th>Rol</th>
                                                 </tr>
                                                 {data.objIdeaEmpresario.map(
@@ -477,6 +492,16 @@ const SearchEmpresario = ({ isEdit, strDoc, inModal, resetModal, closeModal }) =
                                                             <td>
                                                                 {
                                                                     x.strNombreIdea
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    x.strEstadoVinculacion
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    x.strEstado === "Inactivo" ? "Desvinculado" : x.strEstado
                                                                 }
                                                             </td>
                                                             <td>
