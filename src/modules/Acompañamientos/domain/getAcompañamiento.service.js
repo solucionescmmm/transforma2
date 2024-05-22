@@ -70,7 +70,7 @@ const getAcompañamiento = async (objParams, strDataUser) => {
                 for (let j = 0; j < arrSesionAcompañamiento.length; j++) {
                     arrSesionAcompañamiento[j] = {
                         ...arrSesionAcompañamiento[j],
-                        objEmpresario: arrDataEmpresario.find((data) => data.intId === arrSesionAcompañamiento[j]?.intIdEmpresario),
+                        objEmpresario: arrDataEmpresario?.find((data) => data.intId === arrSesionAcompañamiento[j]?.intIdEmpresario),
                         dtmFechaInicial:arrSesionAcompañamiento[j]?.dtmFechaInicial,
                         strResponsables: JSON.parse(arrSesionAcompañamiento[j]?.strResponsables || ""),
                         strNombreServicio: arrSesionAcompañamiento[j]?.strNombreServicio || arrSesionAcompañamiento[j]?.strNombrePaquete || "N/A",

@@ -1330,15 +1330,20 @@ class daoEmpresarios {
                 IdeaEmpresario.dtmActualizacion,
                 IdeaEmpresario.strUsuarioActualizacion,
                 Tipo.strNombre as strTipoEmpresario,
-                Idea.strNombre as strNombreIdea
+                Idea.strNombre as strNombreIdea,
+                Idea.intIdEstado as intIdEstadoIdea,
+                Idea.intIdEstadoVinculacion,
+                Estados.strNombre as strEstado,
+                EstadoVinculacion.strNombre as strEstadoVinculacion
 
                 FROM tbl_Idea_Empresario IdeaEmpresario
 
                 INNER JOIN tbl_Estados Estados ON Estados.intId = IdeaEmpresario.intIdEstado
                 INNER JOIN tbl_Idea Idea ON Idea.intId = IdeaEmpresario.intIdIdea
+                LEFT JOIN tbl_EstadoVinculacion EstadoVinculacion ON EstadoVinculacion.intId = Idea.intIdEstadoVinculacion
                 INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
 
-                WHERE IdeaEmpresario.intIdEmpresario = Empresario.intId AND Estados.strNombre = 'Activo'
+                WHERE IdeaEmpresario.intIdEmpresario = Empresario.intId
                 FOR JSON PATH
             ) as objInfoIdeaEmpresario
 

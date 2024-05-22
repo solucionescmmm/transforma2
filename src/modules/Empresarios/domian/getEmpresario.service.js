@@ -39,6 +39,14 @@ const getEmpresario = async (objParams, strDataUser) => {
             let array = arrayData.data.reverse();
 
             for (let i = 0; i < array.length; i++) {
+                function distinct(array, indice) {
+                    var uniques = []; //temporal
+                    return array?.filter(function (item) {
+                        //indexOf buscará el valor, si no existe retornará true, por lo cual se mantendrá en el arreglo 
+                        //false en caso el valor ya exista en la variable uniques
+                        return uniques.indexOf(item[indice]) < 0 ? uniques.push(item[indice]) : false
+                    })
+                }
                 array[i] = {
                     ...array[i],
                     strNombreCompleto: `${array[i]?.strNombres} ${array[i]?.strApellidos}`,
@@ -48,7 +56,8 @@ const getEmpresario = async (objParams, strDataUser) => {
                     ),
                     arrCiudad: JSON.parse(array[i]?.strCiudad || null),
                     bitIsEmpresario: true,
-                    bitIsTercero: strDocumento ? arrayDataTercero.data?.[0]? true : false : null,
+                    bitIsTercero: strDocumento ? arrayDataTercero.data?.[0] ? true : false : null,
+                    objInfoIdeaEmpresario: distinct(array[i]?.objInfoIdeaEmpresario?.reverse(), "strNombreIdea")?.reverse(),
                     strTipoEmpresario: array[i]?.objInfoIdeaEmpresario?.find((i) => i.strTipoEmpresario === "Principal")?.strTipoEmpresario || array[i]?.objInfoIdeaEmpresario?.find((i) => i.strTipoEmpresario === "Secundario")?.strTipoEmpresario
                 };
             }
@@ -66,9 +75,9 @@ const getEmpresario = async (objParams, strDataUser) => {
 
         objParams = {
             ...objParams,
-            btActivo:true
+            btActivo: true
         }
-        
+
         let arrayDataTercero = await serviceGetTercero(objParams, strDataUser);
 
         if (!arrayDataTercero.error && arrayDataTercero.data) {
@@ -85,12 +94,12 @@ const getEmpresario = async (objParams, strDataUser) => {
                     bitIsTercero: true
                 };
             }
-    
+
             let result = {
                 error: false,
                 data: array,
             };
-    
+
             return result;
         }
     }
