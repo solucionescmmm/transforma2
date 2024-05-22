@@ -146,7 +146,7 @@ const InfoFamiliar = ({
                     <Grid item xs={12}>
                         <Controller
                             defaultValue={data.strTrabajanFamiliares}
-                            name="objInfoEmpresa.strTrabajanFamiliares"
+                            name="objInfoFamiliar.strTrabajanFamiliares"
                             render={({ field: { name, value, onChange } }) => (
                                 <SelectListas
                                     label="¿En la empresa participan familiares?"
@@ -158,13 +158,13 @@ const InfoFamiliar = ({
                                     required
                                     variant="standard"
                                     error={
-                                        errors?.objInfoEmpresa
+                                        errors?.objInfoFamiliar
                                             ?.strTrabajanFamiliares
                                             ? true
                                             : false
                                     }
                                     helperText={
-                                        errors?.objInfoEmpresa
+                                        errors?.objInfoFamiliar
                                             ?.strTrabajanFamiliares?.message ||
                                         "Selecciona una opción"
                                     }
