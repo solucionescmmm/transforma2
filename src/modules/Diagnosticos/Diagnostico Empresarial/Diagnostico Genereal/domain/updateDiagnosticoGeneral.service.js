@@ -227,12 +227,15 @@ class updateDiagnosticoGeneral {
             arrCiudad: JSON.stringify(
                 this.#objData.objInfoEmprendimiento?.arrCiudad || null
             ),
-            strMediosDigitales: JSON.stringify(
-                this.#objData.objInfoEmprendimiento?.arrMediosDigitales || null
-            ),
             strCategoriasSecundarias: JSON.stringify(
                 this.#objData.objInfoEmprendimiento?.arrCategoriasSecundarias ||
                 null
+            ),
+            strMediosDigitales: JSON.stringify(
+                this.#objData.objInfoCanalesVenta?.arrMediosDigitales || null
+            ),
+            strFormasComercializacion: JSON.stringify(
+                this.#objData.objInfoCanalesVenta?.arrFormasComercializacion || null
             ),
             dblValorVentasMes: this.#objData.objInfoPerfilEco.dblValorVentasMes,
             intNumeroEmpleados: this.#objData.objInfoPerfilEco.intNumeroEmpleados,
