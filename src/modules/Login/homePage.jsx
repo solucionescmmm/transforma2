@@ -143,16 +143,7 @@ const Login = () => {
 
                     localStorage.setItem("token", res.data.data);
 
-                    if (
-                        !process.env.REACT_APP_NODE_ENV ||
-                        process.env.REACT_APP_NODE_ENV !== "production"
-                    ) {
-                        Cookies.set("token", res.data.data);
-                    } else {
-                        Cookies.set("token", res.data.data, {
-                            domain: ".demismanos.co",
-                        });
-                    }
+                    Cookies.set("token", res.data.data);
 
                     handlerChangeDataRef.current("token", res.data.data);
                 })
