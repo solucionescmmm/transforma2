@@ -68,8 +68,6 @@ class updateDiagnosticoProducto {
     async #setResultDiagnosticoProducto() {
         let dao = new classInterfaceDAOProducto();
 
-        console.log(this.#objData?.objInfoGeneral)
-
         let query = await dao.setResultDiagnosticoProducto({
             intIdDiagnostico: this.#objData?.objInfoGeneral?.intIdDiagnostico
         });
