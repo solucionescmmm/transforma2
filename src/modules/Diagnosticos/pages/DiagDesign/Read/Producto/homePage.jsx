@@ -2921,11 +2921,11 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                     values={[
                                                         data
                                                             .objResultadoNoAlimentos
-                                                            ?.intInnovación ||
+                                                            ?.intInnovacion ||
                                                             0,
                                                         data
                                                             .objResultadoNoAlimentos
-                                                            ?.intEstética || 0,
+                                                            ?.intEstetica || 0,
                                                         data
                                                             .objResultadoNoAlimentos
                                                             ?.intExperiencia ||
@@ -2962,11 +2962,11 @@ const ResumenProducto = ({ intIdIdea, intIdDiagnostico, onChangeRoute }) => {
                                                     values={[
                                                         data
                                                             .objResultadoAlimentos
-                                                            ?.intInnovación ||
+                                                            ?.intInnovacion ||
                                                             0,
                                                         data
                                                             .objResultadoAlimentos
-                                                            ?.intEstética || 0,
+                                                            ?.intPresentacionCalidad || 0,
                                                         data
                                                             .objResultadoAlimentos
                                                             ?.intExperiencia ||
