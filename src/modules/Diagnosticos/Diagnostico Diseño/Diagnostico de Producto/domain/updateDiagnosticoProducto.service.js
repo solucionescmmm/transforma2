@@ -16,7 +16,6 @@ class updateDiagnosticoProducto {
 
     async main() {
         await this.#validations();
-        await this.#completeData();
         await this.#updateDiagnosticoProducto();
         await this.#setResultDiagnosticoProducto()
         return this.#objResult;
@@ -38,7 +37,7 @@ class updateDiagnosticoProducto {
         }
     }
 
-    async #completeData() {
+    async #updateDiagnosticoProducto() {
         let newData = {
             ...this.#objData.objInfoGeneral,
             ...this.#objData.objInfoProductos,
@@ -50,13 +49,10 @@ class updateDiagnosticoProducto {
             intIdTipoEmpresario: this.#objData.objInfoGeneral.objEmpresario?.intIdTipoEmpresario,
             strUsuarioActualizacion: this.#objUser.strEmail,
         };
-        this.#objData = newData;
-    }
 
-    async #updateDiagnosticoProducto() {
         let dao = new classInterfaceDAOProducto();
 
-        let query = await dao.updateDiagnosticoProducto(this.#objData);
+        let query = await dao.updateDiagnosticoProducto(newData);
 
         if (query.error) {
             throw new Error(query.msg);
@@ -71,6 +67,8 @@ class updateDiagnosticoProducto {
 
     async #setResultDiagnosticoProducto() {
         let dao = new classInterfaceDAOProducto();
+
+        console.log(this.#objData?.objInfoGeneral)
 
         let query = await dao.setResultDiagnosticoProducto({
             intIdDiagnostico: this.#objData?.objInfoGeneral?.intIdDiagnostico
