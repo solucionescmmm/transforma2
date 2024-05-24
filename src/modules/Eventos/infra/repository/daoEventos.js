@@ -100,42 +100,6 @@ class daoEventos {
         }
     }
 
-    async setObjetivosEventos(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-
-            let response = await conn.query`
-            DECLARE @intId INTEGER;
-            
-            INSERT INTO tbl_ObjetivosEventos VALUES
-            (
-                ${data.intIdEvento},
-                ${data.strNombre}
-            )
-            SET @intId = SCOPE_IDENTITY();`;
-
-            let result = {
-                error: false,
-                data: response.recordset[0],
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo setObjetivosEventos de la clase daoEventos",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
     async setAsistentesEventos(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
@@ -328,39 +292,6 @@ class daoEventos {
                 msg:
                     error.message ||
                     "Error en el metodo updateSesionesEventos de la clase daoEmpresarios",
-            };
-
-            sql.close(conexion);
-
-            return result;
-        }
-    }
-
-    async updateObjetivosEventos(data) {
-        try {
-            let conn = await new sql.ConnectionPool(conexion).connect();
-            await conn.query`
-
-            UPDATE tbl_ObjetivosEventos
-
-            SET strNombre = COALESCE(${data.strNombre}, strNombre),
-
-            WHERE (intId = ${data.intId})`;
-
-            let result = {
-                error: false,
-                msg: "Se actualizo correctamente el objetivo del evento"
-            };
-
-            sql.close(conexion);
-
-            return result;
-        } catch (error) {
-            let result = {
-                error: true,
-                msg:
-                    error.message ||
-                    "Error en el metodo updateObjetivosEventos de la clase daoEmpresarios",
             };
 
             sql.close(conexion);
