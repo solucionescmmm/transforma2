@@ -631,9 +631,21 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
 
                             <br />
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae voluptas quas veniam cum illo temporibus alias, quaerat doloremque voluptate a ex dolores. Dolorem natus vel sit iure libero magnam mollitia.</p>
+                        <p>
+                            A continuación, te presentamos un resumen del diagnóstico de servicio de tú
+                            emprendimiento. En primer lugar, verás un gráfico que muestra el puntaje actual de tu
+                            emprendimiento en relación con el puntaje máximo de cada grupo temático analizado.
+                            Luego, encontrarás una sección donde podrás identificar las fortalezas y temas a
+                            fortalecer de tu emprendimiento, agrupadas en los siguientes temas:
+                        </p>
 
-
+                        <ol style="font-family: Roboto; color: #505050; font-size: 11px">
+                            <li>Innovación</li>
+                            <li>Estética / Percepción y calidad</li>
+                            <li>Experiencia</li>
+                            <li>Marca</li>
+                        </ol>
+                        
                             <br />
                             <br />
                             <br />

@@ -476,14 +476,21 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
                         <br />
 
                         <p>
-                        A continuación, te presento un resumen del diagnóstico empresarial - componente técnico. En primer lugar, verás un gráfico que muestra el puntaje actual de tu emprendimiento en relación con el puntaje máximo de cada grupo temático analizado. Luego, encontrarás una sección donde podrás identificar las fortalezas y temas a fortalecer de tu emprendimiento, agrupadas en los siguientes temas: </p>
-
-                        <ol style="font-family: Roboto; color: #505050; font-size: 11px">
-                        <li>Mercadeo – Comercial</li>
-                        <li>Técnico – Productivo</li>
-                           <li>Contable – Financiero</li>
-                           <li>Administrativo</li>
-                        </ol>
+                          A continuación, te presentamos un resumen del diagnóstico empresarial - componente técnico.
+                          En primer
+                          lugar, verás un gráfico que muestra el puntaje actual de tu emprendimiento en relación con
+                          el puntaje
+                          máximo de cada grupo temático analizado. Luego, encontrarás una sección donde podrás
+                          identificar las
+                          fortalezas y temas a fortalecer de tu emprendimiento, agrupadas en los siguientes temas: 
+                        </p>
+               
+               <ol style="font-family: Roboto; color: #505050; font-size: 11px">
+                   <li>Mercadeo – Comercial</li>
+                   <li>Técnico – Productivo</li>
+                   <li>Contable – Financiero</li>
+                   <li>Administrativo</li>
+               </ol>
 
                         <br />
                         <br />
