@@ -237,7 +237,7 @@ const HomePage = () => {
                                                 >
                                                     Vinculación:{" "}
                                                     {format(
-                                                        parseISO(e.dtmCreacion),
+                                                        parseISO(e.dtFechaVinculacion),
                                                         "yyyy-MM-dd"
                                                     )}
                                                 </Typography>
