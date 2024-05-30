@@ -6,6 +6,7 @@ const getContadorRutas = require("../../domain/getContadorRutas.service")
 const getRutasActivas = require("../../domain/getRutasActivas.service")
 const getServicioFases = require("../../domain/getServiciosFase.service")
 const getPaquetesFases = require("../../domain/getPaquetesFases.service")
+const getMotivosCancelacion = require("../../domain/getMotivosCancelacion.service");
 const updateRutas = require("../../domain/updateRutas.service");
 const updateRutaEnviada = require("../../domain/updateRutaEnviada.service");
 const updateRutaActivada = require("../../domain/updateRutaActivada.service");
@@ -149,6 +150,27 @@ class ctrl_Rutas {
             let objParams = req.query;
 
             let query = await getPaquetesFases(objParams);
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async getMotivosCancelacion(req, res) {
+        try {
+            let { strDataUser } = req;
+
+            let query = await getMotivosCancelacion(strDataUser);
 
             if (query.error) {
                 throw new Error(query.msg);

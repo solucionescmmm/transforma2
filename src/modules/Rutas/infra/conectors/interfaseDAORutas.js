@@ -54,7 +54,7 @@ class interfaceDAORutas {
         let query = await dao.getRutas(data);
         return query;
     }
-    
+
     async getEstadoFase(data) {
         let dao = new classDAO();
         let query = await dao.getEstadoFase(data);
@@ -100,6 +100,12 @@ class interfaceDAORutas {
     async getPaqueteFases(data) {
         let dao = new classDAO();
         let query = await dao.getPaqueteFases(data);
+        return query;
+    }
+
+    async getMotivosCancelacion(data) {
+        let dao = new classDAO();
+        let query = await dao.getMotivosCancelacion(data);
         return query;
     }
 

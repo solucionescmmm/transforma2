@@ -66,6 +66,7 @@ class updateRutaCancelada {
         let newData = {
             intId: this.#objData.intId,
             intIdEstadoRuta: this.#intIdEstado,
+            intIdMotivoCancelacion: this.#objData?.intIdMotivoCancelacion,
             strUsuarioActualizacion: this.#objUser.strEmail,
         };
 

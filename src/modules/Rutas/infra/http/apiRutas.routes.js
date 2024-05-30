@@ -61,6 +61,14 @@ routes.get(
     }
 );
 
+routes.get(
+    "/transforma/api/rutas/getMotivosCancelacion",
+    async (req, res) => {
+        let controllerRutas = new classController();
+        await controllerRutas.getMotivosCancelacion(req, res);
+    }
+);
+
 routes.put(
     "/transforma/api/rutas/updateRutas",
     async (req, res) => {

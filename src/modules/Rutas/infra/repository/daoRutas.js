@@ -989,6 +989,34 @@ class daoRutas {
         }
     }
 
+    async getMotivosCancelacion() {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+            let response = await conn.query`    
+                SELECT * FROM tbl_MotivosCancelacionRuta`;
+
+            let result = {
+                error: false,
+                data: response.recordsets[0],
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getMotivosCancelacion de la clase daoRutas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
     async updateRutas(data) {
         try {
             let conn = await new sql.ConnectionPool(conexion).connect();
