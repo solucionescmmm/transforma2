@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from "react";
 
 //Context
-import { AuthContext } from "../../../../common/middlewares/Auth";
+import { AuthContext } from "../../../../../common/middlewares/Auth";
 
 //Librerias
 import axios from "axios";

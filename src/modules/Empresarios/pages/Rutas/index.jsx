@@ -30,6 +30,7 @@ import {
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
     Delete as DeleteIcon,
+    Cancel as CancelIcon,
     RemoveRedEye as RemoveRedEyeIcon,
     PictureAsPdf as PictureAsPdfIcon,
     PlayCircle as PlayCircleIcon,
@@ -41,11 +42,12 @@ import MaterialTable from "@material-table/core";
 import { MTableToolbar } from "@material-table/core";
 
 //Componentes
-import ModalDelete from "./modalDelete";
+import ModalDelete from "./components/modalDelete";
 import ModalPDF from "./components/modalPDF";
 import ModalActiveRuta from "./components/modalActiveRuta";
 import ModalSendRuta from "./components/modalSendRuta";
 import { AbilityContext, Can } from "../../../../common/functions/can";
+import ModalCancel from "./components/modalCancelacion";
 
 const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
@@ -91,6 +93,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     ]);
 
     const [openModalDeleteRuta, setopenModalDeleteRuta] = useState(false);
+    const [openModalCancelRuta, setopenModalCancelRuta] = useState(false);
     const [openModalPDF, setopenModalPDF] = useState(false);
     const [openModalActiveRuta, setopenModalActiveRuta] = useState(false);
     const [openModalSendRutas, setopenModalSendRuta] = useState(false);
@@ -109,6 +112,10 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
     //===============================================================================================================================================
     const handleropenModalDeleteRuta = () => {
         setopenModalDeleteRuta(!openModalDeleteRuta);
+    };
+
+    const handleropenModalCancelRuta = () => {
+        setopenModalCancelRuta(!openModalCancelRuta);
     };
 
     const handleropenModalPDF = () => {
@@ -132,6 +139,14 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
             <ModalDelete
                 handleOpenDialog={handleropenModalDeleteRuta}
                 open={openModalDeleteRuta}
+                intId={selectedDataRuta?.objInfoPrincipal?.intId}
+                refresh={refreshGetDataRutas}
+                intIdIdea={intIdIdea}
+            />
+
+            <ModalCancel
+                handleOpenDialog={handleropenModalCancelRuta}
+                open={openModalCancelRuta}
                 intId={selectedDataRuta?.objInfoPrincipal?.intId}
                 refresh={refreshGetDataRutas}
                 intIdIdea={intIdIdea}
@@ -409,6 +424,61 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                     handleropenModalDeleteRuta();
                                                 },
                                                 tooltip: "Eliminar",
+                                                disabled:
+                                                    rowData.objInfoPrincipal
+                                                        ?.strEstadoRuta ===
+                                                    "Aceptada/En Proceso" ||
+                                                    rowData.objInfoPrincipal
+                                                        ?.strEstadoRuta ===
+                                                    "Enviada" ||
+                                                    rowData.objInfoPrincipal
+                                                        ?.strEstadoRuta ===
+                                                    "Finalizada" ||
+                                                    rowData.objInfoPrincipal
+                                                        ?.strEstadoRuta ===
+                                                    "Cancelada" ||
+                                                    rowData.objInfoPrincipal
+                                                        ?.strTipoRuta ===
+                                                    "No planeada",
+                                            };
+                                        }
+                                    },
+                                    (rowData) => {
+                                        if (ability.can("delete", "Rutas")) {
+                                            return {
+                                                icon: () => (
+                                                    <CancelIcon
+                                                        color={
+                                                            rowData
+                                                                .objInfoPrincipal
+                                                                ?.strEstadoRuta ===
+                                                                "Aceptada/En Proceso" ||
+                                                                rowData
+                                                                    .objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                "Enviada" ||
+                                                                rowData.objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                "Finalizada" ||
+                                                                rowData.objInfoPrincipal
+                                                                    ?.strEstadoRuta ===
+                                                                "Cancelada" ||
+                                                                rowData.objInfoPrincipal
+                                                                    ?.strTipoRuta ===
+                                                                "No planeada"
+                                                                ? "gray"
+                                                                : "error"
+                                                        }
+                                                        fontSize="small"
+                                                    />
+                                                ),
+                                                onClick: (event, rowData) => {
+                                                    setselectedDataRuta(
+                                                        rowData
+                                                    );
+                                                    handleropenModalCancelRuta();
+                                                },
+                                                tooltip: "Cancelar",
                                                 disabled:
                                                     rowData.objInfoPrincipal
                                                         ?.strEstadoRuta ===

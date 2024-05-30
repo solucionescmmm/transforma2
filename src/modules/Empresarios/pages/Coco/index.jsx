@@ -441,6 +441,21 @@ const Coco = () => {
                                     fontSize: "0.80rem !important",
                                 }}
                             >
+                                <b>Estrato: </b>
+                                {objInteresado?.objEmpresario
+                                    ?.filter(
+                                        (p) =>
+                                            p.strTipoEmpresario === "Principal"
+                                    )
+                                    ?.at(0)?.strEstrato || ""}
+                            </Typography>
+
+                            <Typography
+                                variant="caption"
+                                sx={{
+                                    fontSize: "0.80rem !important",
+                                }}
+                            >
                                 <b>Ruta activa: </b>
                                 {dataRuta ? "Si" : "No"}
                             </Typography>
