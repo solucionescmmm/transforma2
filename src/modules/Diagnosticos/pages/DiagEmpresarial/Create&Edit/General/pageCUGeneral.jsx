@@ -1232,6 +1232,7 @@ const PageCUGeneral = ({
                             reset(commonData);
                         }
 
+                        setLoadingGetData(false);
                         setErrorGetData({
                             flag: false,
                             msg: "",
