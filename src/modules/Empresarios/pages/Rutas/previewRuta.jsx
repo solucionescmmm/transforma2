@@ -61,6 +61,11 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
             field: "intDuracion",
             type: "number",
         },
+        {
+            title: "Objetivos",
+            field: "arrObjetivos",
+            type: "string",
+        },
     ]);
 
     //===============================================================================================================================================
@@ -78,6 +83,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                         objPaquete,
                         ValorTotalPaquete,
                         intDuracionHorasTotalPaquete,
+                        arrObjetivos
                     } = arrPaquetes[j];
 
                     const valorTotal = ValorTotalPaquete;
@@ -85,7 +91,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                     const dataTable = {
                         intId: i + 1,
                         strNombre: objPaquete.objInfoPrincipal?.strNombre,
-                        strEstado: "Sin ejecutar",
+                        strEstado: !arrPaquetes[j]?.btFinalizado ? "Sin ejecutar" : "Finalizado",
                         intFase: i + 1,
                         valorTotal: new Intl.NumberFormat("es-ES", {
                             style: "currency",
@@ -94,6 +100,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                             .format(valorTotal)
                             .toString(),
                         intDuracion: intDuracionHorasTotalPaquete || 0,
+                        arrObjetivos: arrObjetivos?.map(objetivo => objetivo?.strNombre)?.join(" - ") || "No tiene objetivo"
                     };
 
                     arrDataTable.push(dataTable);
@@ -104,6 +111,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                         objServicio,
                         ValorTotalServicio,
                         intDuracionHorasTotalServicio,
+                        arrObjetivos
                     } = arrServicios[j];
                     const valorTotal = ValorTotalServicio;
 
@@ -120,6 +128,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                                 .format(valorTotal)
                                 .toString(),
                             intDuracion: intDuracionHorasTotalServicio || 0,
+                            arrObjetivos: arrObjetivos?.map(objetivo => objetivo?.strNombre)?.join(" - ") || "No tiene objetivo"
                         };
 
                         arrDataTable.push(dataTable);
@@ -171,7 +180,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                                 <span style={{ color: "#00BAB3" }}>
                                     Estado:
                                 </span>
-                                {values?.[0]?.objInfoPrincipal?.strEstadoRuta} 
+                                {values?.[0]?.objInfoPrincipal?.strEstadoRuta}
                             </Typography>
 
                             <Typography>
@@ -207,8 +216,8 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                                 </span>
                                 {values?.[0]?.objInfoPrincipal?.dtmCreacion
                                     ? new Date(
-                                          values?.[0]?.objInfoPrincipal?.dtmCreacion
-                                      ).toLocaleDateString("en-EN")
+                                        values?.[0]?.objInfoPrincipal?.dtmCreacion
+                                    ).toLocaleDateString("en-EN")
                                     : ""}
                             </Typography>
                         </Box>
@@ -231,7 +240,7 @@ const PreviewRuta = ({ intId, intIdIdea, onChangeRoute }) => {
                                             i < dataTable.length;
                                             i++
                                         ) {
-                                            intDuracion +=dataTable[i].intDuracion;
+                                            intDuracion += dataTable[i].intDuracion;
                                         }
 
                                         return intDuracion.toString();
