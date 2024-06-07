@@ -163,7 +163,8 @@ class daoAcompañamientos {
                 Paquetes.strNombre as strNombrePaquete,
                 Actividad.strNombre as strTipoActividad,
                 Eventos.strNombre as strNombreEventos,
-                Rutas.strNombre as strNombreRuta
+                Rutas.strNombre as strNombreRuta,
+                Documentos.strUrlDocumento as strURLDocumento
 
                 FROM tbl_Sesiones_Acompañamientos SesionesAcompañamientos
 
@@ -172,6 +173,7 @@ class daoAcompañamientos {
                 LEFT JOIN tbl_EventosGrupales Eventos ON Eventos.intId = SesionesAcompañamientos.intIdEvento
                 LEFT JOIN tbl_Rutas Rutas ON Rutas.intId = SesionesAcompañamientos.intIdRuta
                 LEFT JOIN tbl_TipoActividad Actividad ON Actividad.intId = SesionesAcompañamientos.intIdTipoActividad
+                LEFT JOIN tbl_Documentos Documentos ON Documentos.intId = SesionesAcompañamientos.intIdDocumento
 
                 WHERE SesionesAcompañamientos.intIdAcompañamiento = Acompañamientos.intId
 
