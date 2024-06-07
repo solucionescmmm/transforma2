@@ -28,11 +28,10 @@ class setTarea {
     }
 
     async main() {
-        //console.log(this.#objData)
         await this.#validations();
         await this.#getIdea()
         await this.#setTarea();
-        // await this.#sendEmail()
+        await this.#sendEmail()
         return this.#objResult;
     }
 
@@ -114,7 +113,7 @@ class setTarea {
 
         const querySendEmail = await sendEmail({
             from:"transforma@demismanos.org",
-            to:"snayderlon115@gmail.com",
+            to:"snayderlon115@gmail.com;mezapata@choucairtesting.com",
             cc: "",
             subject:"Nueva tarea",
             message: strMensaje
