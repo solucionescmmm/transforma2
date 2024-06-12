@@ -65,6 +65,15 @@ const styles = makeStyles((theme) => ({
 }));
 
 const ReadSolicitudesUser = () => {
+    const normalizeString = str => 
+        str?.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    const customFilterAndSearch = (term, data) => {
+        const normalizedTerm = normalizeString(term);
+        const normalizedRowData = normalizeString(data);
+        return normalizedRowData?.includes(normalizedTerm);
+    };
+
     //===============================================================================================================================================
     //========================================== Declaracion de estados =============================================================================
     //===============================================================================================================================================
@@ -74,8 +83,7 @@ const ReadSolicitudesUser = () => {
             render: (rowData) => (
                 <Avatar
                     alt={rowData?.strNombreCompleto}
-                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST
-                        }${process.env.REACT_APP_API_BACK_PORT}${rowData?.strUrlFileFoto}`}
+                    src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${rowData?.strUrlFileFoto}`}
                 />
             ),
             width: "0%",
@@ -84,6 +92,7 @@ const ReadSolicitudesUser = () => {
             title: "Representante",
             field: "strNombreCompleto",
             type: "string",
+            customFilterAndSearch: (term, rowData) => customFilterAndSearch(term, rowData.strNombreCompleto),
         },
         {
             title: "Documento del representante",
@@ -94,18 +103,20 @@ const ReadSolicitudesUser = () => {
             title: "Empresa",
             field: "strNombre",
             type: "string",
+            customFilterAndSearch: (term, rowData) => customFilterAndSearch(term, rowData.strNombre),
         },
         {
             title: "Sede",
             field: "strSede",
             type: "string",
+            customFilterAndSearch: (term, rowData) => customFilterAndSearch(term, rowData.strSede),
         },
         {
             title: "secundarios",
             field: "JsonEmpresario",
             type: "string",
             hidden: true,
-            searchable: true
+            searchable: true,
         },
         {
             title: "Fecha de vinculación",
