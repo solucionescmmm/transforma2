@@ -755,7 +755,6 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                             }
                                             fullWidth
                                             variant="standard"
-                                            required
                                             error={!!errors?.arrInvolucrados}
                                             helperText={
                                                 errors?.arrInvolucrados
@@ -765,13 +764,6 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                         />
                                     )}
                                     control={control}
-                                    rules={{
-                                        validate: (value) => {
-                                            if (value?.length === 0) {
-                                                return "Por favor, seleccione los responsables de la sesión";
-                                            }
-                                        },
-                                    }}
                                 />
                             </Grid>
 
