@@ -1166,7 +1166,7 @@ const PaperFase = ({
                                                                 }
                                                             )
                                                                 .format(
-                                                                    servicio.valor
+                                                                    servicio.valor || 0
                                                                 )
                                                                 .toString()}
                                                         </p>
