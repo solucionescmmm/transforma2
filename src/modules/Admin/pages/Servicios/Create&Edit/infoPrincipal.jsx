@@ -28,6 +28,7 @@ import {
 //Componentes
 import SelectTipoServicio from "../../../components/selectTipoServicio";
 import SelectProyectoEs from "../../../components/selectProyectoEs";
+import NumberFormat from "react-number-format";
 
 const InfoPrincipal = ({
     data: dataServicios,
@@ -267,15 +268,11 @@ const InfoPrincipal = ({
                             defaultValue={data.intDuracionHoras}
                             name={`objInfoPrincipal.intDuracionHoras`}
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Duración en horas"
+                                <NumberFormat
+                                    label="Duración en minutos"
                                     name={name}
                                     value={value}
-                                    onChange={(e) => {
-                                        onChange(e);
-                                    }}
                                     fullWidth
-                                    type="number"
                                     variant="standard"
                                     disabled={disabled}
                                     required
@@ -286,8 +283,15 @@ const InfoPrincipal = ({
                                     helperText={
                                         errors?.objInfoPrincipal
                                             ?.intDuracionHoras?.message ||
-                                        "Digita la duración en horas"
+                                        "Digita la duración en minutos"
                                     }
+                                    onValueChange={(v) => {
+                                        onChange(v.floatValue);
+                                    }}
+                                    thousandSeparator={false}
+                                    allowNegative={false}
+                                    customInput={TextField}
+                                    decimalScale={0}
                                 />
                             )}
                             control={control}

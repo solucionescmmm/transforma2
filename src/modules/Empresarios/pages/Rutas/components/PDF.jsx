@@ -188,7 +188,8 @@ const PDFProduct = ({ intIdIdea, intId }) => {
 
             for (let i = 0; i < values[0].arrInfoFases.length; i++) {
                 const arrPaqueteServ = [];
-                const { arrPaquetes, arrServicios } = values[0].arrInfoFases[i];
+                const arrPorcentajesTable = []
+                const { arrPaquetes, arrServicios, arrPorcentajes } = values[0].arrInfoFases[i];
 
                 for (let j = 0; j < arrPaquetes?.length; j++) {
                     const {
@@ -200,6 +201,7 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                     let htmlResultado = "";
 
                     if (objPaquete) {
+                        debugger
                         const { objInfoPrincipal } = objPaquete;
 
                         if (
@@ -267,9 +269,53 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                     }
                 }
 
+                for (let i = 0; i < arrPorcentajes.length; i++) {
+                    const {valorPorce, intPorcentaje, intNumPago } = arrPorcentajes[i]
+
+                    const dataTable = {
+                        intNumPago,
+                        intPorcentaje: intPorcentaje.toString() + '%',
+                        valorPorce: new Intl.NumberFormat("es-ES", {
+                            style: "currency",
+                            currency: "COP",
+                        })
+                            .format(valorPorce)
+                            .toString(),
+                    }
+
+                    arrPorcentajesTable.push(dataTable)   
+                }
+
                 const intTotalHoras = arrPaqueteServ.reduce((cont, value) => {
                     return cont + value.intDuracionValue;
                 }, 0);
+
+                const htmlTable2 = arrPorcentajes?.length > 0 ? `
+                 <div>
+                    <p class="title">
+                       Pagos
+                    </p>
+                </div>
+
+                 <table style="padding-right: 100px; padding-left: 100px">
+                   <tr>
+                      <th>Número de pago</th>
+                      <th>Porcentaje</th>
+                      <th>Valor</th>
+                   </tr>
+
+                   ${arrPorcentajesTable
+                       .map(
+                           (e) => `<tr>
+                       <td>${e.intNumPago}</td>
+                       <td>${e.intPorcentaje}</td>
+                       <td>${e.valorPorce}</td>
+                   </tr>
+                   `
+                       )
+                       .join("")}
+                </table>
+                `: ""
 
                 const htmlTable1 = `
                 <div>
@@ -301,6 +347,7 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                 arrDataFases[i] = {
                     intTotalHoras,
                     htmlTable1,
+                    htmlTable2,
                     dblValorFase: new Intl.NumberFormat("es-ES", {
                         style: "currency",
                         currency: "COP",
@@ -471,6 +518,7 @@ const PDFProduct = ({ intIdIdea, intId }) => {
      (e) => `
      <div>
          ${e.htmlTable1}
+         ${e.htmlTable2}
          <div style="padding-right: 100px; padding-left: 100px;">
              <div><span style="color: #1ccbc4; font-size: 12px !important;">Total horas de acompañamiento: </span>
                  <span style="font-size: 12px !important;">${e.intTotalHoras} horas</span>
