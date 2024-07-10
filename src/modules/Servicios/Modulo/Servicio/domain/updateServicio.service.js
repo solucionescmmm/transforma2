@@ -194,6 +194,7 @@ class updateServicios {
                 let query = await dao.setSedeTipoTarifaServicio({
                     ...array[i],
                     strUsuarioActualizacion: this.#objUser.strEmail,
+                    intIdServicio: this.#intIdServicio
                 });
 
                 if (query.error) {
@@ -224,6 +225,7 @@ class updateServicios {
                 let query = await dao.setAreasServicios({
                     ...array[i],
                     strUsuarioActualizacion: this.#objUser.strEmail,
+                    intIdServicio: this.#intIdServicio
                 });
 
                 if (query.error) {

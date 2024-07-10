@@ -230,6 +230,7 @@ class updatePaquetes {
                 let query = await dao.setSedeTipoTarifaPaquete({
                     ...array[i],
                     strUsuarioActualizacion: this.#objUser.strEmail,
+                    intIdPaquete: this.#intIdPaquete,
                 });
 
                 if (query.error) {
@@ -260,6 +261,7 @@ class updatePaquetes {
                 let query = await dao.setAreasPaquetes({
                     ...array[i],
                     strUsuarioActualizacion: this.#objUser.strEmail,
+                    intIdPaquete: this.#intIdPaquete,
                 });
 
                 if (query.error) {
