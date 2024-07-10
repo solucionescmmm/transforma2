@@ -29,8 +29,8 @@ class deleteEventos {
         await this.#getSesionesEventos()
         await this.#getAsistentesEventos()
         await this.#validations()
-        await this.#deleteEventos()
         await this.#deleteAreasEventos()
+        await this.#deleteEventos()
         return this.#objResult;
     }
 
