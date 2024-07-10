@@ -35,6 +35,7 @@ import {
 
 //Componentes
 import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
+import NumberFormat from "react-number-format";
 
 const PaperModulo = ({
     values,
@@ -319,25 +320,31 @@ const PaperModulo = ({
                                     render={({
                                         field: { name, value, onChange },
                                     }) => (
-                                        <TextField
-                                            label="Duración en horas"
-                                            name={name}
-                                            value={value}
-                                            disabled={disabled}
-                                            onChange={(e) => onChange(e)}
-                                            fullWidth
-                                            variant="standard"
-                                            required
-                                            error={
-                                                !!errors?.arrModulos?.[index]
-                                                    ?.intHoras
-                                            }
-                                            helperText={
-                                                errors?.arrModulos?.[index]
-                                                    ?.intHoras?.message ||
-                                                "Digita la duración del módulo"
-                                            }
-                                        />
+                                        <NumberFormat
+                                        label="Duración en minutos"
+                                        name={name}
+                                        value={value}
+                                        fullWidth
+                                        variant="standard"
+                                        disabled={disabled}
+                                        required
+                                        error={
+                                            !!errors?.arrModulos?.[index]
+                                                ?.intHoras
+                                        }
+                                        helperText={
+                                            errors?.arrModulos?.[index]
+                                                ?.intHoras?.message ||
+                                            "Digita la duración del módulo"
+                                        }
+                                        onValueChange={(v) => {
+                                            onChange(v.floatValue);
+                                        }}
+                                        thousandSeparator={false}
+                                        allowNegative={false}
+                                        customInput={TextField}
+                                        decimalScale={0}
+                                    /> 
                                     )}
                                     control={control}
                                     rules={{

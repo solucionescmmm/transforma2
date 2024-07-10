@@ -269,7 +269,7 @@ const InfoPrincipal = ({
                             name={`objInfoPrincipal.intDuracionHoras`}
                             render={({ field: { name, value, onChange } }) => (
                                 <NumberFormat
-                                    label="Duración en minutos"
+                                    label="Duración en horas"
                                     name={name}
                                     value={value}
                                     fullWidth
