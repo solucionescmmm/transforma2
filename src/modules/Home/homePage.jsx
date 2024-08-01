@@ -150,8 +150,8 @@ const HomePage = () => {
                                                     }}
                                                     src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST
                                                         }${process.env.REACT_APP_API_BACK_PORT}${e.objEmpresario
-                                                        .filter((p) => p.strTipoEmpresario === "Principal")
-                                                        ?.at(0)?.strUrlFileFoto}`
+                                                            .filter((p) => p.strTipoEmpresario === "Principal")
+                                                            ?.at(0)?.strUrlFileFoto}`
                                                     }
                                                 >
                                                     {e.objEmpresario
@@ -236,10 +236,10 @@ const HomePage = () => {
                                                     }}
                                                 >
                                                     Vinculación:{" "}
-                                                    {format(
-                                                        parseISO(e.dtFechaVinculacion),
+                                                    {e?.dtFechaVinculacion ? format(
+                                                        parseISO(e?.dtFechaVinculacion),
                                                         "yyyy-MM-dd"
-                                                    )}
+                                                    ) : null}
                                                 </Typography>
 
                                                 <Typography
