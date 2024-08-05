@@ -121,19 +121,19 @@ class updateFinalizarDiagnosticos {
             }
         }
 
-        if (!this.#bitDiagnosticoDiseño) {
-            if (!this.#bitDiagnosticoProducto) {
-                throw new Error(
-                    "Falta el diagnóstico de diseño de producto por diligenciar y finalizar"
-                );
-            }
+        // if (!this.#bitDiagnosticoDiseño) {
+        //     if (!this.#bitDiagnosticoProducto) {
+        //         throw new Error(
+        //             "Falta el diagnóstico de diseño de producto por diligenciar y finalizar"
+        //         );
+        //     }
 
-            if (!this.#bitDiagnosticoServicio) {
-                throw new Error(
-                    "Falta el diagnóstico de diseño de servicio por diligenciar y finalizar"
-                );
-            }
-        }
+        //     if (!this.#bitDiagnosticoServicio) {
+        //         throw new Error(
+        //             "Falta el diagnóstico de diseño de servicio por diligenciar y finalizar"
+        //         );
+        //     }
+        // }
     }
 
     async #getIntIdEstadoDiagnostico() {
