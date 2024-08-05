@@ -53,15 +53,13 @@ class setTarea {
     async #getIdea() {
         let queryGetIdEstado = await serviceGetIdeaEmpresario({
             intIdIdea: this.#objData.intIdIdea,
-        },this.#objUser);
+        }, this.#objUser);
 
         if (queryGetIdEstado.error) {
             throw new Error(queryGetIdEstado.msg);
         }
 
         this.#objIdea = queryGetIdEstado.data;
-
-        console.log(this.#objIdea[0].strNombre, this.#objIdea[0].objEmpresario.find((e)=> e.strTipoEmpresario === "Principal").strNombres)
     }
 
     async #setTarea() {
@@ -70,7 +68,7 @@ class setTarea {
         let newData = {
             ...this.#objData,
             btFinalizada: 0,
-            strUsuarioCreacion:this.#objUser.strEmail,
+            strUsuarioCreacion: this.#objUser.strEmail,
             strResponsable: JSON.stringify(this.#objData?.strResponsable)
         };
 
@@ -87,48 +85,53 @@ class setTarea {
         };
     }
 
-    async #sendEmail(){
-        const objDataEmpresarioPrincipal = this.#objIdea[0].objEmpresario.find((e)=> e.strTipoEmpresario === "Principal")
+    async #sendEmail() {
+        const objDataEmpresarioPrincipal = this.#objIdea[0].objEmpresario.find((e) => e.strTipoEmpresario === "Principal")
         const strNombreIdea = this.#objIdea[0].strNombre;
         const strNombreEmpresario = `${objDataEmpresarioPrincipal.strNombres} ${objDataEmpresarioPrincipal.strApellidos}`
+        const intIdIdea = this.#objIdea[0]?.intId
+
 
         let strMensaje = plantillaCorreoTareas({
             ...this.#objData,
             ...this.#objUser,
             strNombreIdea,
-            strNombreEmpresario
+            strNombreEmpresario,
+            intIdIdea
         })
-        let strEmailResponsables
+
+        let arrEmailTo = []
 
         if (typeof this.#objData.strResponsable === "object") {
-            console.log(this.#objData.strResponsable)
-            strEmailResponsables = this.#objData.strResponsable
-                .map((e) => {
-                    return e.strEmail;
+            const array = this.#objData.strResponsable
+
+            for (let i = 0; i < array.length; i++) {
+                arrEmailTo.push({
+                    email: array[i]?.strEmail
                 })
-                .join(";");
+
+            }
         }
 
-        console.log(strEmailResponsables)
-
         const querySendEmail = await sendEmail({
-            from:"transforma@demismanos.org",
-            to:"snayderlon115@gmail.com;mezapata@choucairtesting.com",
+            from: {
+                name: "Transforma Notificaciones",
+                email: "transforma@demismanos.org"
+            },
+            to: arrEmailTo,
             cc: "",
-            subject:"Nueva tarea",
+            subject: "Nueva tarea",
             message: strMensaje
         })
 
-        console.log(querySendEmail)
-
         if (querySendEmail.error) {
-            this.#objResult={
+            this.#objResult = {
                 ...this.#objResult,
                 msg: `La tarea fue registrada con éxito, sin embargo, no fue posible enviar la notificación por correo electrónico debido a un error en el Servicio de Mensajeria.`,
             }
             return;
         }
-        
+
     }
 }
 module.exports = setTarea;

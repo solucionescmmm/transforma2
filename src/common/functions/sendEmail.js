@@ -1,24 +1,23 @@
-const nodemailer = require("nodemailer");
-const { configMail } = require("../config/configEmail");
+const { configMail } = require("../config/configEmail")
 
-const transporter = nodemailer.createTransport(configMail)
+const mailchimpTx = require("@mailchimp/mailchimp_transactional")(configMail.key);
 
 const sendEmail = async (objParams) => {
-    const {from, to, cc, subject, message} = objParams
+    const { from, to, subject, message } = objParams
     try {
         if (!from || !to || !subject || !message) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
 
         let data = {
-            from: from,
+            from_email: from.email,
+            from_name: from.name,
             to: to,
-            cc: cc,
-            subject:subject,
-            html:message,
+            subject: subject,
+            html: message,
         };
 
-        let response = await transporter.sendMail(data);
+        let response = await mailchimpTx.messages.send({ message: data });
 
         let result = {
             error: false,
