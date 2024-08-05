@@ -140,7 +140,6 @@ const CardGrafica = ({ intIdIdea, type }) => {
             const ejeY = [];
 
             arrEtapaDllo?.forEach((v, i) => {
-                console.log(v);
                 ejeX.push({
                     x: parseISO(v.dtmCreacion),
                     y: v.intTotalPuntaje,

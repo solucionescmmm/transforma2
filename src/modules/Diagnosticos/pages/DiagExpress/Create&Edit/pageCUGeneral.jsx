@@ -394,8 +394,6 @@ const PageCUExpress = ({
                             } else {
                                 const dataDiag = res.data.data[0];
 
-                                console.log(dataDiag);
-
                                 setData((prevState) => {
                                     const objInfoGeneral = {
                                         ...prevState.objInfoGeneral,

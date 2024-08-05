@@ -167,9 +167,6 @@ const CreateEditPersonasSec = ({
     const submitData = useCallback(
         async (signalSubmitData) => {
             setLoading(true);
-
-            console.log(data.dtFechaNacimiento ? "Holaa" : "Null");
-
             setFlagSubmit(false);
 
             await axios(

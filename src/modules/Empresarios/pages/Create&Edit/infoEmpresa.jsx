@@ -92,7 +92,6 @@ const InfoEmpresa = ({
     };
 
     const handlerChangeData = (name, value) => {
-        console.log(name, value);
         setData((prevState) => ({
             ...prevState,
             [name]: value,

@@ -124,7 +124,6 @@ const ModalDesvincular = ({ handleOpenDialog, open, intIdIdea, refresh, selected
     //========================================== useEffects =========================================================================================
     //===============================================================================================================================================
     useEffect(() => {
-        //console.log(selectedData, intIdIdea)
         if (intIdIdea && selectedData) {
             setData({
                 intIdIdea,

@@ -292,7 +292,7 @@ const PaperFase = ({
         if (mode.type === "edit") {
             if (
                 newArrServicios.find(
-                    (x) =>
+                    (x, index) =>
                         x.objServicio.objInfoPrincipal.strNombre ===
                             value.objServicio.objInfoPrincipal.strNombre &&
                         mode.index !== index
@@ -416,7 +416,7 @@ const PaperFase = ({
 
             const valor =
                 data.arrPaquetes[i].valor ||
-                data.arrPaquetes[i].ValorTotalPaquete;
+                data.arrPaquetes[i].ValorTotalPaquete || 0;
 
             let objSedeTarifa = data.arrPaquetes[i].objSedeTarifa;
 
@@ -444,7 +444,7 @@ const PaperFase = ({
 
             const valor =
                 data.arrServicios[i].valor ||
-                data.arrServicios[i].ValorTotalServicio;
+                data.arrServicios[i].ValorTotalServicio || 0;
 
             let objSedeTarifa = data.arrServicios[i].objSedeTarifa;
 

@@ -244,7 +244,7 @@ const ModalAddServicio = ({ handleOpenDialog, open, onChange, values }) => {
                                             onChange={(e, value) => {
                                                 setValue(
                                                     "valor",
-                                                    value?.Valor || ""
+                                                    value?.Valor || 0
                                                 );
                                                 onChange(value);
                                             }}

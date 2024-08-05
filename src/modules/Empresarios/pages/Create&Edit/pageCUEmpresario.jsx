@@ -914,7 +914,6 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                         variant="contained"
                                         type="submit"
                                         loading={loading}
-                                        onClick={()=>console.log(errors)}
                                     >
                                         {isEdit ? "guardar" : "registrar"}
                                     </LoadingButton>

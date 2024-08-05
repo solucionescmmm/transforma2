@@ -152,7 +152,6 @@ const PDFProduct = ({ intId, values, intIdDiagnostico }) => {
             ? `<p class="textObj">${values.strConclusiones}</p>`
             : "";
 
-        console.log(values);
         let htmlNormatividad = "";
 
         if (values?.objInfoNormatividad) {

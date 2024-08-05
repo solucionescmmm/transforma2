@@ -1056,7 +1056,6 @@ const InfoEmprendimiento = ({
                                     disabled={disabled}
                                     onChange={(e) => {
                                         onChange(e)
-                                        console.log(e.target)
                                         handlerChangeData(
                                             "strProductoServiciosEnValidacion",
                                             e.target.value

@@ -22,7 +22,6 @@ const PaperGetComentarios = ({ socket, values }) => {
         });
 
         socket.on("mdlComentarios:getComentarios", (res) => {
-            console.log(res.data)
             setArrComentarios(res.data || []);
         });
 

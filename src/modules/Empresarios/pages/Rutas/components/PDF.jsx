@@ -159,7 +159,6 @@ const PDFProduct = ({ intIdIdea, intId }) => {
     const [objInfoEmpresa, setObjInfoEmpresa] = useState();
     const [objInfoPrincipal, setObjInfoPrincipal] = useState();
     const [dataFases, setDataFases] = useState();
-    console.log(intId);
 
     //===============================================================================================================================================
     //========================================== Hooks personalizados ===============================================================================
@@ -201,7 +200,6 @@ const PDFProduct = ({ intIdIdea, intId }) => {
                     let htmlResultado = "";
 
                     if (objPaquete) {
-                        debugger
                         const { objInfoPrincipal } = objPaquete;
 
                         if (

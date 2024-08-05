@@ -117,13 +117,24 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
     }, [success]);
 
     useEffect(() => {
-        setData({
-            strResponsable: values?.value
+        let strResponsable =
+            values?.value?.strResponsable &&
+            typeof values?.value?.strResponsable === "string"
+                ? JSON.parse(values?.value?.strResponsable)
+                : values?.value?.strResponsable
                 ? values?.value?.strResponsable
-                : null,
+                : null;
+
+        strResponsable =
+            typeof strResponsable === "string"
+                ? JSON.parse(strResponsable)
+                : strResponsable;
+
+        setData({
+            strResponsable,
             objServicio: values?.value ? values.value?.objServicio : null,
             arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
-            valor: values?.value ? values.value?.Valor : "",
+            valor: values?.value ? values.value?.valor : "",
             intDuracionHoras: values?.value
                 ? values.value?.intDuracionHoras
                 : "",
@@ -134,12 +145,10 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
         });
 
         reset({
-            strResponsable: values?.value
-                ? values?.value?.strResponsable
-                : null,
+            strResponsable,
             objServicio: values?.value ? values.value?.objServicio : null,
             arrObjetivos: values?.value ? values.value?.arrObjetivos : [],
-            valor: values?.value ? values.value?.Valor : "",
+            valor: values?.value ? values.value?.valor : "",
             intDuracionHoras: values?.value
                 ? values.value?.intDuracionHoras
                 : "",
@@ -264,7 +273,7 @@ const ModalEditServicio = ({ handleOpenDialog, open, onChange, values }) => {
                                             onChange={(e, value) => {
                                                 setValue(
                                                     "valor",
-                                                    value?.Valor || ""
+                                                    value?.Valor || 0
                                                 );
                                                 onChange(value);
                                             }}
