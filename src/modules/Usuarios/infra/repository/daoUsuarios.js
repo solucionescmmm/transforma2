@@ -13,7 +13,7 @@ class daoUsuarios {
                 .request()
                 .input("pstrApp", sql.VarChar, data.strApp)
                 .execute("usp_ConsultarUsuarios");
-            
+
             let result = {
                 error: false,
                 data: response.recordsets[0]
@@ -41,8 +41,16 @@ class daoUsuarios {
                 .request()
                 .input("pstrApp", sql.VarChar, data.strApp)
                 .input("pstrEmail", sql.VarChar, data.strEmail)
+                .output("P_bitError", sql.Bit)
+                .output("P_strMsg", sql.VarChar)
                 .execute("usp_ConsultarRolesApps");
-            
+
+            console.log(response)
+
+            if (response.output.P_bitError) {
+                throw new Error(response.output.P_strMsg)
+            }
+
             let result = {
                 error: false,
                 data: response.recordsets[0]
