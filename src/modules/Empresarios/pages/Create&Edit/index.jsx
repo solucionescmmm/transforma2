@@ -362,6 +362,10 @@ const SearchEmpresario = ({ isEdit }) => {
                                             if (value === " ") {
                                                 return "Por favor, digita el número de documento";
                                             }
+
+                                            if (value.includes(" ")) {
+                                                return "El número de documento no puede contener espacios";
+                                            }
                                         },
                                     }}
                                 />
