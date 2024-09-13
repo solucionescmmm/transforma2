@@ -40,7 +40,7 @@ import ModalDesvincular from "./ModalDesvincular";
 import ModalNoContactar from "./modalNoContactar";
 
 //Componentes
-import { AbilityContext } from "../../../../common/functions/can";
+import { AbilityContext, Can } from "../../../../common/functions/can";
 
 
 const ReadPersonaSecundaria = ({
@@ -114,7 +114,7 @@ const ReadPersonaSecundaria = ({
 
     const refresh = ({ intIdIdea }) => {
         refreshGetData({ intIdIdea });
-        refreshGlobal({ intId:intIdIdea });
+        refreshGlobal({ intId: intIdIdea });
     };
 
     //===============================================================================================================================================
@@ -287,46 +287,48 @@ const ReadPersonaSecundaria = ({
                                 }
                                 actions={[
                                     (rowData) => {
-                                        return {
-                                            icon: () => (
-                                                <EditIcon
-                                                    color={
-                                                        rowData.strTipoEmpresario ===
-                                                        "Principal" || rowData.strEstado === "Desvinculado"
-                                                            ? "gray"
-                                                            : "success"
-                                                    }
-                                                    fontSize="small"
-                                                    onClick={() =>
-                                                        onChangeRoute(
-                                                            "PersonasEdit",
-                                                            rowData
-                                                        )
-                                                    }
-                                                />
-                                            ),
-                                            tooltip: "Editar",
-                                            disabled:
-                                                rowData.strTipoEmpresario ===
-                                                "Principal" || rowData.strEstado === "Desvinculado",
-                                        };
+                                        if (ability.can("create", "Empresario")) {
+                                            return {
+                                                icon: () => (
+                                                    <EditIcon
+                                                        color={
+                                                            rowData.strTipoEmpresario ===
+                                                                "Principal" || rowData.strEstado === "Desvinculado"
+                                                                ? "gray"
+                                                                : "success"
+                                                        }
+                                                        fontSize="small"
+                                                        onClick={() =>
+                                                            onChangeRoute(
+                                                                "PersonasEdit",
+                                                                rowData
+                                                            )
+                                                        }
+                                                    />
+                                                ),
+                                                tooltip: "Editar",
+                                                disabled:
+                                                    rowData.strTipoEmpresario ===
+                                                    "Principal" || rowData.strEstado === "Desvinculado",
+                                            };
+                                        }
                                     },
                                     (rowData) => {
-                                        if (ability.can("cancel", "Eventos")) {
+                                        if (ability.can("disabled", "Empresario")) {
                                             return {
                                                 icon: () => (
                                                     <CancelIcon
                                                         color={
                                                             rowData.strTipoEmpresario ===
-                                                            "Principal" || rowData.strEstado ===
-                                                            "Desvinculado"
+                                                                "Principal" || rowData.strEstado ===
+                                                                "Desvinculado"
                                                                 ? "gray"
                                                                 : "error"
                                                         }
                                                         fontSize="small"
                                                     />
                                                 ),
-                                                disabled:rowData.strTipoEmpresario === "Principal" || rowData.strEstado === "Desvinculado",
+                                                disabled: rowData.strTipoEmpresario === "Principal" || rowData.strEstado === "Desvinculado",
                                                 onClick: (event, rowData) => {
                                                     setSelectedData(rowData);
                                                     handlerOpenModalCancelacion();
@@ -383,37 +385,42 @@ const ReadPersonaSecundaria = ({
                                                     md={6}
                                                     sx={{ margin: "auto" }}
                                                 >
-                                                    <Box
-                                                        sx={{
-                                                            display: "flex",
-                                                            flexDirection:
-                                                                "row-reverse",
-                                                            marginBottom:
-                                                                "10px",
-                                                            gap: 1,
-                                                        }}
+                                                    <Can
+                                                        I="create"
+                                                        a="Empresario"
                                                     >
-                                                        <Button
-                                                            onClick={() =>
-                                                                onChangeRoute(
-                                                                    "PersonasCreate"
-                                                                )
-                                                            }
-                                                            variant="contained"
+                                                        <Box
+                                                            sx={{
+                                                                display: "flex",
+                                                                flexDirection:
+                                                                    "row-reverse",
+                                                                marginBottom:
+                                                                    "10px",
+                                                                gap: 1,
+                                                            }}
                                                         >
-                                                            Agregar/Re-vincular persona
-                                                        </Button>
+                                                            <Button
+                                                                onClick={() =>
+                                                                    onChangeRoute(
+                                                                        "PersonasCreate"
+                                                                    )
+                                                                }
+                                                                variant="contained"
+                                                            >
+                                                                Agregar/Re-vincular persona
+                                                            </Button>
 
-                                                        <Button
-                                                            variant="contained"
-                                                            onClick={() =>
-                                                                handleOpenDialogRepresentante()
-                                                            }
-                                                        >
-                                                            reemplazar
-                                                            representante
-                                                        </Button>
-                                                    </Box>
+                                                            <Button
+                                                                variant="contained"
+                                                                onClick={() =>
+                                                                    handleOpenDialogRepresentante()
+                                                                }
+                                                            >
+                                                                reemplazar
+                                                                representante
+                                                            </Button>
+                                                        </Box>
+                                                    </Can>
                                                 </Grid>
                                             </Grid>
                                         </div>

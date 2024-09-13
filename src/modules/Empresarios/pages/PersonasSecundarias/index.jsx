@@ -443,7 +443,7 @@ const SearchEmpresario = ({ isEdit, intIdIdea, onChangeRoute, values }) => {
                                                             </td>
                                                             <td>
                                                                 {
-                                                                    x.strEstado === "Inactivo" ? "Desvinculado" : x.strEstado 
+                                                                    x.strEstado === "Inactivo" ? "Desvinculado" : x.strEstado
                                                                 }
                                                             </td>
                                                             <td>

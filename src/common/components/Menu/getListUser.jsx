@@ -25,6 +25,7 @@ import {
     Engineering as EngineeringIcon,
     Stadium as StadiumIcon
 } from "@mui/icons-material";
+import { Can } from "../../functions/can";
 
 
 const ListItem = withStyles({
@@ -229,26 +230,31 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
                 <ListItemText primary="Reportar una situación" />
             </ListItem> */}
 
-            <ListItem
-                button
-                component={RouterLink}
-                to="/transforma/admin"
-                selected={
-                    location.pathname.startsWith("/transforma/admin")
-                        ? true
-                        : false
-                }
-                onClick={(e) => {
-                    if (movil) {
-                        toggleDrawer(e, false);
-                    }
-                }}
+            <Can
+                I="manage"
+                a="all"
             >
-                <ListItemIcon>
-                    <EngineeringIcon />
-                </ListItemIcon>
-                <ListItemText primary="Admin" />
-            </ListItem>
+                <ListItem
+                    button
+                    component={RouterLink}
+                    to="/transforma/admin"
+                    selected={
+                        location.pathname.startsWith("/transforma/admin")
+                            ? true
+                            : false
+                    }
+                    onClick={(e) => {
+                        if (movil) {
+                            toggleDrawer(e, false);
+                        }
+                    }}
+                >
+                    <ListItemIcon>
+                        <EngineeringIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Admin" />
+                </ListItem>
+            </Can>
         </List>
     );
 };

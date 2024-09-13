@@ -264,7 +264,7 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
                                                     >
                                                         <Can
                                                             I="create"
-                                                            a="Maestros"
+                                                            a="Acomp"
                                                         >
                                                             <Button
                                                                 onClick={() =>
