@@ -34,10 +34,10 @@ class setAcompañamiento {
         await this.#getTipoAcompañamiento()
         await this.#validations();
         await this.#setAcompañamiento();
-        await this.#setSesionAcompañamiento();
         if (this.#strTipoAcompañamiento === "Para un nuevo servicio") {
             await this.#setRutasNoPlaneada()
         }
+        await this.#setSesionAcompañamiento();
 
         return this.#objResult;
     }
@@ -161,6 +161,7 @@ class setAcompañamiento {
                 this.#objData.objNuevoServPaq?.objServicio?.objInfoPrincipal?.strNombre
             }`,
             strTipoRuta:"No planeada",
+            strEstado:"Aceptada/En Proceso",
             arrInfoFases: [{
                 strObservaciones: "Ruta creada a partir de un acompañamiento",
                 arrServicios: this.#objData.objNuevoServPaq?.objServicio ? [
@@ -176,7 +177,10 @@ class setAcompañamiento {
             data,
             this.#objUser
         );
+
         let query = await service.main();
+
+        console.log(query)
 
         if (query.error) {
             throw new Error(query.msg);

@@ -59,11 +59,15 @@ class setRutaVacia {
         if (!this.#objData.intIdIdea) {
             throw new Error("Se esperaban parámetros de entrada.");
         }
+
+        if (!this.#objData.strEstado) {
+            throw new Error("Se esperaban parámetros de entrada.");
+        }
     }
 
     async #getIdEstado() {
         let queryGetIdEstado = await serviceGetIdEstado({
-            strNombre: "En borrador",
+            strNombre: this.#objData.strEstado,
         });
 
         if (queryGetIdEstado.error) {
@@ -102,7 +106,7 @@ class setRutaVacia {
 
         let newData = {
             ...this.#objData,
-            strNombre: this.#objData?.strNombre ? this.#objData?.strNombre :  `Ruta #${this.#intNumRutas + 1}`,
+            strNombre: this.#objData?.strNombre ? this.#objData?.strNombre : `Ruta #${this.#intNumRutas + 1}`,
             valorTotalRuta: null,
             intIdTipoRuta: this.#intIdTipo,
             intIdEstadoRuta: this.#intIdEstado,
@@ -118,12 +122,6 @@ class setRutaVacia {
         }
 
         this.#intIdRuta = query.data.intId;
-
-        this.#objResult = {
-            error: query.error,
-            data: query.data,
-            msg: query.msg,
-        };
     }
 
     async #setFases() {
@@ -156,6 +154,12 @@ class setRutaVacia {
             }
 
             this.#intIdFase = query.data.intId;
+
+            this.#objResult = {
+                error: query.error,
+                data: query.data,
+                msg: query.msg,
+            };
 
             let arrServicios = objDataFase.arrServicios;
 

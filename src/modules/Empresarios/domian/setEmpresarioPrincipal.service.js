@@ -197,6 +197,7 @@ class setEmpresarioPrincipal {
         let query = await dao.setEmpresario(newData);
 
         if (query.error) {
+            await this.#rollbackTransaction();
             throw new Error(query.msg);
         }
 

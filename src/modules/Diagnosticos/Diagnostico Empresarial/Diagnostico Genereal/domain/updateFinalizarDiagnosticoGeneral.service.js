@@ -5,9 +5,6 @@ const validator = require("validator").default;
 //class
 const classInterfaceDAODiagnosticoGeneral = require("../infra/conectors/interfaseDAODiagnosticoGeneral");
 
-//Services
-const serviceSetRutaVacia = require("../../../../Rutas/domain/setRutaVacia.service")
-
 class updateFinalizarDiagnosticoGeneral {
     #objData;
     #objUser;

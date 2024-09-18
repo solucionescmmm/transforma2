@@ -182,6 +182,7 @@ class updateFinalizarDiagnosticos {
             }`,
             strResponsable: "{}",
             strTipoRuta: "Planeada",
+            strEstado:"En borrador",
             arrInfoFases: [
                 {
                     strObservaciones: `Ruta creada a partir de la finalización del diagnóstico #${
