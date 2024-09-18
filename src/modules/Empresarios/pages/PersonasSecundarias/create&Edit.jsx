@@ -173,30 +173,30 @@ const CreateEditPersonasSec = ({
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${
-                        isEdit
+                    url: `${isEdit
                             ? process.env
-                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_UPDATE_SECUNDARIOS
+                                .REACT_APP_API_TRANSFORMA_INTERESADOS_UPDATE_SECUNDARIOS
                             : process.env
-                                  .REACT_APP_API_TRANSFORMA_INTERESADOS_SET_SECUNDARIOS
-                    }`,
+                                .REACT_APP_API_TRANSFORMA_INTERESADOS_SET_SECUNDARIOS
+                        }`,
                     data,
                     transformRequest: [
                         (data) => {
                             let newData = {
                                 ...data,
+                                strNroDocto: data?.strNroDocto?.replace(/ /g, ""),
                                 dtFechaExpedicionDocto:
                                     data.dtFechaExpedicionDocto
                                         ? format(
-                                              data.dtFechaExpedicionDocto,
-                                              "yyyy-MM-dd"
-                                          )
+                                            data.dtFechaExpedicionDocto,
+                                            "yyyy-MM-dd"
+                                        )
                                         : null,
                                 dtFechaNacimiento: data.dtFechaNacimiento
                                     ? format(
-                                          data.dtFechaNacimiento,
-                                          "yyyy-MM-dd"
-                                      )
+                                        data.dtFechaNacimiento,
+                                        "yyyy-MM-dd"
+                                    )
                                     : null,
                             };
 

@@ -72,6 +72,7 @@ import {
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
 } from "@mui/icons-material";
+import { Can } from "../../../../common/functions/can";
 
 const styles = makeStyles((theme) => ({
     link: {
@@ -319,16 +320,14 @@ const Coco = () => {
                                 height: 80,
                             }}
                             alt="logo"
-                            src={`${process.env.REACT_APP_API_BACK_PROT}://${
-                                process.env.REACT_APP_API_BACK_HOST
-                            }${process.env.REACT_APP_API_BACK_PORT}${
-                                objInteresado?.objEmpresario
+                            src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST
+                                }${process.env.REACT_APP_API_BACK_PORT}${objInteresado?.objEmpresario
                                     ?.filter(
                                         (p) =>
                                             p.strTipoEmpresario === "Principal"
                                     )
                                     ?.at(0)?.strUrlFileFoto || ""
-                            }`}
+                                }`}
                         />
 
                         <Box
@@ -378,22 +377,24 @@ const Coco = () => {
                                         ?.at(0)?.strEstadoVinculacion || ""}
                                 </span>
 
-                                <Button
-                                    size="small"
-                                    sx={{
-                                        padding: "0",
-                                        letterSpacing: "0",
-                                        fontSize: "12px",
-                                    }}
-                                    variant="contained"
-                                    onClick={() =>
-                                        location.push(
-                                            `/transforma/asesor/empresario/edit/${intId}`
-                                        )
-                                    }
-                                >
-                                    Editar
-                                </Button>
+                                <Can I="update" a="Empresarios">
+                                    <Button
+                                        size="small"
+                                        sx={{
+                                            padding: "0",
+                                            letterSpacing: "0",
+                                            fontSize: "12px",
+                                        }}
+                                        variant="contained"
+                                        onClick={() =>
+                                            location.push(
+                                                `/transforma/asesor/empresario/edit/${intId}`
+                                            )
+                                        }
+                                    >
+                                        Editar
+                                    </Button>
+                                </Can>
                             </Typography>
                         </Box>
 

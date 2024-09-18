@@ -205,7 +205,7 @@ const CUEmpresario = ({ isEdit, values, isRep, resetSearch }) => {
                                     strTipoDocto:
                                         data.objInfoEmpresarioPr.strTipoDocto,
                                     strNroDocto:
-                                        data.objInfoEmpresarioPr.strNroDocto?.trim(),
+                                        data.objInfoEmpresarioPr.strNroDocto?.replace(/ /g, ""),
                                     strLugarExpedicionDocto:
                                         data.objInfoEmpresarioPr
                                             .strLugarExpedicionDocto,

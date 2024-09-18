@@ -101,7 +101,7 @@ const SelectTipoAcomp = ({
             select
         >
             {data.map((e, i) => (
-                e.strNombre !== "Asociado a un evento" ?
+                e.strNombre !== "Asociado a un evento" && e.strNombre !== "Reunión informal" ?
                     <MenuItem value={e.intId} key={i}>
                         {e.strNombre}
                     </MenuItem> : null

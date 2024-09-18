@@ -115,14 +115,30 @@ const HomePage = () => {
                         height: "100%",
                     }}
                 >
-                    <Grid container direction="row" spacing={2}>
-                        <Grid item xs={12}>
+                    <Box sx={{ display: "flex" }}>
+                        <Box sx={{ flexGrow: 1 }}>
                             <Typography
                                 sx={{ color: "#3b7678", fontWeight: "bold" }}
                             >
                                 Conoce las nuevas personas emprendedoras
                             </Typography>
-                        </Grid>
+                        </Box>
+
+                        <Box>
+                            <Button
+                                onClick={() =>
+                                    history.push(
+                                        "/transforma/asesor/empresario/read/all"
+                                    )
+                                }
+                                size="small"
+                                sx={{ color: "#3b7678", fontSize: "11px" }}
+                            >
+                                Ver todo
+                            </Button>
+                        </Box>
+                    </Box>
+                    <Grid container direction="row" spacing={2}>
 
                         {dataLastEmp?.map((e, i) => (
                             <Grid item xs={6} md={4} sx={{ flex: "1" }} key={i}>
