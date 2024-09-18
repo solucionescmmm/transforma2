@@ -20,6 +20,8 @@ class setAcompañamiento {
     #intIdAcompañamiento;
     #intIdDocumento = null;
     #strTipoAcompañamiento;
+    #intIdRuta;
+    #intIdFase;
 
     /**
      * @param {object} data
@@ -65,13 +67,13 @@ class setAcompañamiento {
         }
     }
 
-    async #getTipoAcompañamiento(){
-        let query = await serviceGetTipoAcompañamiento({intId:this.#objData.intTipoAcomp},this.#objUser)
+    async #getTipoAcompañamiento() {
+        let query = await serviceGetTipoAcompañamiento({ intId: this.#objData.intTipoAcomp }, this.#objUser)
 
         if (query.error) {
             throw new Error(query.msg)
         }
-        
+
         this.#strTipoAcompañamiento = query.data?.[0]?.strNombre
     }
 
@@ -108,8 +110,8 @@ class setAcompañamiento {
             intIdEmpresario: this.#objData.objEmpresario?.intId,
             dtmFechaInicial: this.#objData.dtmFechaInicio,
             dtmFechaFinal: this.#objData.dtmFechaFinal,
-            intIdRuta: this.#objData?.objInfoRutaExs?.objRuta?.objInfoPrincipal?.intId || null,
-            intIdFase: this.#objData?.objInfoRutaExs?.objFase?.intId || null,
+            intIdRuta: this.#objData?.objInfoRutaExs?.objRuta?.objInfoPrincipal?.intId || this.#intIdRuta,
+            intIdFase: this.#objData?.objInfoRutaExs?.objFase?.intId || this.#intIdFase,
             intIdPaquete: null,
             intIdServicio: this.#objData?.objNuevoServPaq?.objServicio?.objInfoPrincipal?.intId || this.#objData?.objInfoRutaExs?.objServicio?.objServicio?.objInfoPrincipal?.intId || null,
             strUbicacion: this.#objData.strLugarActividad,
@@ -157,11 +159,10 @@ class setAcompañamiento {
             intIdIdea: this.#objData.intIdIdea,
             strObservaciones: "Ruta creada a partir de un acompañamiento",
             strResponsable: this.#objData.objResponsable[0],
-            strNombre:`Ruta no planeada del servicio ${ 
-                this.#objData.objNuevoServPaq?.objServicio?.objInfoPrincipal?.strNombre
-            }`,
-            strTipoRuta:"No planeada",
-            strEstado:"Aceptada/En Proceso",
+            strNombre: `Ruta no planeada del servicio ${this.#objData.objNuevoServPaq?.objServicio?.objInfoPrincipal?.strNombre
+                }`,
+            strTipoRuta: "No planeada",
+            strEstado: "Aceptada/En Proceso",
             arrInfoFases: [{
                 strObservaciones: "Ruta creada a partir de un acompañamiento",
                 arrServicios: this.#objData.objNuevoServPaq?.objServicio ? [
@@ -180,20 +181,21 @@ class setAcompañamiento {
 
         let query = await service.main();
 
-        console.log(query)
+        this.#intIdRuta = query.data?.intIdRuta
+        this.#intIdFase = query.data?.intId
 
         if (query.error) {
             throw new Error(query.msg);
         }
     }
 
-    async #setFinalizarServicio(){
+    async #setFinalizarServicio() {
         let arrObjetivos = []
 
         for (const [key, value] of Object.entries(this.#objData.objObjetivos)) {
             let newKey = parseInt(key)
             if (!isNaN(newKey)) {
-                arrObjetivos.push({intIdObjetivo: newKey, ...value,})
+                arrObjetivos.push({ intIdObjetivo: newKey, ...value, })
             }
         }
 

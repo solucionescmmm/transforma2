@@ -20,7 +20,6 @@ class updateSesionAcompañamiento {
     }
 
     async main() {
-        console.log(this.#objData)
         await this.#validations();
         await this.#updateSesionAcompañamiento();
         return this.#objResult;

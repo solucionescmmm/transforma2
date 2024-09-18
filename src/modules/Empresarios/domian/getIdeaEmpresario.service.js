@@ -44,8 +44,6 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                 let dataEmpresarioPrincipal = arrayEmpresario?.find((i) => i.strTipoEmpresario === "Principal")
                 let dataIdeaEmpresarioPrincipal = arrayIdeaEmpresario?.find((i) => i.strTipoEmpresario === "Principal")
 
-                console.log(dataEmpresarioPrincipal);
-
                 objEmpresario.push({
                     ...dataEmpresarioPrincipal,
                     strNombreCompleto: `${dataEmpresarioPrincipal?.strNombres} ${dataEmpresarioPrincipal?.strApellidos}`,

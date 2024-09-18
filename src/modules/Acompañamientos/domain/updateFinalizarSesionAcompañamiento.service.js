@@ -19,9 +19,6 @@ class updateFinalizarSesionAcompañamiento {
     }
 
     async main() {
-        console.log(this.#objData?.arrObjetivosServ)
-        console.log(this.#objData?.arrObjetivosPaq)
-        console.log(this.#objData)
         if (this.#objData?.arrObjetivosServ) {
             await this.#checkServicioFase()
         }

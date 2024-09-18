@@ -45,8 +45,6 @@ class daoUsuarios {
                 .output("P_strMsg", sql.VarChar)
                 .execute("usp_ConsultarRolesApps");
 
-            console.log(response)
-
             if (response.output.P_bitError) {
                 throw new Error(response.output.P_strMsg)
             }
