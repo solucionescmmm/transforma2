@@ -44,6 +44,8 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                 let dataEmpresarioPrincipal = arrayEmpresario?.find((i) => i.strTipoEmpresario === "Principal")
                 let dataIdeaEmpresarioPrincipal = arrayIdeaEmpresario?.find((i) => i.strTipoEmpresario === "Principal")
 
+                console.log(dataEmpresarioPrincipal);
+
                 objEmpresario.push({
                     ...dataEmpresarioPrincipal,
                     strNombreCompleto: `${dataEmpresarioPrincipal?.strNombres} ${dataEmpresarioPrincipal?.strApellidos}`,
@@ -56,7 +58,8 @@ const getIdeaEmpresario = async (objParams, strDataUser) => {
                     intIdEstadoVinculacion: dataIdeaEmpresarioPrincipal?.intIdEstadoVinculacionEmpresario,
                     strTipoVinculacion: dataIdeaEmpresarioPrincipal?.strTipoVinculacion,
                     strEstado: dataIdeaEmpresarioPrincipal?.strEstado,
-                    strEstadoVinculacion: dataIdeaEmpresarioPrincipal?.strEstadoVinculacion
+                    strEstadoVinculacion: dataIdeaEmpresarioPrincipal?.strEstadoVinculacion,
+                    strUbicacion:`${JSON.parse(dataEmpresarioPrincipal?.strDepartamento || '{"region_name":"No registro"}')?.region_name} - ${JSON.parse(dataEmpresarioPrincipal?.strCiudad || '{"city_name":"No registro"}')?.city_name} - ${dataEmpresarioPrincipal?.strBarrio}`
                 })
 
                 for (let j = 0; j < arrayEmpresario.length; j++) {
