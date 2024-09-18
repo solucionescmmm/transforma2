@@ -115,7 +115,7 @@ const HomePage = () => {
                         height: "100%",
                     }}
                 >
-                    <Box sx={{ display: "flex" }}>
+                    <Box sx={{ display: "flex", paddingBottom:2 }}>
                         <Box sx={{ flexGrow: 1 }}>
                             <Typography
                                 sx={{ color: "#3b7678", fontWeight: "bold" }}
@@ -132,7 +132,7 @@ const HomePage = () => {
                                     )
                                 }
                                 size="small"
-                                sx={{ color: "#3b7678", fontSize: "11px" }}
+                                sx={{ color: "#3b7678", fontSize: "11px", fontWeight: "bold" }}
                             >
                                 Ver todo
                             </Button>

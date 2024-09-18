@@ -29,6 +29,7 @@ import {
     EmailOutlined as EmailIcon,
     PhoneAndroidOutlined as PhoneIcon,
     PlaceOutlined as PlaceIcon,
+    HomeOutlined as HomeIconOutliend
 } from "@mui/icons-material";
 
 //Estilos
@@ -412,6 +413,75 @@ const Coco = () => {
                                     fontSize: "0.80rem !important",
                                 }}
                             >
+                                <b>Tipo de documento: </b>
+                                {objInteresado?.objEmpresario
+                                    ?.filter(
+                                        (p) =>
+                                            p.strTipoEmpresario === "Principal"
+                                    )
+                                    ?.at(0)?.strTipoDocto || "No registro"}
+                            </Typography>
+
+                            <Typography
+                                variant="caption"
+                                sx={{
+                                    fontSize: "0.80rem !important",
+                                }}
+                            >
+                                <b>Número de documento: </b>
+                                {objInteresado?.objEmpresario
+                                    ?.filter(
+                                        (p) =>
+                                            p.strTipoEmpresario === "Principal"
+                                    )
+                                    ?.at(0)?.strNroDocto || "No registro"}
+                            </Typography>
+
+                            <Typography
+                                variant="caption"
+                                sx={{
+                                    fontSize: "0.80rem !important",
+                                }}
+                            >
+                                <b>Número de celular: </b>
+                                {objInteresado?.objEmpresario
+                                    ?.filter(
+                                        (p) =>
+                                            p.strTipoEmpresario === "Principal"
+                                    )
+                                    ?.at(0)?.strCelular1 || "No registro"}
+                            </Typography>
+
+                            <Typography
+                                variant="caption"
+                                sx={{
+                                    fontSize: "0.80rem !important",
+                                }}
+                            >
+                                <b>Correo electrónico: </b>
+                                {objInteresado?.objEmpresario
+                                    ?.filter(
+                                        (p) =>
+                                            p.strTipoEmpresario === "Principal"
+                                    )
+                                    ?.at(0)?.strCorreoElectronico1 || "No registro"}
+                            </Typography>
+                        </Box>
+
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexGrow: "1",
+                                marginTop: "5px",
+                                flexDirection: "column",
+                            }}
+                        >
+                            <Typography
+                                variant="caption"
+                                sx={{
+                                    fontSize: "0.80rem !important",
+                                }}
+                            >
                                 <b>Fecha de vinculación: </b>
                                 {objInteresado?.objEmpresario
                                     ?.filter(
@@ -699,6 +769,39 @@ const Coco = () => {
                                                         }}
                                                     >
                                                         <PlaceIcon
+                                                            className={
+                                                                classes.icon
+                                                            }
+                                                            htmlColor="#00BAB3"
+                                                        />
+                                                        <Typography
+                                                            sx={{
+                                                                fontSize:
+                                                                    "12px",
+                                                                marginTop:
+                                                                    "4px",
+                                                            }}
+                                                        >
+                                                            {objInteresado?.objEmpresario
+                                                                ?.filter(
+                                                                    (p) =>
+                                                                        p.strTipoEmpresario ===
+                                                                        "Principal"
+                                                                )
+                                                                ?.at(0)
+                                                                ?.strUbicacion ||
+                                                                "No registro"}
+                                                        </Typography>
+                                                    </Box>
+
+                                                    <Box
+                                                        sx={{
+                                                            display: "flex",
+                                                            flexDirection:
+                                                                "row",
+                                                        }}
+                                                    >
+                                                        <HomeIconOutliend
                                                             className={
                                                                 classes.icon
                                                             }
