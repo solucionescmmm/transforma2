@@ -2,6 +2,7 @@
 const setTarea = require("../../domain/setTarea.service");
 const setFinalizarTarea = require("../../domain/setFinalizarTarea.service")
 const getTarea = require("../../domain/getTarea.service");
+const getEstadoTarea = require("../../domain/getEstadoTarea.service");
 const updateTarea = require("../../domain/updateTarea.service");
 const deleteTarea = require("../../domain/deleteTarea.service");
 
@@ -103,6 +104,28 @@ class ctrl_Tarea {
             let { strDataUser } = req;
 
             let query = await getTarea(objParams, strDataUser);
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async getEstadoTarea(req, res) {
+        try {
+            let objParams = req.query;
+            let { strDataUser } = req;
+
+            let query = await getEstadoTarea(objParams, strDataUser);
 
             if (query.error) {
                 throw new Error(query.msg);

@@ -30,4 +30,9 @@ routes.get("/transforma/api/Tareas/getTarea", async(req, res)=>{
     await controllerTareas.getTarea(req, res)
 })
 
+routes.get("/transforma/api/Tareas/getEstadoTarea", async(req, res)=>{
+    let controllerTareas = new classController()
+    await controllerTareas.getEstadoTarea(req, res)
+})
+
 module.exports = routes;

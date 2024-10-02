@@ -101,6 +101,7 @@ class updateFinalizarSesionAcompañamiento {
         let newData={
             ...this.#objData,
             btFinalizado: true,
+            btFinalizarServicio: this.#objData?.bitFinalizarAcompañamiento,
             strUsuarioActualizacion: this.#objUser.strEmail
         }
 

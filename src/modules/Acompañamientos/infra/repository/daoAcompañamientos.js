@@ -386,6 +386,7 @@ class daoAcompañamientos {
             UPDATE tbl_Sesiones_Acompañamientos
 
             SET btFinalizado            = COALESCE(${data.btFinalizado},btFinalizado),
+                btFinalizarServicio     = COALESCE(${data.btFinalizarServicio}, btFinalizarServicio),
                 strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
                 dtmActualizacion        = COALESCE(GETDATE(), dtmActualizacion)
 

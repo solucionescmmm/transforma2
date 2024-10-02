@@ -18,6 +18,8 @@ class setTarea {
     #objResult;
     #objIdea;
 
+    #intIdEstadoTarea
+
     /**
      * @param {object} data
      * @param {object} strDataUser
@@ -28,6 +30,7 @@ class setTarea {
     }
 
     async main() {
+        await this.#getIdEstadoTarea()
         await this.#validations();
         await this.#getIdea()
         await this.#setTarea();
@@ -50,6 +53,19 @@ class setTarea {
         }
     }
 
+    async #getIdEstadoTarea() {
+        const dao = new classInterfaceDAOTareas()
+        let queryGetIdEstado = await dao.getIdEstadoTarea({
+            strNombre: "En proceso"
+        }, this.#objUser);
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#intIdEstadoTarea = queryGetIdEstado.data[0]?.intId
+    }
+
     async #getIdea() {
         let queryGetIdEstado = await serviceGetIdeaEmpresario({
             intIdIdea: this.#objData.intIdIdea,
@@ -68,8 +84,10 @@ class setTarea {
         let newData = {
             ...this.#objData,
             btFinalizada: 0,
+            intIdEstadoTarea: this.#objData.objEstado.intId,
             strUsuarioCreacion: this.#objUser.strEmail,
-            strResponsable: JSON.stringify(this.#objData?.strResponsable)
+            strResponsable: JSON.stringify(this.#objData?.strResponsable),
+            strAreaResponsable: JSON.stringify(this.#objData?.strAreaResponsable)
         };
 
         let query = await dao.setTarea(newData);

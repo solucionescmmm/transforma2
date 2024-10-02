@@ -16,9 +16,12 @@ class daoTareas {
             INSERT INTO tbl_Tareas VALUES
             (
                 ${data.intIdIdea},
+                ${data.intIdEstadoTarea},
                 ${data.strTarea},
                 ${data.strObservaciones},
+                ${data.strAreaResponsable},
                 ${data.strResponsable},
+                ${data.dtFechaAtencion},
                 ${data.dtFechaFinTentativa},
                 ${data.btFinalizada},
                 GETDATE(),
@@ -155,6 +158,82 @@ class daoTareas {
                 msg:
                     error.message ||
                     "Error en el metodo getTarea de la clase daoTareas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getEstadoTarea(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+
+            SELECT 
+
+            *
+            
+            FROM tbl_EstadosTareas
+
+            WHERE (intId = ${data.intId} OR ${data.intId} IS NULL)`;
+
+            let arrNewData = response.recordsets[0];
+
+            let result = {
+                error: false,
+                data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getEstadoTarea de la clase daoTareas",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
+
+    async getIdEstadoTarea(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+
+            SELECT 
+
+            intId
+            
+            FROM tbl_EstadosTareas
+
+            WHERE (strNombre = ${data.strNombre})`;
+
+            let arrNewData = response.recordsets[0];
+
+            let result = {
+                error: false,
+                data: arrNewData ? (arrNewData.length > 0 ? arrNewData : null) : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getIdEstadoTarea de la clase daoTareas",
             };
 
             sql.close(conexion);

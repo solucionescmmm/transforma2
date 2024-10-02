@@ -25,5 +25,17 @@ class interfaceDAOTareas {
         let result = await dao.getTarea(data)
         return result
     }
+
+    async getEstadoTarea(data) {
+        const dao = new classDaoSql()
+        let result = await dao.getEstadoTarea(data)
+        return result
+    }
+
+    async getIdEstadoTarea(data) {
+        const dao = new classDaoSql()
+        let result = await dao.getIdEstadoTarea(data)
+        return result
+    }
 }
 module.exports = interfaceDAOTareas
