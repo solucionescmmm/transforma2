@@ -53,7 +53,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal, disabled }) => {
                 <Checkbox
                     checked={rowData.btFinalizada}
                     size="small"
-                    disabled={disabled}
+                    disabled={true}
                     onChange={() => {
                         setSelectedData(rowData);
                         handlerOpenModalState();
@@ -61,6 +61,16 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal, disabled }) => {
                 />
             ),
             width: "5%",
+        },
+        {
+            title: "Estado",
+            field: "strEstado",
+            type: "string",
+        },
+        {
+            title: "Tarea",
+            field: "strTarea",
+            type: "string",
         },
         {
             title: "Responsables",
@@ -73,9 +83,9 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal, disabled }) => {
             },
         },
         {
-            title: "Tarea",
-            field: "strTarea",
-            type: "string",
+            title: "Fecha atención",
+            field: "dtFechaAtencion",
+            type: "date",
         },
         {
             title: "Fecha fin tentativa",

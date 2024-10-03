@@ -29,7 +29,7 @@ import {
     EmailOutlined as EmailIcon,
     PhoneAndroidOutlined as PhoneIcon,
     PlaceOutlined as PlaceIcon,
-    HomeOutlined as HomeIconOutliend
+    HomeOutlined as HomeIconOutliend,
 } from "@mui/icons-material";
 
 //Estilos
@@ -268,295 +268,109 @@ const Coco = () => {
         );
     }
 
+    const BreadcrumbItem = ({ to, icon: Icon, children }) => (
+        <Link
+            color="inherit"
+            component={RouterLink}
+            to={to}
+            className={classes.link}
+        >
+            {Icon && <Icon className={classes.icon} />}
+            {children}
+        </Link>
+    );
+
+    const EmpresarioInfo = ({ label, value }) => (
+        <Typography variant="caption" sx={{ fontSize: "0.80rem !important" }}>
+            <b>{label}: </b>
+            {value || "No registro"}
+        </Typography>
+    );
+
+    const EmpresarioContactInfo = ({ empresario }) => (
+        <Grid item xs={6}>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <EmpresarioInfo label="Tipo de documento" value={empresario?.strTipoDocto} />
+            <EmpresarioInfo label="Número de documento" value={empresario?.strNroDocto} />
+            <EmpresarioInfo label="Número de celular" value={empresario?.strCelular1} />
+            <EmpresarioInfo label="Correo electrónico" value={empresario?.strCorreoElectronico1} />
+          </Box>
+        </Grid>
+      );
+      
+      const EmpresarioDetails = ({ empresario, dataRuta, strEtapa }) => (
+        <Grid item xs={6}>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <EmpresarioInfo label="Fecha de vinculación" value={empresario?.dtFechaVinculacion} />
+            <EmpresarioInfo label="Sede" value={empresario?.strSede} />
+            <EmpresarioInfo label="Estrato" value={empresario?.strEstrato} />
+            <EmpresarioInfo label="Ruta activa" value={dataRuta ? "Si" : "No"} />
+            <EmpresarioInfo label="Etapa de desarrollo" value={strEtapa} />
+            {empresario?.btPerfilSensible && (
+              <Typography color="red" variant="caption" sx={{ fontSize: "0.80rem !important" }}>
+                Perfil sensible
+              </Typography>
+            )}
+          </Box>
+        </Grid>
+      );
+
+      const EmpresarioCard = ({ objInteresado, intId, dataRuta, strEtapa }) => {
+        const empresarioPrincipal = objInteresado?.objEmpresario?.find(p => p.strTipoEmpresario === "Principal");
+      
+        return (
+          <Grid container direction="row" spacing={2} sx={{ minWidth: "80vw", marginBottom: "30px" }}>
+            <Grid item xs={12}>
+              <Breadcrumbs aria-label="breadcrumb">
+                <BreadcrumbItem to="/transforma" icon={HomeIcon}>Inicio</BreadcrumbItem>
+                <BreadcrumbItem to="/transforma/asesor/empresario/read/all">Personas empresarias</BreadcrumbItem>
+                <Typography color="textPrimary">{objInteresado?.objInfoEmpresa?.strNombreMarca || ""}</Typography>
+              </Breadcrumbs>
+            </Grid>
+      
+            <Grid item xs={12}>
+              <Paper sx={{ padding: "12px", marginTop: "30px", display: "flex", justifyContent: "space-between", gap: "5px", width:"50%" }} elevation={0}>
+                <Box sx={{ display: "flex", flexDirection: "column", width: "13%" }}>
+                <Avatar
+                  sx={{ width: 80, height: 80 }}
+                  alt="logo"
+                  src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}${empresarioPrincipal?.strUrlFileFoto || ""}`}
+                />
+                </Box>
+      
+                <Box sx={{ display: "flex", flexDirection: "column", width: "40%" }}>
+                  <Typography><b>{objInteresado?.objInfoEmpresa?.strNombreMarca || ""}</b></Typography>
+                  <Typography>{`${empresarioPrincipal?.strNombres || ""} ${empresarioPrincipal?.strApellidos || ""}`}</Typography>
+                  <Typography>
+                    <span style={{ color: "#00BAB3", marginRight: "10px" }}>{empresarioPrincipal?.strEstadoVinculacion || ""}</span>
+                    <Can I="update" a="Empresarios">
+                      <Button
+                        size="small"
+                        sx={{ padding: "0", letterSpacing: "0", fontSize: "12px" }}
+                        variant="contained"
+                        onClick={() => location.push(`/transforma/asesor/empresario/edit/${intId}`)}
+                      >
+                        Editar
+                      </Button>
+                    </Can>
+                  </Typography>
+                </Box>
+      
+                <Box sx={{ display: "flex", flexDirection: "column", width: "80%" }}>
+                <Grid container spacing={2}>
+                  <EmpresarioContactInfo empresario={empresarioPrincipal} />
+                  <EmpresarioDetails empresario={empresarioPrincipal} dataRuta={dataRuta} strEtapa={strEtapa} />
+                </Grid>
+                </Box>
+              </Paper>
+            </Grid>
+          </Grid>
+        );
+      };
+
     return (
         <Fragment>
-            <Grid
-                container
-                direction="row"
-                spacing={2}
-                sx={{ minWidth: "80vw", marginBottom: "30px" }}
-            >
-                <Grid item xs={12}>
-                    <Breadcrumbs aria-label="breadcrumb">
-                        <Link
-                            color="inherit"
-                            component={RouterLink}
-                            to="/transforma"
-                            className={classes.link}
-                        >
-                            <HomeIcon className={classes.icon} />
-                            Inicio
-                        </Link>
-
-                        <Link
-                            color="inherit"
-                            component={RouterLink}
-                            to="/transforma/asesor/empresario/read/all"
-                            className={classes.link}
-                        >
-                            Personas empresarias
-                        </Link>
-
-                        <Typography color="textPrimary">
-                            {objInteresado?.objInfoEmpresa?.strNombreMarca ||
-                                ""}
-                        </Typography>
-                    </Breadcrumbs>
-                </Grid>
-
-                <Grid item xs={12}>
-                    <Paper
-                        sx={{
-                            padding: "12px",
-                            marginTop: "30px",
-                            display: "flex",
-                            justifyContent: "space-between",
-                            gap: "30px",
-                        }}
-                        elevation={0}
-                    >
-                        <Avatar
-                            sx={{
-                                width: 80,
-                                height: 80,
-                            }}
-                            alt="logo"
-                            src={`${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST
-                                }${process.env.REACT_APP_API_BACK_PORT}${objInteresado?.objEmpresario
-                                    ?.filter(
-                                        (p) =>
-                                            p.strTipoEmpresario === "Principal"
-                                    )
-                                    ?.at(0)?.strUrlFileFoto || ""
-                                }`}
-                        />
-
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                            }}
-                        >
-                            <Typography>
-                                <b>
-                                    {" "}
-                                    {objInteresado?.objInfoEmpresa
-                                        ?.strNombreMarca || ""}
-                                </b>
-                            </Typography>
-
-                            <Typography>
-                                {objInteresado?.objEmpresario
-                                    ?.filter(
-                                        (p) =>
-                                            p.strTipoEmpresario === "Principal"
-                                    )
-                                    ?.at(0)?.strNombres +
-                                    " " +
-                                    objInteresado?.objEmpresario
-                                        ?.filter(
-                                            (p) =>
-                                                p.strTipoEmpresario ===
-                                                "Principal"
-                                        )
-                                        ?.at(0)?.strApellidos || ""}
-                            </Typography>
-
-                            <Typography>
-                                <span
-                                    style={{
-                                        color: "#00BAB3",
-                                        marginRight: "10px",
-                                    }}
-                                >
-                                    {objInteresado?.objEmpresario
-                                        ?.filter(
-                                            (p) =>
-                                                p.strTipoEmpresario ===
-                                                "Principal"
-                                        )
-                                        ?.at(0)?.strEstadoVinculacion || ""}
-                                </span>
-
-                                <Can I="update" a="Empresarios">
-                                    <Button
-                                        size="small"
-                                        sx={{
-                                            padding: "0",
-                                            letterSpacing: "0",
-                                            fontSize: "12px",
-                                        }}
-                                        variant="contained"
-                                        onClick={() =>
-                                            location.push(
-                                                `/transforma/asesor/empresario/edit/${intId}`
-                                            )
-                                        }
-                                    >
-                                        Editar
-                                    </Button>
-                                </Can>
-                            </Typography>
-                        </Box>
-
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexGrow: "1",
-                                marginTop: "5px",
-                                flexDirection: "column",
-                            }}
-                        >
-                            <Typography
-                                variant="caption"
-                                sx={{
-                                    fontSize: "0.80rem !important",
-                                }}
-                            >
-                                <b>Tipo de documento: </b>
-                                {objInteresado?.objEmpresario
-                                    ?.filter(
-                                        (p) =>
-                                            p.strTipoEmpresario === "Principal"
-                                    )
-                                    ?.at(0)?.strTipoDocto || "No registro"}
-                            </Typography>
-
-                            <Typography
-                                variant="caption"
-                                sx={{
-                                    fontSize: "0.80rem !important",
-                                }}
-                            >
-                                <b>Número de documento: </b>
-                                {objInteresado?.objEmpresario
-                                    ?.filter(
-                                        (p) =>
-                                            p.strTipoEmpresario === "Principal"
-                                    )
-                                    ?.at(0)?.strNroDocto || "No registro"}
-                            </Typography>
-
-                            <Typography
-                                variant="caption"
-                                sx={{
-                                    fontSize: "0.80rem !important",
-                                }}
-                            >
-                                <b>Número de celular: </b>
-                                {objInteresado?.objEmpresario
-                                    ?.filter(
-                                        (p) =>
-                                            p.strTipoEmpresario === "Principal"
-                                    )
-                                    ?.at(0)?.strCelular1 || "No registro"}
-                            </Typography>
-
-                            <Typography
-                                variant="caption"
-                                sx={{
-                                    fontSize: "0.80rem !important",
-                                }}
-                            >
-                                <b>Correo electrónico: </b>
-                                {objInteresado?.objEmpresario
-                                    ?.filter(
-                                        (p) =>
-                                            p.strTipoEmpresario === "Principal"
-                                    )
-                                    ?.at(0)?.strCorreoElectronico1 || "No registro"}
-                            </Typography>
-                        </Box>
-
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexGrow: "1",
-                                marginTop: "5px",
-                                flexDirection: "column",
-                            }}
-                        >
-                            <Typography
-                                variant="caption"
-                                sx={{
-                                    fontSize: "0.80rem !important",
-                                }}
-                            >
-                                <b>Fecha de vinculación: </b>
-                                {objInteresado?.objEmpresario
-                                    ?.filter(
-                                        (p) =>
-                                            p.strTipoEmpresario === "Principal"
-                                    )
-                                    ?.at(0)?.dtFechaVinculacion || ""}
-                            </Typography>
-
-                            <Typography
-                                variant="caption"
-                                sx={{
-                                    fontSize: "0.80rem !important",
-                                }}
-                            >
-                                <b>Sede: </b>
-                                {objInteresado?.objEmpresario
-                                    ?.filter(
-                                        (p) =>
-                                            p.strTipoEmpresario === "Principal"
-                                    )
-                                    ?.at(0)?.strSede || ""}
-                            </Typography>
-
-                            <Typography
-                                variant="caption"
-                                sx={{
-                                    fontSize: "0.80rem !important",
-                                }}
-                            >
-                                <b>Estrato: </b>
-                                {objInteresado?.objEmpresario
-                                    ?.filter(
-                                        (p) =>
-                                            p.strTipoEmpresario === "Principal"
-                                    )
-                                    ?.at(0)?.strEstrato || ""}
-                            </Typography>
-
-                            <Typography
-                                variant="caption"
-                                sx={{
-                                    fontSize: "0.80rem !important",
-                                }}
-                            >
-                                <b>Ruta activa: </b>
-                                {dataRuta ? "Si" : "No"}
-                            </Typography>
-
-                            <Typography
-                                variant="caption"
-                                sx={{
-                                    fontSize: "0.80rem !important",
-                                }}
-                            >
-                                <b>Etapa de desarrollo: </b>
-                                {strEtapa}
-                            </Typography>
-                            {objInteresado?.objEmpresario
-                                ?.filter(
-                                    (p) => p.strTipoEmpresario === "Principal"
-                                )
-                                ?.at(0)?.btPerfilSensible ? (
-                                <Typography
-                                    color="red"
-                                    variant="caption"
-                                    style={{ fontSize: "0.80rem !important" }}
-                                >
-                                    Perfil sensible
-                                </Typography>
-                            ) : null}
-                        </Box>
-                    </Paper>
-                </Grid>
-            </Grid>
+            <EmpresarioCard objInteresado={objInteresado} intId={intId} dataRuta={dataRuta} strEtapa={strEtapa}  />
 
             <Grid
                 container

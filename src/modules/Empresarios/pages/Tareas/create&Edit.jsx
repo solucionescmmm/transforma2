@@ -39,6 +39,8 @@ import { makeStyles } from "@mui/styles";
 import DropdownUsuarios from "../../../../common/components/dropdowUsuarios";
 import Loader from "../../../../common/components/Loader";
 import PageError from "../../../../common/components/Error";
+import DropdownAreas from "../../../Admin/components/dropdownAreas";
+import SelectEstadoTareas from "../../components/selectEstadoTareas";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -94,6 +96,9 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
         strResponsable: [],
         dtFechaFinTentativa: null,
         strUsuarioCreacion: strInfoUser.strUsuario,
+        dtFechaAtencion: null,
+        intIdEstado: "",
+        strArea: null,
     });
 
     const [success, setSucces] = useState(false);
@@ -215,8 +220,15 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                 intIdIdea,
                                 strObservaciones: data.strObservaciones,
                                 strResponsable: data.strResponsable || [],
-                                dtFechaFinTentativa: parseISO(data.dtFechaFinTentativa),
+                                dtFechaFinTentativa: parseISO(
+                                    data.dtFechaFinTentativa
+                                ),
                                 strUsuarioCreacion: strInfoUser.strUsuario,
+                                dtFechaAtencion: data.dtFechaAtencion
+                                    ? parseISO(data.dtFechaAtencion)
+                                    : null,
+                                intIdEstado: data.intIdEstado,
+                                strArea: data.strArea,
                             });
 
                             reset({
@@ -225,8 +237,15 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                 intIdIdea,
                                 strObservaciones: data.strObservaciones,
                                 strResponsable: data.strResponsable || [],
-                                dtFechaFinTentativa: parseISO(data.dtFechaFinTentativa),
+                                dtFechaFinTentativa: parseISO(
+                                    data.dtFechaFinTentativa
+                                ),
                                 strUsuarioCreacion: strInfoUser.strUsuario,
+                                dtFechaAtencion: data.dtFechaAtencion
+                                    ? parseISO(data.dtFechaAtencion)
+                                    : null,
+                                intIdEstado: data.intIdEstado,
+                                strArea: data.strArea,
                             });
                         }
 
@@ -328,7 +347,97 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                         </Typography>
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.strTarea}
+                            name="strTarea"
+                            render={({ field: { name, value, onChange } }) => (
+                                <TextField
+                                    label="Título de la tarea"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    required
+                                    disabled={loading}
+                                    fullWidth
+                                    variant="standard"
+                                    error={errors?.strTarea ? true : false}
+                                    helperText={
+                                        errors?.strTarea?.message ||
+                                        "Digíta el nombre de la tarea"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, digíta el nombre de la tarea",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.intIdEstado}
+                            name="intIdEstado"
+                            render={({ field: { name, value, onChange } }) => (
+                                <SelectEstadoTareas
+                                    label="Estado"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    required
+                                    disabled={!!!isEdit || loading} 
+                                    fullWidth
+                                    variant="standard"
+                                    error={errors?.intIdEstado ? true : false}
+                                    helperText={
+                                        errors?.intIdEstado?.message ||
+                                        "Selecciona el estado de la tarea"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, digíta el nombre de la tarea",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            name={`strArea`}
+                            defaultValue={data.strArea}
+                            render={({ field: { name, value, onChange } }) => (
+                                <DropdownAreas
+                                    label="­Área responsable"
+                                    name={name}
+                                    value={value}
+                                    disabled={loading}
+                                    onChange={(e, value) => onChange(value)}
+                                    fullWidth
+                                    variant="standard"
+                                    required
+                                    error={!!errors?.strArea}
+                                    helperText={
+                                        errors?.strArea?.message ||
+                                        "Selecciona el área responsable de la tarea"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                validate: (value) => {
+                                    if (value?.length === 0) {
+                                        return "Por favor, selecciona los responsables de la tarea";
+                                    }
+                                },
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
                         <Controller
                             name={`strResponsable`}
                             defaultValue={data.strResponsable}
@@ -357,35 +466,6 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                         return "Por favor, selecciona los responsables de la tarea";
                                     }
                                 },
-                            }}
-                        />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Controller
-                            defaultValue={data.strTarea}
-                            name="strTarea"
-                            render={({ field: { name, value, onChange } }) => (
-                                <TextField
-                                    label="Título de la tarea"
-                                    name={name}
-                                    value={value}
-                                    onChange={(e) => onChange(e)}
-                                    required
-                                    disabled={loading}
-                                    fullWidth
-                                    variant="standard"
-                                    error={errors?.strTarea ? true : false}
-                                    helperText={
-                                        errors?.strTarea?.message ||
-                                        "Digíta el nombre de la tarea"
-                                    }
-                                />
-                            )}
-                            control={control}
-                            rules={{
-                                required:
-                                    "Por favor, digíta el nombre de la tarea",
                             }}
                         />
                     </Grid>
@@ -423,7 +503,41 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12}>
+                    <Grid item xs={12} md={6}>
+                        <Controller
+                            defaultValue={data.dtFechaAtencion}
+                            name="dtFechaAtencion"
+                            render={({ field: { name, value, onChange } }) => (
+                                <DatePicker
+                                    label="Fecha de atención"
+                                    value={value}
+                                    disabled={loading}
+                                    onChange={(date) => onChange(date)}
+                                    format="dd/MM/yyyy"
+                                    slotProps={{
+                                        textField: {
+                                            required: true,
+                                            fullWidth: true,
+                                            variant: "standard",
+                                            name,
+                                            error: !!errors?.dtFechaAtencion,
+                                            helperText:
+                                                errors?.dtFechaAtencion
+                                                    ?.message ||
+                                                "Selecciona la fecha de atención",
+                                        },
+                                    }}
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, selecciona la fecha de atención",
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.dtFechaFinTentativa}
                             name="dtFechaFinTentativa"
