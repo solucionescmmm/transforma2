@@ -99,6 +99,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
         dtFechaAtencion: null,
         intIdEstado: "",
         strArea: null,
+        strEstado:""
     });
 
     const [success, setSucces] = useState(false);
@@ -152,11 +153,10 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${
-                        isEdit
+                    url: `${isEdit
                             ? process.env.REACT_APP_API_TRANSFORMA_TAREAS_PUT
                             : process.env.REACT_APP_API_TRANSFORMA_TAREAS_SET
-                    }`,
+                        }`,
                     data,
                     headers: {
                         token,
@@ -229,6 +229,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     : null,
                                 intIdEstado: data.intIdEstado,
                                 strArea: data.strArea,
+                                strEstado: data.strEstado
                             });
 
                             reset({
@@ -246,6 +247,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     : null,
                                 intIdEstado: data.intIdEstado,
                                 strArea: data.strArea,
+                                strEstado: data.strEstado
                             });
                         }
 
@@ -376,7 +378,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    {isEdit ? <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.intIdEstado}
                             name="intIdEstado"
@@ -387,7 +389,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     required
-                                    disabled={!!!isEdit || loading} 
+                                    disabled={!!!isEdit || loading}
                                     fullWidth
                                     variant="standard"
                                     error={errors?.intIdEstado ? true : false}
@@ -403,7 +405,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     "Por favor, digíta el nombre de la tarea",
                             }}
                         />
-                    </Grid>
+                    </Grid>: null}
 
                     <Grid item xs={12} md={6}>
                         <Controller
@@ -428,11 +430,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                             )}
                             control={control}
                             rules={{
-                                validate: (value) => {
-                                    if (value?.length === 0) {
-                                        return "Por favor, selecciona los responsables de la tarea";
-                                    }
-                                },
+                                required: "Por favor, selecciona los responsables de la tarea",
                             }}
                         />
                     </Grid>
@@ -516,7 +514,6 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     format="dd/MM/yyyy"
                                     slotProps={{
                                         textField: {
-                                            required: true,
                                             fullWidth: true,
                                             variant: "standard",
                                             name,
@@ -530,10 +527,6 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                 />
                             )}
                             control={control}
-                            rules={{
-                                required:
-                                    "Por favor, selecciona la fecha de atención",
-                            }}
                         />
                     </Grid>
 
