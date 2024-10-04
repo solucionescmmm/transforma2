@@ -44,8 +44,10 @@ class updateTarea {
     async #completeData() {
         let newData = {
             ...this.#objData,
-            btFinalizada: 0,
-            strUsuarioActualizacion:this.#objUser.strEmail,
+            btFinalizada: this.#objData.strEstado === "Realizada" ? 1 : this.#objData.strEstado === "No atendida" ? 1 : this.#objData.strEstado === "Cancelada" ? 1 : 0,
+            strUsuarioActualizacion: this.#objUser.strEmail,
+            intIdEstadoTarea: this.#objData.intIdEstado,
+            intIdAreaResponsable: this.#objData.strArea?.intId,
             strResponsable: JSON.stringify(this.#objData?.strResponsable)
         };
         this.#objData = newData;

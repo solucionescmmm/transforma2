@@ -1,6 +1,7 @@
 //Librerias
 const validator = require("validator").default;
 
+const { ar } = require("date-fns/locale");
 //Clases
 const classInterfaceTareas = require("../infra/conectors/interfaceDaoTareas");
 
@@ -19,25 +20,28 @@ const getTarea = async (objParams) => {
     };
 
     let arrayData = await dao.getTarea(query);
-    
+
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data.length > 0) {
             let array = arrayData.data?.reverse();
             let data = [];
 
-            for (let i = 0; i < array.length; i++) {
-                let { strResponsable } = array[i];
+            console.log(array[0])
 
-                if (validator.isJSON(strResponsable)) {
-                    strResponsable = JSON.parse(strResponsable);
+            for (let i = 0; i < array.length; i++) {
+                let { strResponsables } = array[i];
+
+                if (validator.isJSON(strResponsables)) {
+                    strResponsable = JSON.parse(strResponsables);
                 }
                 data[i] = {
                     ...array[i],
+                    intIdEstado: array[i]?.intIdEstadoTarea,
                     strResponsable,
                 };
 
-                
+
             }
             let result = {
                 error: false,

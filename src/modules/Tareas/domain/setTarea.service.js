@@ -30,11 +30,12 @@ class setTarea {
     }
 
     async main() {
+        // console.log(this.#objData)
         await this.#getIdEstadoTarea()
         await this.#validations();
         await this.#getIdea()
         await this.#setTarea();
-        await this.#sendEmail()
+        //await this.#sendEmail()
         return this.#objResult;
     }
 
@@ -84,8 +85,9 @@ class setTarea {
         let newData = {
             ...this.#objData,
             btFinalizada: 0,
-            intIdEstadoTarea: this.#objData.objEstado.intId,
+            intIdEstadoTarea: this.#intIdEstadoTarea,
             strUsuarioCreacion: this.#objUser.strEmail,
+            intIdAreaResponsable: this.#objData.strArea?.intId,
             strResponsable: JSON.stringify(this.#objData?.strResponsable),
             strAreaResponsable: JSON.stringify(this.#objData?.strAreaResponsable)
         };

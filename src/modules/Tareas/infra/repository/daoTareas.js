@@ -19,7 +19,7 @@ class daoTareas {
                 ${data.intIdEstadoTarea},
                 ${data.strTarea},
                 ${data.strObservaciones},
-                ${data.strAreaResponsable},
+                ${data.intIdAreaResponsable},
                 ${data.strResponsable},
                 ${data.dtFechaAtencion},
                 ${data.dtFechaFinTentativa},
@@ -66,10 +66,13 @@ class daoTareas {
 
             SET strTarea                = COALESCE(${data.strTarea}, strTarea),
                 btFinalizada            = COALESCE(${data.btFinalizada}, btFinalizada),
+                intIdAreaResponsable    = COALESCE(${data.intIdAreaResponsable}, intIdAreaResponsable),
+                intIdEstadoTarea        = COALESCE(${data.intIdEstadoTarea}, intIdEstadoTarea),
                 strObservaciones        = COALESCE(${data.strObservaciones}, strObservaciones),
-                strResponsable          = COALESCE(${data.strResponsable}, strResponsable),
-                dtFechaFinTentativa     = COALESCE(${data.strRespondtFechaFinTentativasable}, dtFechaFinTentativa),
-                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion ),
+                strResponsables         = COALESCE(${data.strResponsable}, strResponsables),
+                dtFechaAtencion         = COALESCE(${data.dtFechaAtencion}, dtFechaAtencion),
+                dtFechaFinTentativa     = COALESCE(${data.dtFechaFinTentativa}, dtFechaFinTentativa),
+                strUsuarioActualizacion = COALESCE(${data.strUsuarioActualizacion}, strUsuarioActualizacion),
                 dtmFechaActualizacion   = COALESCE(GETDATE(), dtmFechaActualizacion)
 
             WHERE intId = ${data.intId}
@@ -135,14 +138,54 @@ class daoTareas {
 
             SELECT 
 
-            *
+            Tarea.intId,
+            Tarea.intIdIdea,
+            Tarea.intIdEstadoTarea,
+            Tarea.strTarea,
+            Tarea.strObservaciones,
+            Tarea.intIdAreaResponsable,
+            Tarea.strResponsables,
+            Tarea.dtFechaAtencion,
+            Tarea.dtFechaFinTentativa,
+            Tarea.btFinalizada,
+            Tarea.dtmFechaCreacion,
+            Tarea.strUsuarioCreacion,
+            Tarea.dtmFechaActualizacion,
+            Tarea.strUsuarioActualizacion,
+            EstadoTarea.intId as intIdEstado,
+            EstadoTarea.strNombre as strEstado,
+            (
+                SELECT 
+
+                intId,
+                strNombre
+
+                FROM  tbl_Areas
+
+                WHERE intId = Tarea.intIdAreaResponsable
+
+                FOR JSON PATH
+            )as strArea
             
             FROM tbl_Tareas Tarea
+            
+            INNER JOIN tbl_EstadosTareas EstadoTarea ON EstadoTarea.intId = Tarea.intIdEstadoTarea
 
             WHERE (Tarea.intId = ${data.intId} OR ${data.intId} IS NULL)
             AND   (Tarea.intIdIdea = ${data.intIdIdea} OR ${data.intIdIdea} IS NULL) `;
 
             let arrNewData = response.recordsets[0];
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                if (arrNewData[i].strArea) {
+                    let { strArea } = arrNewData[i];
+
+                    if (validator.isJSON(strArea)) {
+                        strArea = JSON.parse(strArea);
+                        arrNewData[i].strArea = strArea[0];
+                    }
+                }
+            }
 
             let result = {
                 error: false,
