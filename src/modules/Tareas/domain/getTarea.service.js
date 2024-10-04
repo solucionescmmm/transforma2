@@ -27,8 +27,6 @@ const getTarea = async (objParams) => {
             let array = arrayData.data?.reverse();
             let data = [];
 
-            console.log(array[0])
-
             for (let i = 0; i < array.length; i++) {
                 let { strResponsables } = array[i];
 

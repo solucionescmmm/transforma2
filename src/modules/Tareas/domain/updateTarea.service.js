@@ -10,6 +10,8 @@ class updateTarea {
     #objUser;
     #objResult;
 
+    #strNombreEsatdo
+
     /**
      * @param {object} data
      * @param {object} strDataUser
@@ -20,6 +22,7 @@ class updateTarea {
     }
 
     async main() {
+        await this.#getEstadoTarea();
         await this.#validations();
         await this.#completeData();
         await this.#updateTarea();
@@ -41,10 +44,23 @@ class updateTarea {
         }
     }
 
+    async #getEstadoTarea(){
+        const dao = new classInterfaceDAOTareas()
+        let queryGetIdEstado = await dao.getEstadoTarea({
+            intId: this.#objData.intIdEstado
+        }, this.#objUser);
+
+        if (queryGetIdEstado.error) {
+            throw new Error(queryGetIdEstado.msg);
+        }
+
+        this.#strNombreEsatdo = queryGetIdEstado.data[0]?.strNombre
+    }
+
     async #completeData() {
         let newData = {
             ...this.#objData,
-            btFinalizada: this.#objData.strEstado === "Realizada" ? 1 : this.#objData.strEstado === "No atendida" ? 1 : this.#objData.strEstado === "Cancelada" ? 1 : 0,
+            btFinalizada: this.#strNombreEsatdo === "Realizada" ? 1 : this.#strNombreEsatdo === "No atendida" ? 1 : this.#strNombreEsatdo === "Cancelada" ? 1 : 0,
             strUsuarioActualizacion: this.#objUser.strEmail,
             intIdEstadoTarea: this.#objData.intIdEstado,
             intIdAreaResponsable: this.#objData.strArea?.intId,

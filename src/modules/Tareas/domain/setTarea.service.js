@@ -30,12 +30,11 @@ class setTarea {
     }
 
     async main() {
-        // console.log(this.#objData)
         await this.#getIdEstadoTarea()
         await this.#validations();
         await this.#getIdea()
         await this.#setTarea();
-        //await this.#sendEmail()
+        await this.#sendEmail()
         return this.#objResult;
     }
 
