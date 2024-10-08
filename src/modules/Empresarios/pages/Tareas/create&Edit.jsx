@@ -536,7 +536,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                             name="dtFechaFinTentativa"
                             render={({ field: { name, value, onChange } }) => (
                                 <DatePicker
-                                    label="Fecha de finalización"
+                                    label="Fecha tentativa de finalización"
                                     value={value}
                                     disabled={loading}
                                     onChange={(date) => onChange(date)}
@@ -551,7 +551,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                             helperText:
                                                 errors?.dtFechaFinTentativa
                                                     ?.message ||
-                                                "Selecciona la fecha de finalización",
+                                                "Selecciona la fecha tentativa de finalización",
                                         },
                                     }}
                                 />
@@ -559,7 +559,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, selecciona la fecha de finalización",
+                                    "Por favor, selecciona la fecha tentativa de finalización",
                             }}
                         />
                     </Grid>
