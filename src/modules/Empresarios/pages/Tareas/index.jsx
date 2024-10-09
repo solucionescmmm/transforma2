@@ -83,7 +83,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal, disabled }) => {
             },
         },
         {
-            title: "Fecha atención",
+            title: "Fecha gestión",
             field: "dtFechaAtencion",
             type: "date",
         },
