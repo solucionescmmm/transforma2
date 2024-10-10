@@ -1227,6 +1227,7 @@ class daoEmpresarios {
                         Empresario.strNombres,
                         Empresario.strApellidos,
                         Empresario.strNroDocto,
+                        Empresario.strCelular1,
                         IdeaEmpresario.intIdTipoEmpresario
                     FROM 
                         tbl_Empresario Empresario
