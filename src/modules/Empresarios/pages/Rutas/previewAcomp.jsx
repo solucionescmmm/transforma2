@@ -66,6 +66,11 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
             type: "string",
         },
         {
+            title: "Fecha de servicio",
+            field: "dtmFechaInicial",
+            type: "date",
+        },
+        {
             title: "Fecha de creación",
             field: "dtmCreacion",
             type: "date",

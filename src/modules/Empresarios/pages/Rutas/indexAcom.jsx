@@ -67,6 +67,11 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
             type: "string",
         },
         {
+            title: "Fecha de servicio",
+            field: "arrSesionAcompañamiento[0].dtmFechaInicial",
+            type: "date",
+        },
+        {
             title: "Número de sesiones",
             field: "arrSesionAcompañamiento.length",
             type: "string",
