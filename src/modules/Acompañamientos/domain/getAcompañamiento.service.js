@@ -71,7 +71,7 @@ const getAcompañamiento = async (objParams, strDataUser) => {
                     arrSesionAcompañamiento[j] = {
                         ...arrSesionAcompañamiento[j],
                         objEmpresario: arrDataEmpresario?.find((data) => data.intId === arrSesionAcompañamiento[j]?.intIdEmpresario),
-                        dtmFechaInicial:arrSesionAcompañamiento[j]?.dtmFechaInicial,
+                        dtmFechaInicial:arrSesionAcompañamiento[j]?.dtmFechaInicial || "No diligencio",
                         strResponsables: JSON.parse(arrSesionAcompañamiento[j]?.strResponsables || ""),
                         strNombreServicio: arrSesionAcompañamiento[j]?.strNombreServicio || arrSesionAcompañamiento[j]?.strNombrePaquete || "N/A",
                         strNombreEventos: arrSesionAcompañamiento[j]?.strNombreEventos || "N/A",

@@ -62,6 +62,7 @@ class daoAcompañamientos {
             (
                 ${data.intIdAcompañamiento},
                 ${data.intIdEmpresario},
+                ${data.strEmpresariosAcompañantes},
                 ${data.dtmFechaInicial},
                 ${data.dtmFechaFinal},
                 ${data.strUbicacion},
