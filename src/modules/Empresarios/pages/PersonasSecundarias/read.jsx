@@ -387,7 +387,7 @@ const ReadPersonaSecundaria = ({
                                                 >
                                                     <Can
                                                         I="create"
-                                                        a="Empresario"
+                                                        a="Empresarios"
                                                     >
                                                         <Box
                                                             sx={{

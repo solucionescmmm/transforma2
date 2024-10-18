@@ -844,7 +844,7 @@ const Coco = () => {
                                                             </span>
                                                             {objInteresado
                                                                 ?.objInfoEmpresa
-                                                                ?.strNIT ||
+                                                                ?.strRut ||
                                                                 "No registro"}
                                                         </Typography>
 

@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 
 //Hooks
 import useGetEmpresarios from "../hooks/useGetEmpresarios";
+import useGetEmpresarioEvento from "../hooks/useGetEmpresarioEvento";
 
 //Componentes de Material UI
 import {
@@ -57,19 +58,19 @@ const DropdownEmpresarios = ({
     multiple,
     required,
     defaultOptions,
-    bitActivos,
+    bitActivos
 }) => {
     const [options, setOptions] = useState([]);
 
-    const { data, refreshGetData } = useGetEmpresarios({
+    const { data, refreshGetData } = useGetEmpresarioEvento({
         autoLoad: defaultOptions ? false : true,
     });
 
     useEffect(() => {
         if (data?.length > 0 && !defaultOptions) {
             if (bitActivos) {
-                setOptions(data?.filter((e)=>e.strEstado === "Activo"));
-            }else{
+                setOptions(data?.filter((e) => e.strEstado === "Activo"));
+            } else {
                 setOptions(data);
             }
         }
@@ -152,17 +153,15 @@ const DropdownEmpresarios = ({
                 } else {
                     return (
                         option === value ||
-                        option.strNombres + " " + option.strApellidos ===
-                            value.strNombres + " " + value.strApellidos ||
-                        option.strNroDocto === value.strNroDocto
+                        option.strNombreCompleto === value.strNombreCompleto ||
+                        option.strNroDocto === value.strNroDocto ||
+                        option.strNombreIdea === value.strNombreIdea
                     );
                 }
             }}
             getOptionLabel={(option) =>
-                option?.strNombres +
-                    " " +
-                    option?.strApellidos +
-                    `(${option?.strNroDocto})` || option
+                option?.strNombreCompleto +
+                `(${option?.strNroDocto} - ${option?.strNombreIdea})` || option
             }
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => {
@@ -205,12 +204,12 @@ const DropdownEmpresarios = ({
                         <ListItemAvatar>
                             <Avatar
                                 src={option.strUrlFileFoto}
-                                alt={option.strNombre}
+                                alt={option.strNombres}
                             />
                         </ListItemAvatar>
                         <ListItemText
                             primary={
-                                option.strNombres + " " + option.strApellidos
+                                `${option?.strNombreCompleto} (${option.strNombreIdea})`
                             }
                             secondary={
                                 <div>

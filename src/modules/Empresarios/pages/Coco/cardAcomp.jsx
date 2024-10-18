@@ -74,10 +74,10 @@ const CardAcom = ({ intIdIdea }) => {
                 <div>
                     <Box sx={{ display: "flex" }}>
                         <p style={{ fontSize: "12px", paddingRight: "5px" }}>
-                            {format(
-                                parseISO(p.objInfoPrincipal.dtmCreacion),
+                            {p.arrSesionAcompañamiento[0]?.dtmFechaInicial ? format(
+                                parseISO(p.arrSesionAcompañamiento[0].dtmFechaInicial),
                                 "yyyy-MM-dd"
-                            )}
+                            ): "No registro"}
                         </p>
                         <p
                             style={{

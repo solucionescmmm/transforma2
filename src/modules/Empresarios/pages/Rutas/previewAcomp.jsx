@@ -51,6 +51,11 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
             type: "string",
         },
         {
+            title: "Fecha de servicio",
+            field: "dtmFechaInicial",
+            type: "date",
+        },
+        {
             title: "Servicio",
             field: "strNombreServicio",
             type: "string",
@@ -64,11 +69,6 @@ const PreviewAcomp = ({ intId, intIdIdea, onChangeRoute }) => {
             title: "Evento",
             field: "strNombreEventos",
             type: "string",
-        },
-        {
-            title: "Fecha de servicio",
-            field: "dtmFechaInicial",
-            type: "date",
         },
         {
             title: "Fecha de creación",
