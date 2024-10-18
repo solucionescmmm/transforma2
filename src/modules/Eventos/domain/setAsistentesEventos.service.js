@@ -104,10 +104,10 @@ class setAsistentesEventos {
         for (let i = 0; i < arrEmpresarios.length; i++) {
             let data = {
                 intIdEvento: this.#objData.intIdEvento,
-                intIdIdea: arrEmpresarios[i]?.objInfoIdeaEmpresario[0]?.intIdIdea,
+                intIdIdea: arrEmpresarios[i]?.intIdIdea,
                 intIdEmpresario: arrEmpresarios[i]?.intId,
                 intIdTercero: null,
-                intTipoEmpresario: arrEmpresarios[i]?.objInfoIdeaEmpresario[0]?.intIdTipoEmpresario,
+                intTipoEmpresario: arrEmpresarios[i]?.intIdTipoEmpresario,
                 intIdSedeTarifaServicio: this.#intIdTarifa,
                 ValorMatricula: this.#ValorTarifa,
                 btFinalizoEvento: false
@@ -120,7 +120,7 @@ class setAsistentesEventos {
             }
 
             let querySp = await serviceSp_setFlujoAcompañamiento({
-                intIdIdea: arrEmpresarios[i]?.objInfoIdeaEmpresario[0]?.intIdIdea,
+                intIdIdea: arrEmpresarios[i]?.intIdIdea,
                 intIdEvento: this.#objData.intIdEvento,
                 intIdEmpresario: arrEmpresarios[i]?.intId,
                 intIdSedeTarifaServicio: this.#intIdTarifa,

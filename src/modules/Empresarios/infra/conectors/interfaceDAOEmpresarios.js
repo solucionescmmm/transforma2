@@ -192,5 +192,11 @@ class interfaceDAOEmpresarios {
         let result = await dao.getIdEstadoVinculacion(data);
         return result;
     }
+
+    async getEmpresarioEvento(data){
+        const dao = new classDaoSql();
+        let result = await dao.getEmpresarioEvento(data);
+        return result;
+    }
 }
 module.exports = interfaceDAOEmpresarios;

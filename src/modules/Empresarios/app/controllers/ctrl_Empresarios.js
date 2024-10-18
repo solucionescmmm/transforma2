@@ -17,6 +17,7 @@ const getEmpresarioByIdea = require("../../domian/getEmpresarioByIdea.service")
 const getEstadoVinculacion = require ("../../domian/getEstadoVinculacion.service")
 const uploadFile = require("../functions/uploadFile");
 const deleteFile = require("../functions/deleteFile");
+const getEmpresarioEvento = require("../../domian/getEmpresarioEvento.service");
 
 class ctrlEmpresarios {
     async uploadFileEmpresario(req, res) {
@@ -354,6 +355,27 @@ class ctrlEmpresarios {
             let { strDataUser } = req;
 
             let query = await getEstadoVinculacion(objParams, strDataUser);
+
+            if (query.error) {
+                throw new Error(query.msg);
+            }
+            res.status(200).json(query);
+        } catch (error) {
+            let result = {
+                error: true,
+                msg: error.message,
+            };
+
+            res.status(400).json(result);
+        }
+    }
+
+    async getEmpresarioEvento(req, res) {
+        try {
+            let objParams = req.query;
+            let { strDataUser } = req;
+
+            let query = await getEmpresarioEvento(objParams, strDataUser);
 
             if (query.error) {
                 throw new Error(query.msg);

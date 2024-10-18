@@ -50,6 +50,8 @@ const getAcompañamiento = async (objParams, strDataUser) => {
             for (let i = 0; i < array.length; i++) {
                 let objInfoPrincipal = {};
 
+                console.log(array[i].arrSesionAcompañamiento[0]);
+                
                 objInfoPrincipal = {
                     intId: array[i]?.intId,
                     intIdIdea: array[i]?.intIdIdea,
@@ -77,14 +79,15 @@ const getAcompañamiento = async (objParams, strDataUser) => {
                         strNombreEventos: arrSesionAcompañamiento[j]?.strNombreEventos || "N/A",
                         strNombreRuta: arrSesionAcompañamiento[j]?.strNombreRuta || "N/A"
                     }
-
                 }
+
 
                 data[i] = {
                     objInfoPrincipal,
                     arrSesionAcompañamiento
                 };
             }
+
             let result = {
                 error: false,
                 data,

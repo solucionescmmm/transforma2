@@ -140,6 +140,7 @@ class daoAcompañamientos {
                 SesionesAcompañamientos.dtmFechaInicial,
                 SesionesAcompañamientos.dtmFechaFinal,
                 SesionesAcompañamientos.strUbicacion,
+                SesionesAcompañamientos.strEmpresariosAcompañantes,
                 SesionesAcompañamientos.intIdTipoActividad,
                 SesionesAcompañamientos.intIdEvento,
                 SesionesAcompañamientos.intIdRuta,

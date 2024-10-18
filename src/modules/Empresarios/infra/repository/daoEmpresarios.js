@@ -1740,5 +1740,74 @@ class daoEmpresarios {
             return result;
         }
     }
+
+    async getEmpresarioEvento(data) {
+        try {
+            let conn = await new sql.ConnectionPool(conexion).connect();
+
+            let response = await conn.query`
+            
+            SELECT 
+                Empresario.intId, 
+                Empresario.strNombres, 
+                Empresario.strApellidos, 
+                Empresario.strNroDocto, 
+                Estados.strNombre as strEstado, 
+                Empresario.strUrlFileFoto, 
+                Idea.intId AS intIdIdea, 
+                Idea.strNombre AS strNombreIdea,
+                Tipo.strNombre AS strTipoEmpresario,
+                Tipo.intId AS intIdTipoEmpresario
+
+                FROM tbl_Empresario Empresario
+
+                INNER JOIN tbl_Estados Estados ON Estados.intId = Empresario.intIdEstado 
+                LEFT JOIN tbl_Idea_Empresario IdeaEmpresario ON IdeaEmpresario.intIdEmpresario = Empresario.intId
+                INNER JOIN tbl_TipoEmpresario Tipo ON Tipo.intId = IdeaEmpresario.intIdTipoEmpresario
+                LEFT JOIN tbl_Idea Idea ON Idea.intId = IdeaEmpresario.intIdIdea
+                
+                WHERE IdeaEmpresario.intIdEstado = 1`;
+
+            let arrNewData = response.recordsets[0];
+
+            for (let i = 0; i < arrNewData.length; i++) {
+                if (arrNewData[i].objInfoIdeaEmpresario) {
+                    let { objInfoIdeaEmpresario } = arrNewData[i];
+
+                    if (validator.isJSON(objInfoIdeaEmpresario)) {
+                        objInfoIdeaEmpresario = JSON.parse(
+                            objInfoIdeaEmpresario
+                        );
+                        arrNewData[i].objInfoIdeaEmpresario =
+                            objInfoIdeaEmpresario;
+                    }
+                }
+            }
+
+            let result = {
+                error: false,
+                data: arrNewData
+                    ? arrNewData.length > 0
+                        ? arrNewData
+                        : null
+                    : null,
+            };
+
+            sql.close(conexion);
+
+            return result;
+        } catch (error) {
+            let result = {
+                error: true,
+                msg:
+                    error.message ||
+                    "Error en el metodo getEmpresario de la clase daoEmpresarios",
+            };
+
+            sql.close(conexion);
+
+            return result;
+        }
+    }
 }
 module.exports = daoEmpresarios;
