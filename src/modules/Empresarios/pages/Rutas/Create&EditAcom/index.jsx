@@ -99,6 +99,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
     //===============================================================================================================================================
     const [data, setData] = useState({
         objEmpresario: null,
+        strEmpresariosAcompañantes: [],
         intIdIdea,
         dtmFechaInicio: null,
         dtmFechaFinal: null,
@@ -172,10 +173,10 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${isEdit
-                            ? process.env
-                                .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_UPDATE
-                            : process.env
-                                .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_SET
+                        ? process.env
+                            .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_UPDATE
+                        : process.env
+                            .REACT_APP_API_TRANSFORMA_RUTAS_ACOMPANIAMIENTO_SET
                         }`,
                     data,
                     headers: {
@@ -238,6 +239,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
         if (values) {
             setData({
                 objEmpresario: null,
+                strEmpresariosAcompañantes: [],
                 intIdIdea,
                 dtmFechaInicio: null,
                 dtmFechaFinal: null,
@@ -262,6 +264,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
 
             reset({
                 objEmpresario: null,
+                strEmpresariosAcompañantes: [],
                 intIdIdea,
                 dtmFechaInicio: null,
                 dtmFechaFinal: null,
@@ -462,6 +465,35 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                             required:
                                                 "Por favor, selecciona la fecha del acompañamiento",
                                         }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={data.strEmpresariosAcompañantes}
+                                        name="strEmpresariosAcompañantes"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <DropdownEmpresarios
+                                                name={name}
+                                                value={value}
+                                                label="Acompañantes"
+                                                helperText={
+                                                    errors?.strEmpresariosAcompañantes
+                                                        ?.message ||
+                                                    "Selecciona los acompañantes"
+                                                }
+                                                error={!!errors?.strEmpresariosAcompañantes}
+                                                disabled={loading || isPreview}
+                                                multiple
+                                                onChange={(_, value) =>
+                                                    onChange(value)
+                                                }
+                                                intIdIdea={intIdIdea}
+                                            />
+                                        )}
+                                        control={control}
                                     />
                                 </Grid>
 

@@ -114,6 +114,7 @@ const CUSesion = ({
         intIdRuta,
         intIdFase,
         objEmpresario: null,
+        strEmpresariosAcompañantes: [],
         dtmFechaInicial: null,
         intTipoAcomp: null,
         strUbicacion: "",
@@ -228,8 +229,9 @@ const CUSesion = ({
     useEffect(() => {
         if (values) {
             setData({
-                intId:values?.intId || null,
+                intId: values?.intId || null,
                 objEmpresario: values.objEmpresario || null,
+                strEmpresariosAcompañantes: values.strEmpresariosAcompañantes || [],
                 dtmFechaInicial: values.dtmFechaInicial ? parseISO(values?.dtmFechaInicial) : null,
                 intTipoAcomp: values.intTipoAcomp || null,
                 strUbicacion: values.strUbicacion || "",
@@ -242,8 +244,9 @@ const CUSesion = ({
             });
 
             reset({
-                intId:values?.intId || null,
+                intId: values?.intId || null,
                 objEmpresario: values.objEmpresario || null,
+                strEmpresariosAcompañantes: values.strEmpresariosAcompañantes || [],
                 dtmFechaInicial: values.dtmFechaInicial ? parseISO(values?.dtmFechaInicial) : null,
                 intTipoAcomp: values.intTipoAcomp || null,
                 strUbicacion: values.strUbicacion || "",
@@ -454,6 +457,35 @@ const CUSesion = ({
                                             required:
                                                 "Por favor, selecciona la fecha del acompañamiento",
                                         }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Controller
+                                        defaultValue={data.strEmpresariosAcompañantes}
+                                        name="strEmpresariosAcompañantes"
+                                        render={({
+                                            field: { name, onChange, value },
+                                        }) => (
+                                            <DropdownEmpresarios
+                                                name={name}
+                                                value={value}
+                                                label="Acompañantes"
+                                                helperText={
+                                                    errors?.strEmpresariosAcompañantes
+                                                        ?.message ||
+                                                    "Selecciona los acompañantes"
+                                                }
+                                                error={!!errors?.strEmpresariosAcompañantes}
+                                                disabled={loading || isPreview}
+                                                multiple
+                                                onChange={(_, value) =>
+                                                    onChange(value)
+                                                }
+                                                intIdIdea={intIdIdea}
+                                            />
+                                        )}
+                                        control={control}
                                     />
                                 </Grid>
 
