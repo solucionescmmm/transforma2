@@ -67,6 +67,7 @@ class setAcompañamiento {
             strUbicacion: this.#objData.strUbicacion,
             intIdTipoActividad: this.#objData.intIdTipoActividad,
             strResponsables: JSON.stringify(this.#objData.strResponsables || ""),
+            strEmpresariosAcompañantes: JSON.stringify(this.#objData.strEmpresariosAcompañantes || []),
             strTemasActividades: this.#objData.strTemasActividades,
             strLogrosAvances: this.#objData.strLogros,
             strObservaciones: this.#objData.strObservaciones,

@@ -60,7 +60,7 @@ class updateTarea {
     async #completeData() {
         let newData = {
             ...this.#objData,
-            btFinalizada: this.#strNombreEsatdo === "Realizada" ? 1 : this.#strNombreEsatdo === "No atendida" ? 1 : this.#strNombreEsatdo === "Cancelada" ? 1 : 0,
+            btFinalizada: this.#strNombreEsatdo === "Realizada" ? 1 : this.#strNombreEsatdo === "Atendida, no tomada" ? 1 : this.#strNombreEsatdo === "Cancelada" ? 1 : 0,
             strUsuarioActualizacion: this.#objUser.strEmail,
             intIdEstadoTarea: this.#objData.intIdEstado,
             intIdAreaResponsable: this.#objData.strArea?.intId,
