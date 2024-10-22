@@ -49,8 +49,6 @@ const getAcompañamiento = async (objParams, strDataUser) => {
 
             for (let i = 0; i < array.length; i++) {
                 let objInfoPrincipal = {};
-
-                console.log(array[i].arrSesionAcompañamiento[0]);
                 
                 objInfoPrincipal = {
                     intId: array[i]?.intId,
