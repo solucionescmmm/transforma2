@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 //import { matchSorter } from "match-sorter";
 
 //Hooks
-import useGetEmpresarios from "../hooks/useGetEmpresarios";
+// import useGetEmpresarios from "../hooks/useGetEmpresarios";
 import useGetEmpresarioEvento from "../hooks/useGetEmpresarioEvento";
 
 //Componentes de Material UI

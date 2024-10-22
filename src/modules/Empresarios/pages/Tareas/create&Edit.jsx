@@ -527,6 +527,13 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                 />
                             )}
                             control={control}
+                            rules={{
+                                validate: ((value) => {
+                                    if (isNaN(Date.parse(value))) {
+                                        return "La fecha ingresada no es correcta"
+                                    }
+                                })
+                            }}
                         />
                     </Grid> : null}
 
@@ -560,6 +567,11 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                             rules={{
                                 required:
                                     "Por favor, selecciona la fecha tentativa de finalización",
+                                validate: ((value) => {
+                                    if (isNaN(Date.parse(value))) {
+                                        return "La fecha ingresada no es correcta"
+                                    }
+                                })
                             }}
                         />
                     </Grid>

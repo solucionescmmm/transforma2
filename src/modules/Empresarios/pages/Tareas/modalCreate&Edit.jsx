@@ -551,8 +551,11 @@ const ModalCEdit = ({
                             )}
                             control={control}
                             rules={{
-                                required:
-                                    "Por favor, selecciona la fecha de atención",
+                                validate: ((value) => {
+                                    if (isNaN(Date.parse(value))) {
+                                        return "La fecha ingresada no es correcta"
+                                    }
+                                })
                             }}
                         />
                     </Grid> : null}
@@ -587,6 +590,11 @@ const ModalCEdit = ({
                             rules={{
                                 required:
                                     "Por favor, selecciona la fecha de finalización",
+                                validate: ((value) => {
+                                    if (isNaN(Date.parse(value))) {
+                                        return "La fecha ingresada no es correcta"
+                                    }
+                                })
                             }}
                         />
                     </Grid>
