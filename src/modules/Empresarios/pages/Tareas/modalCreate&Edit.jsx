@@ -41,6 +41,7 @@ import { Controller, useForm } from "react-hook-form";
 import useGetTareas from "../../hooks/useGetTareas";
 import DropdownUsuarios from "../../../../common/components/dropdowUsuarios";
 import DropdownAreas from "../../../Admin/components/dropdownAreas";
+import SelectEstadoTareas from "../../components/selectEstadoTareas";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -89,6 +90,7 @@ const ModalCEdit = ({
         dtFechaAtencion: null,
         intIdEstado: "",
         strArea: null,
+        strEstado: ""
     });
 
     //===============================================================================================================================================
@@ -132,11 +134,10 @@ const ModalCEdit = ({
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${
-                        isEdit
-                            ? process.env.REACT_APP_API_TRANSFORMA_TAREAS_PUT
-                            : process.env.REACT_APP_API_TRANSFORMA_TAREAS_SET
-                    }`,
+                    url: `${isEdit
+                        ? process.env.REACT_APP_API_TRANSFORMA_TAREAS_PUT
+                        : process.env.REACT_APP_API_TRANSFORMA_TAREAS_SET
+                        }`,
                     data,
                     headers: {
                         token,
@@ -212,6 +213,7 @@ const ModalCEdit = ({
                                     : null,
                                 intIdEstado: data.intIdEstado,
                                 strArea: data.strArea,
+                                strEstado: data.strEstado
                             });
                         }
 
@@ -243,6 +245,7 @@ const ModalCEdit = ({
                 dtFechaAtencion: null,
                 intIdEstado: "",
                 strArea: null,
+                strEstado: ""
             });
         }
     }, [data, reset, isEdit, intId, intIdIdea, strInfoUser.strUsuario]);
@@ -276,6 +279,7 @@ const ModalCEdit = ({
                     dtFechaAtencion: null,
                     intIdEstado: "",
                     strArea: null,
+                    strEstado: ""
                 });
             }
 
@@ -392,18 +396,18 @@ const ModalCEdit = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    {isEdit ? <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.intIdEstado}
                             name="intIdEstado"
                             render={({ field: { name, value, onChange } }) => (
-                                <TextField
+                                <SelectEstadoTareas
                                     label="Estado"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
                                     required
-                                    disabled={!!!isEdit || loading} 
+                                    disabled={!!!isEdit || loading}
                                     fullWidth
                                     variant="standard"
                                     error={errors?.intIdEstado ? true : false}
@@ -419,7 +423,7 @@ const ModalCEdit = ({
                                     "Por favor, digíta el nombre de la tarea",
                             }}
                         />
-                    </Grid>
+                    </Grid> : null}
 
                     <Grid item xs={12} md={6}>
                         <Controller
@@ -519,7 +523,7 @@ const ModalCEdit = ({
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    {isEdit ? <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.dtFechaAtencion}
                             name="dtFechaAtencion"
@@ -551,7 +555,7 @@ const ModalCEdit = ({
                                     "Por favor, selecciona la fecha de atención",
                             }}
                         />
-                    </Grid>
+                    </Grid> : null}
 
                     <Grid item xs={12} md={6}>
                         <Controller

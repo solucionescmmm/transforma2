@@ -99,7 +99,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
         dtFechaAtencion: null,
         intIdEstado: "",
         strArea: null,
-        strEstado:""
+        strEstado: ""
     });
 
     const [success, setSucces] = useState(false);
@@ -154,8 +154,8 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${isEdit
-                            ? process.env.REACT_APP_API_TRANSFORMA_TAREAS_PUT
-                            : process.env.REACT_APP_API_TRANSFORMA_TAREAS_SET
+                        ? process.env.REACT_APP_API_TRANSFORMA_TAREAS_PUT
+                        : process.env.REACT_APP_API_TRANSFORMA_TAREAS_SET
                         }`,
                     data,
                     headers: {
@@ -405,7 +405,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     "Por favor, digíta el nombre de la tarea",
                             }}
                         />
-                    </Grid>: null}
+                    </Grid> : null}
 
                     <Grid item xs={12} md={6}>
                         <Controller
@@ -501,7 +501,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    {isEdit ? <Grid item xs={12} md={6}>
                         <Controller
                             defaultValue={data.dtFechaAtencion}
                             name="dtFechaAtencion"
@@ -528,7 +528,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                             )}
                             control={control}
                         />
-                    </Grid>
+                    </Grid> : null}
 
                     <Grid item xs={12} md={6}>
                         <Controller
