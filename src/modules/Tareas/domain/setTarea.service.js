@@ -109,6 +109,7 @@ class setTarea {
         const strNombreIdea = this.#objIdea[0].strNombre;
         const strNombreEmpresario = `${objDataEmpresarioPrincipal.strNombres} ${objDataEmpresarioPrincipal.strApellidos}`
         const intIdIdea = this.#objIdea[0]?.intId
+        const strEstado = "En proceso"
 
 
         let strMensaje = plantillaCorreoTareas({
@@ -116,7 +117,8 @@ class setTarea {
             ...this.#objUser,
             strNombreIdea,
             strNombreEmpresario,
-            intIdIdea
+            intIdIdea,
+            strEstado
         })
 
         let arrEmailTo = []
