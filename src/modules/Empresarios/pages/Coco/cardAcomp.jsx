@@ -43,7 +43,7 @@ const CardAcom = ({ intIdIdea }) => {
         );
     }
 
-    if (arrAcom.length === 0  || !arrAcom.length) {
+    if (arrAcom.length === 0 || !arrAcom.length) {
         return (
             <div
                 style={{
@@ -74,10 +74,10 @@ const CardAcom = ({ intIdIdea }) => {
                 <div>
                     <Box sx={{ display: "flex" }}>
                         <p style={{ fontSize: "12px", paddingRight: "5px" }}>
-                            {p.arrSesionAcompañamiento[0]?.dtmFechaInicial ? format(
+                            {!isNaN(new Date(p.arrSesionAcompañamiento[0].dtmFechaInicial).getTime()) ? format(
                                 parseISO(p.arrSesionAcompañamiento[0].dtmFechaInicial),
                                 "yyyy-MM-dd"
-                            ): "No registro"}
+                            ) : "No registro"}
                         </p>
                         <p
                             style={{
@@ -95,7 +95,7 @@ const CardAcom = ({ intIdIdea }) => {
                             - {p.arrSesionAcompañamiento[0]?.strNombreServicio ? p.arrSesionAcompañamiento[0].strNombreServicio : ""}
                         </p>
                     </Box>
-                    <hr style={{color: "black"}}/>
+                    <hr style={{ color: "black" }} />
                 </div>
             ))}
         </div>
