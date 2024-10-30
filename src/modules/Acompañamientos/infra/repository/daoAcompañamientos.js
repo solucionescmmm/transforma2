@@ -336,21 +336,22 @@ class daoAcompañamientos {
 
             UPDATE tbl_Sesiones_Acompañamientos
 
-            SET intIdEmpresario          = COALESCE(${data.intIdEmpresario},intIdEmpresario),
-                dtmFechaInicial          = COALESCE(${data.dtmFechaInicial},dtmFechaInicial),
-                dtmFechaFinal            = COALESCE(${data.dtmFechaFinal},dtmFechaFinal),
-                strUbicacion             = COALESCE(${data.strUbicacion},strUbicacion),
-                intIdTipoActividad       = COALESCE(${data.intIdTipoActividad},intIdTipoActividad),
-                strResponsables          = COALESCE(${data.strResponsables},strResponsables),
-                strObjetivoActividad     = COALESCE(${data.strObjetivoActividad},strObjetivoActividad),
-                strTemasActividades      = COALESCE(${data.strTemasActividades},strTemasActividades),
-                strLogrosAvances         = COALESCE(${data.strLogrosAvances},strLogrosAvances),
-                strObservaciones         = COALESCE(${data.strObservaciones},strObservaciones),
-                intIdTarea               = COALESCE(${data.intIdTarea},intIdTarea),
-                dtmProximaActividad      = COALESCE(${data.dtmProximaActividad},dtmProximaActividad),
-                intIdDocumento           = COALESCE(${data.intIdDocumento},intIdDocumento),
-                dtmActualizacion         = COALESCE(GETDATE(),dtmActualizacion),
-                strUsuarioActualizacion  = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
+            SET intIdEmpresario            = COALESCE(${data.intIdEmpresario},intIdEmpresario),
+                dtmFechaInicial            = COALESCE(${data.dtmFechaInicial},dtmFechaInicial),
+                dtmFechaFinal              = COALESCE(${data.dtmFechaFinal},dtmFechaFinal),
+                strUbicacion               = COALESCE(${data.strUbicacion},strUbicacion),
+                intIdTipoActividad         = COALESCE(${data.intIdTipoActividad},intIdTipoActividad),
+                strResponsables            = COALESCE(${data.strResponsables},strResponsables),
+                strObjetivoActividad       = COALESCE(${data.strObjetivoActividad},strObjetivoActividad),
+                strEmpresariosAcompañantes = COALESCE(${data.strEmpresariosAcompañantes},strEmpresariosAcompañantes),
+                strTemasActividades        = COALESCE(${data.strTemasActividades},strTemasActividades),
+                strLogrosAvances           = COALESCE(${data.strLogrosAvances},strLogrosAvances),
+                strObservaciones           = COALESCE(${data.strObservaciones},strObservaciones),
+                intIdTarea                 = COALESCE(${data.intIdTarea},intIdTarea),
+                dtmProximaActividad        = COALESCE(${data.dtmProximaActividad},dtmProximaActividad),
+                intIdDocumento             = COALESCE(${data.intIdDocumento},intIdDocumento),
+                dtmActualizacion           = COALESCE(GETDATE(),dtmActualizacion),
+                strUsuarioActualizacion    = COALESCE(${data.strUsuarioActualizacion},strUsuarioActualizacion)
             
 
             WHERE intId = ${data.intId}
