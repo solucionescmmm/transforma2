@@ -40,7 +40,7 @@ import PageError from "../../../../../common/components/Error";
 import ReadTareas from "../../Tareas";
 import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
 import SelectTipoAct from "../../../components/selectTipoAct";
-import DropdownEmpresarios from "../../../components/dropdownEmpresarios";
+import DropdownEmpresarios from "../../../../Diagnosticos/components/dropdownEmpresarios";
 import useGetRutas from "../../../hooks/useGetRutas";
 import Loader from "../../../../../common/components/Loader";
 

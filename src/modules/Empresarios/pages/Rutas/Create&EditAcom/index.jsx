@@ -42,7 +42,7 @@ import ReadTareas from "../../Tareas";
 import DropdownUsuarios from "../../../../../common/components/dropdowUsuarios";
 import SelectTipoAct from "../../../components/selectTipoAct";
 import InfoNuevoServPaq from "./infoNuevoServPaq";
-import DropdownEmpresarios from "../../../components/dropdownEmpresarios";
+import DropdownEmpresarios from "../../../../Diagnosticos/components/dropdownEmpresarios";
 import Loader from "../../../../../common/components/Loader";
 import useGetAcomp from "../../../hooks/useGetAcomp";
 
