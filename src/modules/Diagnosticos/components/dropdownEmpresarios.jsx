@@ -180,7 +180,6 @@ const DropdownEmpresarios = ({
                         option === value ||
                         option.intId === value.intId ||
                         option.strNombreCompleto === value.strNombreCompleto ||
-                        option.intIdTipoEmpresario === value.intIdTipoEmpresario ||
                         option.strNombres === value.strNombres ||
                         option.strApellidos === value.strApellidos ||
                         option.strNroDocto === value.strNroDocto
