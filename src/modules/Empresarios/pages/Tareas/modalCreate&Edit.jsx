@@ -536,7 +536,6 @@ const ModalCEdit = ({
                                     format="dd/MM/yyyy"
                                     slotProps={{
                                         textField: {
-                                            required: true,
                                             fullWidth: true,
                                             variant: "standard",
                                             name,
