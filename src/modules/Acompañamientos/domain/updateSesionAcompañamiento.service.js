@@ -44,8 +44,10 @@ class updateSesionAcompañamiento {
         let dao = new classInterfaceDAOAcompañamientos();
         let newData = {
             ...this.#objData,
+            intIdEmpresario: this.#objData.objEmpresario?.intId,
+            strEmpresariosAcompañantes: JSON.stringify(this.#objData.strEmpresariosAcompañantes),
+            strResponsables: JSON.stringify(this.#objData?.strResponsables),
             strUsuarioActualizacion:this.#objUser.strEmail,
-            strResponsables: JSON.stringify(this.#objData?.strResponsables)
         };
 
         let query = await dao.updateSesionAcompañamiento(newData);
