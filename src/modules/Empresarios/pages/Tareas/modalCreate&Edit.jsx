@@ -529,7 +529,7 @@ const ModalCEdit = ({
                             name="dtFechaAtencion"
                             render={({ field: { name, value, onChange } }) => (
                                 <DatePicker
-                                    label="Fecha de atención"
+                                    label="Fecha de gestión"
                                     value={value}
                                     disabled={loading}
                                     onChange={(date) => onChange(date)}
@@ -543,7 +543,7 @@ const ModalCEdit = ({
                                             helperText:
                                                 errors?.dtFechaAtencion
                                                     ?.message ||
-                                                "Selecciona la fecha de atención",
+                                                "Selecciona la fecha de gestión",
                                         },
                                     }}
                                 />
