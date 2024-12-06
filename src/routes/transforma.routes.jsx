@@ -46,6 +46,7 @@ const REmpresarios = lazy(() =>
     import("../modules/Empresarios/pages/Read/readEmpresarios")
 );
 
+const AdminCargaMasiva= lazy(() => import("../modules/Admin/pages/CargaMasiva/"));
 const RTerceros = lazy(() => import("../modules/Terceros"));
 
 const DetailsEmpresario = lazy(() =>
@@ -261,6 +262,16 @@ const RoutesTransforma = ({ path }) => {
                                     component={() => (
                                         <div className="animate__animated animate__fadeIn">
                                             <AdminPaquetesCreate isPreview />
+                                        </div>
+                                    )}
+                                />
+
+                                <Route
+                                    path="/transforma/admin/cargaMasiva"
+                                    exact
+                                    component={() => (
+                                        <div className="animate__animated animate__fadeIn">
+                                            <AdminCargaMasiva />
                                         </div>
                                     )}
                                 />
