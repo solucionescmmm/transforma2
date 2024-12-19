@@ -1,5 +1,7 @@
 //class
-const classInterfaceDAOTareas = require("../infra/conectors/");
+const validateDataArray = require("../app/functions/validateSchema");
+const interfaceDAOAdmin = require("../infra/conectors/interfaceDAOAdmin");
+const classInterfaceDAOCargaMasiva = require("../infra/conectors/interfaceDAOAdmin");
 
 //Librerias
 const validator = require("validator").default;
@@ -12,6 +14,7 @@ class setCargaMasiva {
     #objData;
     #objUser;
     #objResult;
+    #objDataProcess
 
     #intIdEstadoTarea
 
@@ -25,8 +28,13 @@ class setCargaMasiva {
     }
 
     async main() {
-        await this.#validations();
+        this.#validations();
+        await this.#validationsSchema()
+        // await this.#validationBusiness()
+        await this.#truncateTmpCrearPersonaEmpresaria()
         await this.#setCargaMasiva();
+        await this.#sp_setIdeaEmpresario()
+
         return this.#objResult;
     }
 
@@ -40,35 +48,89 @@ class setCargaMasiva {
                 "El campo de Usuario contiene un formato no valido, debe ser de tipo email y pertenecer al domino cmmmedellin.org."
             );
         }
-        if (!this.#objData) {
-            throw new Error("Se esperaban parámetros de entrada.");
+    }
+
+    async #validationsSchema() {
+        const result = validateDataArray(this.#objData);
+
+        if (result.valid) {
+            this.#objDataProcess = result.data;
+            console.log("Todos los datos son válidos.");
+        } else {
+            console.log("Errores de validación:");
+            result.forEach((error) => {
+                console.log(`Error en el índice ${error.index}:`);
+                console.log(`Nombre: ${error.name}, Documento: ${error.document}`);
+                console.log(`Detalle: ${error.error}`);
+            });
+            throw new Error(JSON.stringify(result[0], null, 2))
         }
     }
 
-    async #setCargaMasiva() {
-        let dao = new classInterfaceDAOTareas();
+    async #validationBusiness() {
+        const dao = new interfaceDAOAdmin()
 
-        let newData = {
-            ...this.#objData,
-            btFinalizada: 0,
-            intIdEstadoTarea: this.#intIdEstadoTarea,
-            strUsuarioCreacion: this.#objUser.strEmail,
-            intIdAreaResponsable: this.#objData.strArea?.intId,
-            strResponsable: JSON.stringify(this.#objData?.strResponsable),
-            strAreaResponsable: JSON.stringify(this.#objData?.strAreaResponsable)
-        };
+        for (let i = 0; i < this.#objDataProcess.length; i++) {
+            const query = await dao.getNroDocumentoEmpresario({
+                strNroDocto: this.#objDataProcess[i]?.NumeroDocto?.toString()
+            })
 
-        let query = await dao.setTarea(newData);
+            if (query.error) {
+                throw new Error(query.msg)
+            }
+
+            if (query.data) {
+                throw new Error(`El empresario ${this.#objDataProcess[i].Nombres} ${this.#objDataProcess[i].Apellidos} con número de documento: ${this.#objDataProcess[i].NumeroDocto}, ya existe en el app.`)
+            }
+
+        }
+
+    }
+
+    async #truncateTmpCrearPersonaEmpresaria() {
+        const dao = new interfaceDAOAdmin()
+        const query = await dao.truncateTmpCrearPersonaEmpresaria()
 
         if (query.error) {
-            throw new Error(query.msg);
+            throw new Error(query.msg)
+        }
+
+    }
+
+    async #setCargaMasiva() {
+        let dao = new classInterfaceDAOCargaMasiva();
+        let query
+
+        for (let i = 0; i < this.#objDataProcess.length; i++) {
+            query = await dao.setCargaMasiva({
+                ...this.#objDataProcess[i],
+                Celular1: String(this.#objDataProcess[i].Celular1),
+                Celular2: String(this.#objDataProcess[i].Celular2)
+            })
+
+            if (query.error) {
+                throw new Error(query.msg)
+            }
+
         }
 
         this.#objResult = {
-            error: query.error,
+            error: false,
             data: query.data,
-            msg: query.msg,
+            msg: "Los empresarios fueron cargados con exito.",
         };
+    }
+
+    async #sp_setIdeaEmpresario() {
+        const dao = new interfaceDAOAdmin()
+        const query = await dao.sp_setIdeaEmpresario({
+            strEmail: this.#objUser.strEmail
+        })
+
+        if (query.error) {
+            throw new Error(query.msg)
+        }
+
     }
 }
 module.exports = setCargaMasiva;

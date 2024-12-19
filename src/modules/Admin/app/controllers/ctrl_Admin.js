@@ -1,14 +1,12 @@
-
+const setCargaMasiva = require("../../domain/setCargaMasiva.service");
 
 class ctrlAdmin {
-
     async setCargaMasiva(req, res) {
-
         try {
             let data = req.body;
             let { strDataUser } = req;
 
-            let service = new setEmpresarioPrincipal(data, strDataUser);
+            let service = new setCargaMasiva(data, strDataUser);
 
             let query = await service.main();
 

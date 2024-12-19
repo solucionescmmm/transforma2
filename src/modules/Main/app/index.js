@@ -17,7 +17,7 @@ app.set("typeServer", process.env.ENV);
 
 //Middlewares
 app.use(cors());
-app.use(express.json({limit:"50mb"}));
+app.use(express.json({ limit: "50mb" }));
 app.use(morgan((process.env.ENV = "development" ? "dev" : "common")));
 app.use(helmet());
 app.use(compression({ level: 9 }));
@@ -32,6 +32,7 @@ app.use(
 
 //router
 app.use(require("../infra/http/apiMain.routes"));
+app.use(require("../../Admin/infra/http/admin.routes"))
 app.use(require("../../Acompañamientos/infra/http/apiAcompañamientos.routes"))
 app.use(require("../../Empresarios/infra/http/apiEmpresarios.routes"));
 app.use(require("../../Historicos/infra/http/apiHistoricos.routes"))
