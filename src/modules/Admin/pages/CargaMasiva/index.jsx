@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
+import { AuthContext } from "../../../../common/middlewares/Auth";
 import * as XLSX from "xlsx";
 import {
     Breadcrumbs,
@@ -32,11 +33,15 @@ import {
     Remove as RemoveIcon,
     AddBox as AddBoxIcon,
 } from "@mui/icons-material";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const FileUploadWithBreadcrumbs = () => {
+    const { token } = useContext(AuthContext)
     const [data, setData] = useState([]);
     const [columns, setColumns] = useState([]);
     const [fileUploaded, setFileUploaded] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const handleFileUpload = (e) => {
         setData(undefined)
@@ -116,8 +121,50 @@ const FileUploadWithBreadcrumbs = () => {
         setFileUploaded(false);
     };
 
+
     const handleSendData = async () => {
         try {
+            setLoading(true);
+
+            await axios(
+                {
+                    method: "POST",
+                    baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
+                    url: `${process.env.REACT_APP_API_TRANSFORMA_ADMIN_SETCARGAMASIVA}`,
+                    data,
+                    headers: {
+                        token,
+                        "Content-Type": "application/json;charset=UTF-8",
+                    },
+                }
+            )
+                .then((res) => {
+                    if (res.data.error) {
+                        throw new Error(res.data.msg);
+                    }
+
+                    toast.success(res.data.msg);
+                    handleResetFile()
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    if (!axios.isCancel(error)) {
+                        let msg;
+
+                        if (error.response) {
+                            msg = error.response.data.msg;
+                        } else if (error.request) {
+                            msg = error.message;
+                        } else {
+                            msg = error.message;
+                        }
+
+                        console.error(error);
+                        setLoading(false);
+
+                        toast.error(msg);
+                    }
+                });
             //const response = await axios.post("/api/endpoint", data);
             // alert("Datos enviados exitosamente");
             console.log(data);
@@ -158,16 +205,17 @@ const FileUploadWithBreadcrumbs = () => {
                     </Button>
                 ) : (
                     <Box>
-                        <Button variant="outlined" color="secondary" onClick={handleResetFile}>
+                        <Button variant="outlined" color="secondary" disabled={loading} onClick={handleResetFile}>
                             Eliminar archivo
                         </Button>
                         <Button
                             variant="contained"
                             color="primary"
+                            disabled={loading}
                             onClick={handleSendData}
                             style={{ marginLeft: "10px" }}
                         >
-                            Enviar a API
+                            Enviar Información
                         </Button>
                     </Box>
                 )}
@@ -278,7 +326,9 @@ const FileUploadWithBreadcrumbs = () => {
                             data={data || []}
                             columns={columns}
                             options={{
+                                grouping: true,
                                 title: true,
+                                filtering: false,
                                 search: true,
                                 exportAllData: true,
                                 columnsButton: true,

@@ -21,7 +21,8 @@ import {
     Home as HomeIcon,
     //VerifiedUser as VerifiedUserIcon,
     BusinessCenter as BusinessCenterIcon,
-    Ballot as BallotIcon
+    Ballot as BallotIcon,
+    UploadFile as UploadFileIcon
 } from "@mui/icons-material";
 
 
@@ -200,7 +201,7 @@ const HomePage = () => {
                 <Card>
                     <CardActionArea
                         component={RouterLink}
-                        to={`/transforma/admin/cargaMasiva/`}
+                        to={`/transforma/admin/cargaMasiva`}
                     >
                         <CardContent sx={{ padding: "0px" }}>
                             <Grid container direction="row" spacing={2}>
@@ -216,7 +217,7 @@ const HomePage = () => {
                                         }}
                                     >
                                         <Box>
-                                            <BallotIcon
+                                            <UploadFileIcon
                                                 htmlColor="#fff"
                                                 sx={{ fontSize: "80px" }}
                                             />
