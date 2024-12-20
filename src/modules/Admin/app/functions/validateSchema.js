@@ -1,7 +1,7 @@
 const Ajv = require("ajv");
 const addFormats = require("ajv-formats");
 
-const ajv = new Ajv();
+const ajv = new Ajv({ allErrors: true });
 addFormats(ajv); // Habilitar soporte para formatos como "email" y "date"
 
 ajv.addFormat("customDate", {
@@ -227,23 +227,24 @@ function validateDataArray(data) {
     const valid = validateArray(preprocessedData);
 
     if (!valid) {
-        console.log(validateArray.errors);
+        // Mapea los errores a un formato legible
         return validateArray.errors.map((error) => {
             const path = error.instancePath.split("/").filter(Boolean); // Divide el path
             const index = path[0]; // Primer valor será el índice del array
-            const failedObject = preprocessedData[index]; // Obtiene el objeto fallido
-            const column = path[1]
+            const column = path[1]; // Nombre de la columna fallida
+            const failedObject = preprocessedData[index] || {}; // Obtiene el objeto fallido, si existe
 
             return {
-                index: parseInt(index, 10),
-                name: `${failedObject?.Nombres} ${failedObject?.Apellidos}` || null,
+                index: parseInt(index, 10) + 1, // Índice del objeto en el array
+                name: `${failedObject?.Nombres || ""} ${failedObject?.Apellidos || ""}`.trim() || null,
                 document: failedObject?.NumeroDocto || null,
-                column: column,
-                error: error.message
+                column: column || null, // Nombre del campo fallido
+                error: error.message // Mensaje de error
             };
         });
     }
 
+    // Si los datos son válidos, retorna el objeto procesado
     return { valid: true, data: preprocessedData };
 }
 

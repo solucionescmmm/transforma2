@@ -18,6 +18,7 @@ class ctrlAdmin {
         } catch (error) {
             let result = {
                 error: true,
+                data:error.data,
                 msg: error.message,
             };
 

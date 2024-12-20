@@ -30,7 +30,7 @@ class setCargaMasiva {
     async main() {
         this.#validations();
         await this.#validationsSchema()
-        // await this.#validationBusiness()
+        await this.#validationBusiness()
         await this.#truncateTmpCrearPersonaEmpresaria()
         await this.#setCargaMasiva();
         await this.#sp_setIdeaEmpresario()
@@ -57,35 +57,52 @@ class setCargaMasiva {
             this.#objDataProcess = result.data;
             console.log("Todos los datos son válidos.");
         } else {
-            console.log("Errores de validación:");
-            result.forEach((error) => {
-                console.log(`Error en el índice ${error.index}:`);
-                console.log(`Nombre: ${error.name}, Documento: ${error.document}`);
-                console.log(`Detalle: ${error.error}`);
-            });
-            throw new Error(JSON.stringify(result[0], null, 2))
+            // Lanza un objeto con la estructura deseada
+            // console.log(result);
+            throw {
+                error: true,
+                data: result,
+                message: "Errores en los datos de entrada."
+            };
         }
     }
 
     async #validationBusiness() {
-        const dao = new interfaceDAOAdmin()
+        const dao = new interfaceDAOAdmin();
+        const validationErrors = [];
 
         for (let i = 0; i < this.#objDataProcess.length; i++) {
+            const currentDocument = this.#objDataProcess[i]?.NumeroDocto?.toString();
+
             const query = await dao.getNroDocumentoEmpresario({
-                strNroDocto: this.#objDataProcess[i]?.NumeroDocto?.toString()
-            })
+                strNroDocto: currentDocument,
+            });
 
             if (query.error) {
                 throw new Error(query.msg)
             }
 
             if (query.data) {
-                throw new Error(`El empresario ${this.#objDataProcess[i].Nombres} ${this.#objDataProcess[i].Apellidos} con número de documento: ${this.#objDataProcess[i].NumeroDocto}, ya existe en el app.`)
+                validationErrors.push({
+                    index: i,
+                    name: `${this.#objDataProcess[i]?.Nombres} ${this.#objDataProcess[i]?.Apellidos}`,
+                    document: currentDocument,
+                    column: "NumeroDocto",
+                    error: `El empresario ya existe en la app.`,
+                });
             }
 
         }
 
+        if (validationErrors.length > 0) {
+            throw {
+                error: true,
+                data: validationErrors,
+                message: "Errores en los datos de entrada."
+            };
+        }
     }
+
 
     async #truncateTmpCrearPersonaEmpresaria() {
         const dao = new interfaceDAOAdmin()
