@@ -328,7 +328,7 @@ const FileUploadWithBreadcrumbs = () => {
                                         groupedBy: "Datos agrupados por: ",
                                     },
                                 }}
-                                isLoading={data === undefined ? true : false}
+                                isLoading={data === undefined ? true : loading ? true : false}
                                 data={data || []}
                                 columns={columns}
                                 options={{

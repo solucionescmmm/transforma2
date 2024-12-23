@@ -32,10 +32,10 @@ import {
 
 const ErrorDialog = ({ open, onClose, errorData, title, lengthError }) => {
     const columns = [
-        { title: 'Índice', field: 'index' },
+        { title: 'Fila', field: 'index' },
         { title: 'Nombre', field: 'name' },
         { title: 'Documento', field: 'document' },
-        { title: 'Columna', field: 'column' },
+        { title: 'Columna error', field: 'column' },
         { title: 'Error', field: 'error' },
     ];
 
