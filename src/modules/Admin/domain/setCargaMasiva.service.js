@@ -84,7 +84,7 @@ class setCargaMasiva {
 
             if (query.data) {
                 validationErrors.push({
-                    index: i,
+                    index: i + 2,
                     name: `${this.#objDataProcess[i]?.Nombres} ${this.#objDataProcess[i]?.Apellidos}`,
                     document: currentDocument,
                     column: "NumeroDocto",

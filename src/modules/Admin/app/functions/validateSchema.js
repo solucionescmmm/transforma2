@@ -235,7 +235,7 @@ function validateDataArray(data) {
             const failedObject = preprocessedData[index] || {}; // Obtiene el objeto fallido, si existe
 
             return {
-                index: parseInt(index, 10) + 1, // Índice del objeto en el array
+                index: parseInt(index, 10) + 2, // Índice del objeto en el array
                 name: `${failedObject?.Nombres || ""} ${failedObject?.Apellidos || ""}`.trim() || null,
                 document: failedObject?.NumeroDocto || null,
                 column: column || null, // Nombre del campo fallido
