@@ -317,8 +317,8 @@ const ReadSolicitudesUser = () => {
                                     },
                                     maxBodyHeight: "520px",
                                     actionsColumnIndex: -1,
-                                    paging:true,
-                                    pageSizeOptions:[20,100,200,500], 
+                                    paging: true,
+                                    pageSizeOptions: [20, 100, 200, 500],
                                     pageSize: 20,
                                 }}
                                 actions={[
@@ -327,9 +327,6 @@ const ReadSolicitudesUser = () => {
                                             icon: () => (
                                                 <EditIcon
                                                     color={
-                                                        rowData.objInfoPrincipal
-                                                            .intIdEstado ===
-                                                            1 ||
                                                         rowData.objInfoPrincipal
                                                             .intIdEstado === 3
                                                             ? "gray"
@@ -346,8 +343,6 @@ const ReadSolicitudesUser = () => {
                                             },
                                             disabled:
                                                 rowData.objInfoPrincipal
-                                                    .intIdEstado === 1 ||
-                                                rowData.objInfoPrincipal
                                                     .intIdEstado === 3,
                                         };
                                     },
@@ -359,8 +354,8 @@ const ReadSolicitudesUser = () => {
                                                         rowData.objInfoPrincipal
                                                             .intIdEstado ===
                                                             1 ||
-                                                        rowData.objInfoPrincipal
-                                                            .intIdEstado === 3
+                                                            rowData.objInfoPrincipal
+                                                                .intIdEstado === 3
                                                             ? "gray"
                                                             : "error"
                                                     }

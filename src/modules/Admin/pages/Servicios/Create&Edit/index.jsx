@@ -101,6 +101,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
     });
 
     const [bitModulo, setBitModulo] = useState(false);
+    const [bitActivo, setBitActivo] = useState(false);
 
     const [success, setSucces] = useState(false);
 
@@ -194,12 +195,11 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                 {
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
-                    url: `${
-                        isEdit
-                            ? process.env
-                                  .REACT_APP_API_TRANSFORMA_SERVICIO_UPDATE
-                            : process.env.REACT_APP_API_TRANSFORMA_SERVICIO_SET
-                    }`,
+                    url: `${isEdit
+                        ? process.env
+                            .REACT_APP_API_TRANSFORMA_SERVICIO_UPDATE
+                        : process.env.REACT_APP_API_TRANSFORMA_SERVICIO_SET
+                        }`,
                     data,
                     headers: {
                         token,
@@ -261,7 +261,9 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                             let data = res.data.data[0];
 
                             const arrAtributos = data.arrAtributos;
-
+                            if (res.data.data[0]?.objInfoPrincipal.strEstado === "Activo") {
+                                setBitActivo(true)
+                            }
                             if (arrAtributos) {
                                 for (let i = 0; i < arrAtributos.length; i++) {
                                     arrAtributos[i].id = shortid.generate();
@@ -400,8 +402,8 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                         {isEdit
                             ? "Editar servicio"
                             : isPreview
-                            ? "Previsualizar servicio"
-                            : "Registrar servicio"}
+                                ? "Previsualizar servicio"
+                                : "Registrar servicio"}
                     </Typography>
                 </Breadcrumbs>
             </Grid>
@@ -457,8 +459,8 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                             {isEdit
                                                 ? "EDITAR SERVICIO"
                                                 : isPreview
-                                                ? "PREVISUALIZAR SERVICIO"
-                                                : "REGISTRAR SERVICIO"}
+                                                    ? "PREVISUALIZAR SERVICIO"
+                                                    : "REGISTRAR SERVICIO"}
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -477,7 +479,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                     isPreview={isPreview}
                                     control={control}
                                     values={data.objInfoPrincipal}
-                                    disabled={isPreview ? true : loading}
+                                    disabled={isPreview || bitActivo ? true : loading}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
@@ -496,7 +498,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                 <InfoAtributo
                                     control={control}
                                     values={objTipoServicio?.arrAtributos}
-                                    disabled={isPreview ? true : loading}
+                                    disabled={isPreview || bitActivo ? true : loading}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
@@ -514,7 +516,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                         isEdit={isEdit}
                                         control={control}
                                         values={data.arrModulos}
-                                        disabled={isPreview ? true : loading}
+                                        disabled={isPreview || bitActivo ? true : loading}
                                         errors={errors}
                                         setValue={setValue}
                                         setError={setError}
@@ -530,6 +532,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                     control={control}
                                     values={data.arrSedesTarifas}
                                     disabled={isPreview ? true : loading}
+                                    bitActivo={bitActivo}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
@@ -544,7 +547,7 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                     isEdit={isEdit}
                                     control={control}
                                     values={data.arrResponsables}
-                                    disabled={isPreview ? true : loading}
+                                    disabled={isPreview || bitActivo ? true : loading}
                                     errors={errors}
                                     setValue={setValue}
                                     setError={setError}
@@ -558,14 +561,14 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                 errors.arrModulos ||
                                 errors.arrSedesTarifas ||
                                 errors.arrResponsables) && (
-                                <Grid item xs={12}>
-                                    <Alert severity="error">
-                                        Lo sentimos, tienes campos pendientes
-                                        por diligenciar en el formulario, revisa
-                                        e intentalo nuevamente.
-                                    </Alert>
-                                </Grid>
-                            )}
+                                    <Grid item xs={12}>
+                                        <Alert severity="error">
+                                            Lo sentimos, tienes campos pendientes
+                                            por diligenciar en el formulario, revisa
+                                            e intentalo nuevamente.
+                                        </Alert>
+                                    </Grid>
+                                )}
 
                             <Grid item xs={12}>
                                 <Box
@@ -583,8 +586,8 @@ const CreateEdit = ({ isEdit, isPreview }) => {
                                         {isEdit
                                             ? "guardar"
                                             : isPreview
-                                            ? "No disponible"
-                                            : "registrar"}
+                                                ? "No disponible"
+                                                : "registrar"}
                                     </LoadingButton>
                                 </Box>
                             </Grid>

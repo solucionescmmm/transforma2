@@ -33,6 +33,7 @@ const InfoSedesTarifa = ({
     control,
     isEdit,
     isPreview,
+    bitActivo,
     getValues,
 }) => {
     const {
@@ -155,6 +156,7 @@ const InfoSedesTarifa = ({
                                         values={e}
                                         errors={errors}
                                         disabled={disabled}
+                                        bitActivo={bitActivo}
                                         remove={remove}
                                         size={fields.length}
                                         getValues={getValues}

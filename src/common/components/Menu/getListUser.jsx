@@ -2,6 +2,7 @@ import React from "react";
 
 //Librerias
 import { Link as RouterLink, useLocation } from "react-router-dom";
+import { Can } from "../../functions/can";
 
 //Componentes de Material UI
 import {
@@ -18,14 +19,16 @@ import { withStyles } from "@mui/styles";
 import {
     Home as HomeIcon,
     //Equalizer as EqualizerIcon,
-    //ListAlt as ListAltIcon,
+    ListAlt as ListAltIcon,
     People as PeopleIcon,
     SupervisedUserCircle,
     //Report as ReportIcon,
     Engineering as EngineeringIcon,
     Stadium as StadiumIcon
 } from "@mui/icons-material";
-import { Can } from "../../functions/can";
+
+//Hooks
+import useGetListas from "../../hooks/useGetLinkReporte";
 
 
 const ListItem = withStyles({
@@ -65,6 +68,11 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
     //========================================== Hooks personalizados ===============================================================================
     //===============================================================================================================================================
     const location = useLocation();
+
+    const { data, refreshGetData } = useGetListas({
+        strGrupo: "BI",
+        strCodigo: "Informes BI",
+    });
 
     //===============================================================================================================================================
     //========================================== Renders ============================================================================================
@@ -160,27 +168,20 @@ const ListMenuUser = ({ toggleDrawer, movil }) => {
                 <ListItemText primary="Eventos" />
             </ListItem>
 
-            {/* <ListItem
-                // component={RouterLink}
-                // to=""
-                // selected={
-                //     location.pathname.startsWith(
-                //         "/transforma/asesor/actividades/"
-                //     )
-                //         ? true
-                //         : false
-                // }
-                // onClick={(e) => {
-                //     if (movil) {
-                //         toggleDrawer(e, false);
-                //     }
-                // }}
+            <ListItem
+                button
+                onClick={(e) => {
+                    window.open(data[0]?.strCodigoRetorno, '_blank');
+                    if (movil) {
+                        toggleDrawer(e, false);
+                    }
+                }}
             >
                 <ListItemIcon>
                     <ListAltIcon />
                 </ListItemIcon>
-                <ListItemText primary="Actividades" />
-            </ListItem> */}
+                <ListItemText primary="Reportes" />
+            </ListItem>
 
             {/* <ListItem
                 // button

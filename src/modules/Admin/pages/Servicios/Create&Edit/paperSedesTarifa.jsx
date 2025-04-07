@@ -44,6 +44,7 @@ const PaperSedesTarifa = ({
     index,
     control,
     disabled,
+    bitActivo,
     getValues,
     errors,
     remove,
@@ -90,6 +91,8 @@ const PaperSedesTarifa = ({
             intIdTipoTarifa: values.intIdTipoTarifa,
             dblValor: values.dblValor,
         });
+
+        console.log(values);
 
         if (!values.Id) {
             remove(index);
@@ -187,9 +190,8 @@ const PaperSedesTarifa = ({
                         },
                     }}
                 >
-                    <DialogTitle>{`¿Deseas eliminar la sede y tarifa #${
-                        index + 1
-                    }?`}</DialogTitle>
+                    <DialogTitle>{`¿Deseas eliminar la sede y tarifa #${index + 1
+                        }?`}</DialogTitle>
 
                     <DialogContent>
                         <DialogContentText>
@@ -283,7 +285,7 @@ const PaperSedesTarifa = ({
                                             onChange={(e) => {
                                                 onChange(e);
                                             }}
-                                            disabled={disabled}
+                                            disabled={values.intId && bitActivo ? true : false}
                                             required
                                             error={
                                                 !!errors?.arrSedesTarifas?.[
@@ -326,9 +328,9 @@ const PaperSedesTarifa = ({
 
                                                         if (
                                                             intIdSede ===
-                                                                intIdSedeAct &&
+                                                            intIdSedeAct &&
                                                             intIdTipoTarifa ===
-                                                                intIdTipoTarifaAct
+                                                            intIdTipoTarifaAct
                                                         ) {
                                                             return "Ya existe esta combinacion de sede y tarifa, por favor verifica e intenta nuevamente";
                                                         }
@@ -354,7 +356,7 @@ const PaperSedesTarifa = ({
                                             onChange={(e) => {
                                                 onChange(e);
                                             }}
-                                            disabled={disabled}
+                                            disabled={values.intId && bitActivo ? true : false}
                                             required
                                             error={
                                                 !!errors?.arrSedesTarifas?.[
@@ -398,9 +400,9 @@ const PaperSedesTarifa = ({
 
                                                         if (
                                                             intIdSede ===
-                                                                intIdSedeAct &&
+                                                            intIdSedeAct &&
                                                             intIdTipoTarifa ===
-                                                                intIdTipoTarifaAct
+                                                            intIdTipoTarifaAct
                                                         ) {
                                                             return "Ya existe esta combinacion de sede y tarifa, por favor verifica e intenta nuevamente";
                                                         }
@@ -432,7 +434,7 @@ const PaperSedesTarifa = ({
                                             customInput={TextField}
                                             fullWidth
                                             variant="standard"
-                                            disabled={disabled}
+                                            disabled={values?.intId && bitActivo ? true : false}
                                             required
                                             error={
                                                 !!errors?.arrSedesTarifas?.[
@@ -462,7 +464,7 @@ const PaperSedesTarifa = ({
                     color="error"
                     onClick={() => handlerChangeOpenModalDelete()}
                     size="large"
-                    disabled={size === 1 ? true : disabled}
+                    disabled={size === 1 || (values?.intId && bitActivo) ? true : disabled}
                     type="button"
                 >
                     <Tooltip title="Eliminar">
