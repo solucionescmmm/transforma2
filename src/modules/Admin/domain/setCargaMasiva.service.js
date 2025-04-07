@@ -71,6 +71,8 @@ class setCargaMasiva {
         const dao = new interfaceDAOAdmin();
         const validationErrors = [];
 
+        console.log(this.#objDataProcess);
+
         for (let i = 0; i < this.#objDataProcess.length; i++) {
             const currentDocument = this.#objDataProcess[i]?.NumeroDocto?.toString();
 

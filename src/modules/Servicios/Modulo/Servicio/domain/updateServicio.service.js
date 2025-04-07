@@ -25,18 +25,27 @@ class updateServicios {
     }
 
     async main() {
+        // console.log(this.#objData.objInfoPrincipal.strEstado);
+        // console.log(this.#objData.arrSedesTarifas);
         await this.#validations();
         if (typeof this.#objData.bitActivar !== "undefined") {
             await this.#getIdEstado();
             await this.#updateServiciosActivar();
             return this.#objResult;
-        }else{
-            await this.#updateServicios();
-            await this.#updateModuloServicios();
-            await this.#updateSedeTipoTarifaServicio();
-            await this.#updateAreasServicios();
-            await this.#updateResultServcio();
-            return this.#objResult;
+        } else {
+            if (this.#objData.objInfoPrincipal.strEstado === "Activo") {
+                console.log("Entre solo por estado Activo");
+                this.#intIdServicio = this.#objData.objInfoPrincipal?.intId
+                await this.#setNewSedeTipoTarifaServicio()
+                return this.#objResult;
+            } else {
+                await this.#updateServicios();
+                await this.#updateModuloServicios();
+                await this.#updateSedeTipoTarifaServicio();
+                await this.#updateAreasServicios();
+                await this.#updateResultServcio();
+                return this.#objResult;
+            }
         }
     }
 
@@ -61,12 +70,12 @@ class updateServicios {
             if (queryGetServicios.error) {
                 throw new Error(queryGetServicios.msg);
             }
-    
+
             let arrayServicios = queryGetServicios.data;
-    
-            if (arrayServicios?.length > 0 ) {
+
+            if (arrayServicios?.length > 0) {
                 for (let i = 0; i < arrayServicios.length; i++) {
-                    let strNombreRepetido =0
+                    let strNombreRepetido = 0
                     if (this.#objData.objInfoPrincipal.strNombre?.trim() === arrayServicios[i].objInfoPrincipal.strNombre?.trim()) {
                         strNombreRepetido++;
                     }
@@ -74,7 +83,7 @@ class updateServicios {
                         throw new Error("El nombre de esta áreas ya existe.");
                     }
                 }
-            } 
+            }
         }
     }
 
@@ -174,6 +183,36 @@ class updateServicios {
         }
     }
 
+    async #setNewSedeTipoTarifaServicio() {
+        if (this.#objData.arrSedesTarifas.length > 0) {
+            let array = this.#objData.arrSedesTarifas;
+
+            for (let i = 0; i < array.length; i++) {
+                if (!array[i]?.intId) {
+                    let dao = new classInterfaceDAOServicios();
+
+                    let query = await dao.setSedeTipoTarifaServicio({
+                        ...array[i],
+                        strUsuarioCreacion: this.#objUser.strEmail,
+                        intIdServicio: this.#intIdServicio
+                    });
+
+                    console.log(query);
+
+                    if (query.error) {
+                        throw new Error(query.msg);
+                    }
+
+                    this.#objResult = {
+                        error: query.error,
+                        data: query.data,
+                        msg: "El servicio, fue actualizado con éxito.",
+                    };
+                }
+            }
+        }
+    }
+
     async #updateSedeTipoTarifaServicio() {
         let dao = new classInterfaceDAOServicios();
 
@@ -193,7 +232,7 @@ class updateServicios {
 
                 let query = await dao.setSedeTipoTarifaServicio({
                     ...array[i],
-                    strUsuarioActualizacion: this.#objUser.strEmail,
+                    strUsuarioCreacion: this.#objUser.strEmail,
                     intIdServicio: this.#intIdServicio
                 });
 
