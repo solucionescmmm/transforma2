@@ -126,7 +126,9 @@ class setAcompañamiento {
             intIdDocumento: this.#intIdDocumento,
             intIdAcompañamiento: this.#intIdAcompañamiento,
             strUsuarioCreacion: this.#objUser.strEmail,
-            btFinalizado: this.#objData?.bitFinalizarSesion
+            btFinalizado: this.#objData?.bitFinalizarSesion,
+            intAreaResponsable: this.#objData.strArea?.intId,
+            intDuracionMinutos: this.#objData?.intDuracionMinutos,
         };
 
         let query = await dao.setSesionAcompañamiento(newData);

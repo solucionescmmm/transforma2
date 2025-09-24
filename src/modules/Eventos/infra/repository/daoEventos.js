@@ -68,6 +68,7 @@ class daoEventos {
                 ${data.strNombreModulo},
                 ${data.intAreaResponsable},
                 ${data.strResponsables},
+                ${data.intDuracionMinutos},
                 ${data.dtFechaInicio},
                 ${data.dtFechaFin},
                 ${data.btFinalizado},
@@ -271,6 +272,7 @@ class daoEventos {
             SET strNombreModulo    = COALESCE(${data.strNombreModulo}, strNombreModulo),
                 intAreaResponsable = COALESCE(${data.intAreaResponsable}, intAreaResponsable),
                 strResponsables    = COALESCE(${data.strResponsables}, strResponsables),
+                intDuracionMinutos = COALESCE(${data.intDuracionMinutos}, intDuracionMinutos),
                 dtFechaIni         = COALESCE(${data.dtFechaIni}, dtFechaIni),
                 dtFechaFin         = COALESCE(${data.dtFechaFin}, dtFechaFin),
                 strObservacionFin  = COALESCE(${data.strObservacionFin}, strObservacionFin),
@@ -396,6 +398,7 @@ class daoEventos {
             SesionesEventos.strNombreModulo,
             SesionesEventos.intAreaResponsable,
             SesionesEventos.strResponsables,
+            SesionesEventos.intDuracionMinutos,
             SesionesEventos.dtFechaIni,
             SesionesEventos.dtFechaFin,
             SesionesEventos.btFinalizado

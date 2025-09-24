@@ -48,6 +48,7 @@ class updateSesionAcompañamiento {
             strEmpresariosAcompañantes: JSON.stringify(this.#objData.strEmpresariosAcompañantes),
             strResponsables: JSON.stringify(this.#objData?.strResponsables),
             strUsuarioActualizacion:this.#objUser.strEmail,
+            intAreaResponsable: this.#objData?.strArea?.intId,
         };
 
         let query = await dao.updateSesionAcompañamiento(newData);

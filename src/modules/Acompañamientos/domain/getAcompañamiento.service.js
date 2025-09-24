@@ -6,6 +6,7 @@ const classInterfaceAcompañamientos = require("../infra/conectors/interfaceDaoA
 
 //services
 const serviceGetEmpresarios = require("../../Empresarios/domian/getEmpresario.service")
+const serviceGetAreas = require("../../Servicios/Maestros/Areas/domain/getAreas.service")
 
 const getAcompañamiento = async (objParams, strDataUser) => {
     let = { intId, intIdIdea } = objParams;
@@ -38,8 +39,15 @@ const getAcompañamiento = async (objParams, strDataUser) => {
     if (queryGetEmpresario.error) {
         throw new Error(queryGetEmpresario.msg)
     }
+
+    let queryGetAreas = await serviceGetAreas({}, strDataUser)
+
+    if (queryGetAreas.error) {
+        throw new Error(queryGetAreas.msg)
+    }
     
     const arrDataEmpresario = queryGetEmpresario?.data
+    const arrDataAreas = queryGetAreas.data
 
     if (!arrayData.error && arrayData.data) {
         if (arrayData.data?.length > 0) {
@@ -76,7 +84,8 @@ const getAcompañamiento = async (objParams, strDataUser) => {
                         strEmpresariosAcompañantes: JSON.parse(arrSesionAcompañamiento[j]?.strEmpresariosAcompañantes || ""),
                         strNombreServicio: arrSesionAcompañamiento[j]?.strNombreServicio || arrSesionAcompañamiento[j]?.strNombrePaquete || "N/A",
                         strNombreEventos: arrSesionAcompañamiento[j]?.strNombreEventos || "N/A",
-                        strNombreRuta: arrSesionAcompañamiento[j]?.strNombreRuta || "N/A"
+                        strNombreRuta: arrSesionAcompañamiento[j]?.strNombreRuta || "N/A",
+                        strArea : arrDataAreas.find((area)=> area.intId === arrSesionAcompañamiento[j].intAreaResponsable)
                     }
                 }
 
