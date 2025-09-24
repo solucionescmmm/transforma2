@@ -11,6 +11,7 @@ import React, {
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import validator from "validator"
+import NumberFormat from "react-number-format";
 
 //Componentes de Material UI
 import {
@@ -91,6 +92,7 @@ const ModalCEdit = ({
         dtFechaFin: null,
         strArea: null,
         strResponsables: [],
+        intDuracionMinutos: null,
     });
 
     //===============================================================================================================================================
@@ -137,9 +139,9 @@ const ModalCEdit = ({
                     method: isEdit ? "PUT" : "POST",
                     baseURL: `${process.env.REACT_APP_API_BACK_PROT}://${process.env.REACT_APP_API_BACK_HOST}${process.env.REACT_APP_API_BACK_PORT}`,
                     url: `${isEdit
-                            ? process.env
-                                .REACT_APP_API_TRANSFORMA_SESIONES_UPDATE
-                            : process.env.REACT_APP_API_TRANSFORMA_SESIONES_SET
+                        ? process.env
+                            .REACT_APP_API_TRANSFORMA_SESIONES_UPDATE
+                        : process.env.REACT_APP_API_TRANSFORMA_SESIONES_SET
                         }`,
                     data,
                     headers: {
@@ -207,6 +209,8 @@ const ModalCEdit = ({
                                 dtFechaFin: parseISO(data.dtFechaFin),
                                 strArea: data.strArea,
                                 strResponsables: data.strResponsables,
+                                intDuracionMinutos: data.intDuracionMinutos,
+
                             });
 
                             reset({
@@ -215,6 +219,8 @@ const ModalCEdit = ({
                                 dtFechaFin: parseISO(data.dtFechaFin),
                                 strArea: data.strArea,
                                 strResponsables: data.strResponsables,
+                                intDuracionMinutos: data.intDuracionMinutos,
+
                             });
                         }
 
@@ -333,8 +339,8 @@ const ModalCEdit = ({
                                     >
                                         {isEdit
                                             ? "EDITAR SESION" :
-                                        isPreview ? "PREVISUALIZAR SESION"
-                                            : "REGISTRAR SESION"}
+                                            isPreview ? "PREVISUALIZAR SESION"
+                                                : "REGISTRAR SESION"}
                                     </Typography>
                                 </Box>
                             </Box>
@@ -417,7 +423,7 @@ const ModalCEdit = ({
                                 rules={{
                                     required:
                                         "Por favor, selecciona la fecha de inicio",
-                                    validate:(value)=>{
+                                    validate: (value) => {
                                         if (dtmValidations?.dtmFinal < value) {
                                             return "La fecha inicial debe ser menor o igual a la fecha de finalización del evento"
                                         }
@@ -464,7 +470,7 @@ const ModalCEdit = ({
                                 rules={{
                                     required:
                                         "Por favor, selecciona la fecha de finalización",
-                                    validate:(value)=>{
+                                    validate: (value) => {
                                         if (dtmValidations?.dtmFinal < value) {
                                             return "La fecha de finalización debe ser menor o igual a la fecha de finalización del evento"
                                         }
@@ -491,7 +497,7 @@ const ModalCEdit = ({
                                         disabled={isPreview || loading}
                                         onChange={(_, value) => onChange(value)}
                                         required
-                                        error={errors?.strArea ? true : false}
+                                        error={!!errors?.strArea ? true : false}
                                         helperText={
                                             errors?.strArea?.message ||
                                             "Seleccione el área responsable"
@@ -500,6 +506,7 @@ const ModalCEdit = ({
                                 )}
                                 control={control}
                                 rules={{
+                                    required: "Por favor, seleccione el área responsable",
                                     validate: (value) => {
                                         if (value?.length === 0) {
                                             return "Por favor, seleccione el área responsable";
@@ -508,8 +515,43 @@ const ModalCEdit = ({
                                 }}
                             />
                         </Grid>
-
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={6}>
+                            <Controller
+                                defaultValue={data.intDuracionMinutos}
+                                name={`intDuracionMinutos`}
+                                render={({ field: { name, value, onChange } }) => (
+                                    <NumberFormat
+                                        label="Duración en minutos"
+                                        name={name}
+                                        value={value}
+                                        fullWidth
+                                        variant="standard"
+                                        disabled={isPreview || loading}
+                                        required
+                                        error={
+                                            !!errors?.intDuracionMinutos
+                                        }
+                                        helperText={
+                                            errors?.intDuracionMinutos?.message ||
+                                            "Digita la duración en minutos"
+                                        }
+                                        onValueChange={(v) => {
+                                            onChange(v.floatValue);
+                                        }}
+                                        thousandSeparator={false}
+                                        allowNegative={false}
+                                        customInput={TextField}
+                                        decimalScale={0}
+                                    />
+                                )}
+                                control={control}
+                                rules={{
+                                    required:
+                                        "Por favor, digita la duración en minutos",
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
                             <Controller
                                 name={`strResponsables`}
                                 defaultValue={data.strResponsables}

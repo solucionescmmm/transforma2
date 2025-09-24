@@ -16,6 +16,7 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { parseISO } from "date-fns";
+import NumberFormat from "react-number-format";
 
 //Componentes de Material UI
 import {
@@ -43,6 +44,7 @@ import SelectTipoAct from "../../../components/selectTipoAct";
 import DropdownEmpresarios from "../../../../Diagnosticos/components/dropdownEmpresarios";
 import useGetRutas from "../../../hooks/useGetRutas";
 import Loader from "../../../../../common/components/Loader";
+import DropdownAreas from "../../../../Admin/components/dropdownAreas";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -119,7 +121,9 @@ const CUSesion = ({
         intTipoAcomp: null,
         strUbicacion: "",
         intIdTipoActividad: "",
+        intAreaResponsable: null,
         strResponsables: [],
+        intDuracionMinutos: null,
         strObjetivoActividad: "",
         dtmProximaActividad: null,
         strObservaciones: "",
@@ -241,6 +245,8 @@ const CUSesion = ({
                 dtmProximaActividad: values.dtmProximaActividad ? parseISO(values?.dtmProximaActividad) : null,
                 strObservaciones: values.strObservaciones || "",
                 strURLDocumento: values.strURLDocumento || "",
+                intDuracionMinutos: values.intDuracionMinutos || null,
+                strArea: values.strArea || null
             });
 
             reset({
@@ -256,6 +262,8 @@ const CUSesion = ({
                 dtmProximaActividad: values.dtmProximaActividad ? parseISO(values?.dtmProximaActividad) : null,
                 strObservaciones: values.strObservaciones || "",
                 strURLDocumento: values.strURLDocumento || "",
+                intDuracionMinutos: values.intDuracionMinutos || null,
+                strArea: values.strArea || null
             });
         }
     }, [values]);
@@ -552,6 +560,75 @@ const CUSesion = ({
                                         rules={{
                                             required:
                                                 "Por favor, selecciona el tipo de actividad",
+                                        }}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12} md={6}>
+                                    <Controller
+                                        defaultValue={data.strArea}
+                                        name="strArea"
+                                        render={({
+                                            field: { name, value, onChange },
+                                        }) => (
+                                            <DropdownAreas
+                                                label="Área responsable"
+                                                name={name}
+                                                value={value}
+                                                disabled={isPreview || loading}
+                                                onChange={(_, value) => onChange(value)}
+                                                required
+                                                error={!!errors?.strArea ? true : false}
+                                                helperText={
+                                                    errors?.strArea?.message ||
+                                                    "Seleccione el área responsable"
+                                                }
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required: "Por favor, seleccione el área responsable",
+                                            validate: (value) => {
+                                                if (value?.length === 0) {
+                                                    return "Por favor, seleccione el área responsable";
+                                                }
+                                            },
+                                        }}
+                                    />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Controller
+                                        defaultValue={data.intDuracionMinutos}
+                                        name={`intDuracionMinutos`}
+                                        render={({ field: { name, value, onChange } }) => (
+                                            <NumberFormat
+                                                label="Duración en minutos"
+                                                name={name}
+                                                value={value}
+                                                fullWidth
+                                                variant="standard"
+                                                disabled={isPreview || loading}
+                                                required
+                                                error={
+                                                    !!errors?.intDuracionMinutos
+                                                }
+                                                helperText={
+                                                    errors?.intDuracionMinutos?.message ||
+                                                    "Digita la duración en minutos"
+                                                }
+                                                onValueChange={(v) => {
+                                                    onChange(v.floatValue);
+                                                }}
+                                                thousandSeparator={false}
+                                                allowNegative={false}
+                                                customInput={TextField}
+                                                decimalScale={0}
+                                            />
+                                        )}
+                                        control={control}
+                                        rules={{
+                                            required:
+                                                "Por favor, digita la duración en minutos",
                                         }}
                                     />
                                 </Grid>
