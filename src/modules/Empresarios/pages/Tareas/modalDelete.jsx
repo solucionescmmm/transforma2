@@ -188,7 +188,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
                         <Alert severity="error">
                             <AlertTitle>
                                 <b>
-                                    No se encontro el identificador de la tarea
+                                    No se encontro el identificador de la actividad
                                 </b>
                             </AlertTitle>
                             Ha ocurrido un error al momento de seleccionar los
@@ -222,7 +222,7 @@ const ModalDelete = ({ handleOpenDialog, open, intId, refresh, intIdIdea }) => {
             {loading ? (
                 <LinearProgress className={classes.linearProgress} />
             ) : null}
-            <DialogTitle>{`¿Deseas eliminar la tarea seleccionada?`}</DialogTitle>
+            <DialogTitle>{`¿Deseas eliminar la actividad seleccionada?`}</DialogTitle>
 
             <DialogContent>
                 <DialogContentText>

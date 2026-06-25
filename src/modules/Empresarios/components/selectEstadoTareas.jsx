@@ -63,7 +63,7 @@ const SelectEstadoTareas = ({
                 <AlertTitle>
                     <b>Sin datos</b>
                 </AlertTitle>
-                No existen datos del listado de Estados de tareas.
+                No existen datos del listado de Estados de actividades.
             </Alert>
         );
     }
@@ -88,7 +88,7 @@ const SelectEstadoTareas = ({
                 <AlertTitle>
                     <b>{data.msg}</b>
                 </AlertTitle>
-                Ha ocurrido un error al obtener los datos del listado de Estados de tareas.
+                Ha ocurrido un error al obtener los datos del listado de Estados de actividades.
             </Alert>
         );
     }

@@ -455,7 +455,7 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                         field: { name, value, onChange },
                                     }) => (
                                         <SelectTipoEventos
-                                            label="Tipo de evento"
+                                            label="Tipo de oferta"
                                             name={name}
                                             value={value}
                                             onChange={(e) => onChange(e)}
@@ -471,14 +471,14 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                             helperText={
                                                 errors?.intTipoEvento
                                                     ?.message ||
-                                                "Selecciona el tipo de evento"
+                                                "Selecciona el tipo de oferta"
                                             }
                                         />
                                     )}
                                     control={control}
                                     rules={{
                                         required:
-                                            "Por favor, selecciona el tipo de evento",
+                                            "Por favor, selecciona el tipo de oferta",
                                     }}
                                 />
                             </Grid>
@@ -709,7 +709,7 @@ const CreateEditEventos = ({ isEdit, isPreview }) => {
                                     }) => (
                                         <DropdownAreas
                                             multiple
-                                            label="Áreas involucradas"
+                                            label="Componente responsable"
                                             name={name}
                                             value={value}
                                             disabled={loading || isPreview}

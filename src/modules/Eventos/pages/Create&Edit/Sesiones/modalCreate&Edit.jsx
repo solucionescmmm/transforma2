@@ -491,7 +491,7 @@ const ModalCEdit = ({
                                     field: { name, value, onChange },
                                 }) => (
                                     <DropdownAreas
-                                        label="Área responsable"
+                                        label="Componente responsable"
                                         name={name}
                                         value={value}
                                         disabled={isPreview || loading}

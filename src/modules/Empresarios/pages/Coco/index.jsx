@@ -390,7 +390,7 @@ const Coco = () => {
                                 <Tab label="Perfil" value="Inicio" />
                                 <Tab label="Personas" value="Personas" />
                                 <Tab label="Comentarios" value="Comentarios" />
-                                <Tab label="Tareas" value="Tareas" />
+                                <Tab label="Actividades" value="Tareas" />
                                 <Tab
                                     label="Diagnósticos"
                                     value="DiagnosticoCoco"

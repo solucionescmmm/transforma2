@@ -68,7 +68,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal, disabled }) => {
             type: "string",
         },
         {
-            title: "Tarea",
+            title: "Actividad",
             field: "strTarea",
             type: "string",
         },
@@ -257,7 +257,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal, disabled }) => {
                                 isLoading={data === undefined ? true : false}
                                 data={data || []}
                                 columns={objColumns}
-                                title="Tareas"
+                                title="Actividades"
                                 options={{
                                     grouping: true,
                                     title: true,
@@ -417,7 +417,7 @@ const ReadTareas = ({ onChangeRoute, intIdIdea, inModal, disabled }) => {
                                                                 }}
                                                                 variant="contained"
                                                             >
-                                                                Agregar tarea
+                                                                Agregar actividad
                                                             </Button>
                                                         </Can>
                                                     </Box>

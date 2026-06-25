@@ -82,7 +82,7 @@ const ReadSolicitudesUser = () => {
             type: "string",
         },
         {
-            title: "Tipo de Evento",
+            title: "Tipo de oferta",
             field: "strNombreTipo",
             type: "string",
         },

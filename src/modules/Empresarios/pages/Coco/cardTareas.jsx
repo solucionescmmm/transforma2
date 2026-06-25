@@ -58,7 +58,7 @@ const CardTareas = ({ intIdIdea }) => {
                     alignItems: "center",
                 }}
             >
-                No existen nuevas tareas
+                No existen nuevas actividades
             </div>
         );
     }

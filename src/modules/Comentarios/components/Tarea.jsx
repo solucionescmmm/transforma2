@@ -205,7 +205,7 @@ const ComentarioTarea = ({ values, socket }) => {
                                             <Typography
                                                 sx={{ fontSize: "12px" }}
                                             >
-                                                Tarea
+                                                Actividad
                                             </Typography>
                                         </Box>
 

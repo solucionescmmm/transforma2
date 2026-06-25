@@ -55,11 +55,7 @@ const DropdownAreas = ({
 
     useEffect(() => {
         if (data?.length > 0) {
-            data.forEach((e) => {
-                return e.intIdEstado === 1 ? e : null;
-            });
-
-            setOptions(data);
+            setOptions(data.filter((e) => e.intIdEstado === 1));
         }
     }, [data]);
 

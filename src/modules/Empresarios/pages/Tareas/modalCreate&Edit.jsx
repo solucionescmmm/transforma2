@@ -42,6 +42,7 @@ import useGetTareas from "../../hooks/useGetTareas";
 import DropdownUsuarios from "../../../../common/components/dropdowUsuarios";
 import DropdownAreas from "../../../Admin/components/dropdownAreas";
 import SelectEstadoTareas from "../../components/selectEstadoTareas";
+import SelectTipoAct from "../../components/selectTipoAct";
 
 const modalRejectStyles = makeStyles(() => ({
     linearProgress: {
@@ -90,7 +91,8 @@ const ModalCEdit = ({
         dtFechaAtencion: null,
         intIdEstado: "",
         strArea: null,
-        strEstado: ""
+        strEstado: "",
+        intIdTipoActividad: null
     });
 
     //===============================================================================================================================================
@@ -213,7 +215,8 @@ const ModalCEdit = ({
                                     : null,
                                 intIdEstado: data.intIdEstado,
                                 strArea: data.strArea,
-                                strEstado: data.strEstado
+                                strEstado: data.strEstado,
+                                intIdTipoActividad: data.intIdTipoActividad || "",
                             });
                         }
 
@@ -245,7 +248,8 @@ const ModalCEdit = ({
                 dtFechaAtencion: null,
                 intIdEstado: "",
                 strArea: null,
-                strEstado: ""
+                strEstado: "",
+                intIdTipoActividad: null
             });
         }
     }, [data, reset, isEdit, intId, intIdIdea, strInfoUser.strUsuario]);
@@ -279,7 +283,8 @@ const ModalCEdit = ({
                     dtFechaAtencion: null,
                     intIdEstado: "",
                     strArea: null,
-                    strEstado: ""
+                    strEstado: "",
+                    intIdTipoActividad: null
                 });
             }
 
@@ -354,8 +359,8 @@ const ModalCEdit = ({
                                     variant="h6"
                                 >
                                     {isEdit
-                                        ? "EDITAR TAREA"
-                                        : "REGISTRAR TAREA"}
+                                        ? "EDITAR ACTIVIDAD"
+                                        : "REGISTRAR ACTIVIDAD"}
                                 </Typography>
                             </Box>
                         </Box>
@@ -373,7 +378,7 @@ const ModalCEdit = ({
                             name="strTarea"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="Título de la tarea"
+                                    label="Título de la actividad"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
@@ -384,14 +389,14 @@ const ModalCEdit = ({
                                     error={errors?.strTarea ? true : false}
                                     helperText={
                                         errors?.strTarea?.message ||
-                                        "Digíta el nombre de la tarea"
+                                        "Digíta el nombre de la actividad"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digíta el nombre de la tarea",
+                                    "Por favor, digíta el nombre de la actividad",
                             }}
                         />
                     </Grid>
@@ -413,17 +418,50 @@ const ModalCEdit = ({
                                     error={errors?.intIdEstado ? true : false}
                                     helperText={
                                         errors?.intIdEstado?.message ||
-                                        "Selecciona el estado de la tarea"
+                                        "Selecciona el estado de la actividad"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digíta el nombre de la tarea",
+                                    "Por favor, digíta el nombre de la actividad",
                             }}
                         />
                     </Grid> : null}
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.intIdTipoActividad}
+                            name="intIdTipoActividad"
+                            render={({
+                                field: { name, onChange, value },
+                            }) => (
+                                <SelectTipoAct
+                                    label="Tipo de oferta"
+                                    variant="standard"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    disabled={!!!isEdit || loading}
+                                    required
+                                    error={
+                                        !!errors?.intIdTipoActividad
+                                    }
+                                    helperText={
+                                        errors?.intIdTipoActividad
+                                            ?.message ||
+                                        "Selecciona el tipo de oferta"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, selecciona el tipo de oferta",
+                            }}
+                        />
+                    </Grid>
 
                     <Grid item xs={12} md={6}>
                         <Controller
@@ -431,7 +469,7 @@ const ModalCEdit = ({
                             defaultValue={data.strArea}
                             render={({ field: { name, value, onChange } }) => (
                                 <DropdownAreas
-                                    label="­Área responsable"
+                                    label="­Componente responsable"
                                     name={name}
                                     value={value}
                                     disabled={loading}
@@ -442,7 +480,7 @@ const ModalCEdit = ({
                                     error={!!errors?.strArea}
                                     helperText={
                                         errors?.strArea?.message ||
-                                        "Selecciona el área responsable de la tarea"
+                                        "Selecciona el componente responsable de la actividad"
                                     }
                                 />
                             )}
@@ -450,7 +488,7 @@ const ModalCEdit = ({
                             rules={{
                                 validate: (value) => {
                                     if (value?.length === 0) {
-                                        return "Por favor, selecciona los responsables de la tarea";
+                                        return "Por favor, selecciona los responsables de la actividad";
                                     }
                                 },
                             }}
@@ -475,7 +513,7 @@ const ModalCEdit = ({
                                     error={!!errors?.strResponsable}
                                     helperText={
                                         errors?.strResponsable?.message ||
-                                        "Selecciona los responsables de la tarea"
+                                        "Selecciona los responsables de la actividad"
                                     }
                                 />
                             )}
@@ -483,7 +521,7 @@ const ModalCEdit = ({
                             rules={{
                                 validate: (value) => {
                                     if (value?.length === 0) {
-                                        return "Por favor, selecciona los responsables de la tarea";
+                                        return "Por favor, selecciona los responsables de la actividad";
                                     }
                                 },
                             }}
@@ -511,14 +549,14 @@ const ModalCEdit = ({
                                     }
                                     helperText={
                                         errors?.strObservaciones?.message ||
-                                        "Digíta las observaciones de la tarea"
+                                        "Digíta las observaciones de la actividad"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digíta las observaciones de la tarea",
+                                    "Por favor, digíta las observaciones de la actividad",
                             }}
                         />
                     </Grid>

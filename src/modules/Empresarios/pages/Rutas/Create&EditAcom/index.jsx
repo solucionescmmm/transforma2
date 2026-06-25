@@ -642,7 +642,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                             field: { name, onChange, value },
                                         }) => (
                                             <SelectTipoAct
-                                                label="Tipo de actividad"
+                                                label="Tipo de oferta"
                                                 variant="standard"
                                                 name={name}
                                                 value={value}
@@ -655,14 +655,14 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                                 helperText={
                                                     errors?.intTipoActividad
                                                         ?.message ||
-                                                    "Selecciona el tipo de actividad"
+                                                    "Selecciona el tipo de oferta"
                                                 }
                                             />
                                         )}
                                         control={control}
                                         rules={{
                                             required:
-                                                "Por favor, selecciona el tipo de actividad",
+                                                "Por favor, selecciona el tipo de oferta",
                                         }}
                                     />
                                 </Grid>
@@ -675,7 +675,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                             field: { name, value, onChange },
                                         }) => (
                                             <DropdownAreas
-                                                label="Área responsable"
+                                                label="Componente responsable"
                                                 name={name}
                                                 value={value}
                                                 disabled={isPreview || loading}
@@ -754,7 +754,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                                 error={!!errors?.objResponsable}
                                                 helperText={
                                                     errors?.objResponsable?.message ||
-                                                    "Selecciona los responsables de la tarea"
+                                                    "Selecciona los responsables de la actividad"
                                                 }
                                             />
                                         )}
@@ -762,7 +762,7 @@ const CURuta = ({ isEdit, intIdIdea, intIdAcompañamiento, onChangeRoute, isPrev
                                         rules={{
                                             validate: (value) => {
                                                 if (value?.length === 0) {
-                                                    return "Por favor, selecciona los responsables de la tarea";
+                                                    return "Por favor, selecciona los responsables de la actividad";
                                                 }
                                             },
                                         }}

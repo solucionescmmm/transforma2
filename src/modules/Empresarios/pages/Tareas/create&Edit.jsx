@@ -41,6 +41,7 @@ import Loader from "../../../../common/components/Loader";
 import PageError from "../../../../common/components/Error";
 import DropdownAreas from "../../../Admin/components/dropdownAreas";
 import SelectEstadoTareas from "../../components/selectEstadoTareas";
+import SelectTipoAct from "../../components/selectTipoAct";
 
 const styles = makeStyles((theme) => ({
     containerPR: {
@@ -99,7 +100,8 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
         dtFechaAtencion: null,
         intIdEstado: "",
         strArea: null,
-        strEstado: ""
+        strEstado: "",
+        intIdTipoActividad: null
     });
 
     const [success, setSucces] = useState(false);
@@ -219,6 +221,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                 strTarea: data.strTarea,
                                 intIdIdea,
                                 strObservaciones: data.strObservaciones,
+                                intIdTipoActividad: data.intIdTipoActividad || "",
                                 strResponsable: data.strResponsable || [],
                                 dtFechaFinTentativa: parseISO(
                                     data.dtFechaFinTentativa
@@ -238,6 +241,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                 intIdIdea,
                                 strObservaciones: data.strObservaciones,
                                 strResponsable: data.strResponsable || [],
+                                intIdTipoActividad: data.intIdTipoActividad || "",
                                 dtFechaFinTentativa: parseISO(
                                     data.dtFechaFinTentativa
                                 ),
@@ -336,8 +340,8 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     variant="h6"
                                 >
                                     {isEdit
-                                        ? "EDITAR TAREA"
-                                        : "REGISTRAR TAREA"}
+                                        ? "EDITAR ACTIVIDAD"
+                                        : "REGISTRAR ACTIVIDAD"}
                                 </Typography>
                             </Box>
                         </Box>
@@ -355,7 +359,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                             name="strTarea"
                             render={({ field: { name, value, onChange } }) => (
                                 <TextField
-                                    label="Título de la tarea"
+                                    label="Título de la actividad"
                                     name={name}
                                     value={value}
                                     onChange={(e) => onChange(e)}
@@ -366,14 +370,14 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     error={errors?.strTarea ? true : false}
                                     helperText={
                                         errors?.strTarea?.message ||
-                                        "Digíta el nombre de la tarea"
+                                        "Digíta el nombre de la actividad"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digíta el nombre de la tarea",
+                                    "Por favor, digíta el nombre de la actividad",
                             }}
                         />
                     </Grid>
@@ -395,17 +399,50 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     error={errors?.intIdEstado ? true : false}
                                     helperText={
                                         errors?.intIdEstado?.message ||
-                                        "Selecciona el estado de la tarea"
+                                        "Selecciona el estado de la actividad"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digíta el nombre de la tarea",
+                                    "Por favor, digíta el nombre de la actividad",
                             }}
                         />
                     </Grid> : null}
+
+                    <Grid item xs={12}>
+                        <Controller
+                            defaultValue={data.intIdTipoActividad}
+                            name="intIdTipoActividad"
+                            render={({
+                                field: { name, onChange, value },
+                            }) => (
+                                <SelectTipoAct
+                                    label="Tipo de oferta"
+                                    variant="standard"
+                                    name={name}
+                                    value={value}
+                                    onChange={(e) => onChange(e)}
+                                    disabled={loading}
+                                    required
+                                    error={
+                                        !!errors?.intIdTipoActividad
+                                    }
+                                    helperText={
+                                        errors?.intIdTipoActividad
+                                            ?.message ||
+                                        "Selecciona el tipo de oferta"
+                                    }
+                                />
+                            )}
+                            control={control}
+                            rules={{
+                                required:
+                                    "Por favor, selecciona el tipo de oferta",
+                            }}
+                        />
+                    </Grid>
 
                     <Grid item xs={12} md={6}>
                         <Controller
@@ -413,7 +450,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                             defaultValue={data.strArea}
                             render={({ field: { name, value, onChange } }) => (
                                 <DropdownAreas
-                                    label="­Área responsable"
+                                    label="­Componente responsable"
                                     name={name}
                                     value={value}
                                     disabled={loading}
@@ -424,13 +461,13 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     error={!!errors?.strArea}
                                     helperText={
                                         errors?.strArea?.message ||
-                                        "Selecciona el área responsable de la tarea"
+                                        "Selecciona el componente responsable de la actividad"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
-                                required: "Por favor, selecciona los responsables de la tarea",
+                                required: "Por favor, selecciona los responsables de la actividad",
                             }}
                         />
                     </Grid>
@@ -453,7 +490,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     error={!!errors?.strResponsable}
                                     helperText={
                                         errors?.strResponsable?.message ||
-                                        "Selecciona los responsables de la tarea"
+                                        "Selecciona los responsables de la actividad"
                                     }
                                 />
                             )}
@@ -461,7 +498,7 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                             rules={{
                                 validate: (value) => {
                                     if (value?.length === 0) {
-                                        return "Por favor, selecciona los responsables de la tarea";
+                                        return "Por favor, selecciona los responsables de la actividad";
                                     }
                                 },
                             }}
@@ -489,14 +526,14 @@ const CreateEditTareas = ({ isEdit, intIdIdea, intId, onChangeRoute }) => {
                                     }
                                     helperText={
                                         errors?.strObservaciones?.message ||
-                                        "Digíta las observaciones de la tarea"
+                                        "Digíta las observaciones de la actividad"
                                     }
                                 />
                             )}
                             control={control}
                             rules={{
                                 required:
-                                    "Por favor, digíta las observaciones de la tarea",
+                                    "Por favor, digíta las observaciones de la actividad",
                             }}
                         />
                     </Grid>

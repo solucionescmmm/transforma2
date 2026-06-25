@@ -539,7 +539,7 @@ const CUSesion = ({
                                             field: { name, onChange, value },
                                         }) => (
                                             <SelectTipoAct
-                                                label="Tipo de actividad"
+                                                label="Tipo de oferta"
                                                 variant="standard"
                                                 name={name}
                                                 value={value}
@@ -552,14 +552,14 @@ const CUSesion = ({
                                                 helperText={
                                                     errors?.intIdTipoActividad
                                                         ?.message ||
-                                                    "Selecciona el tipo de actividad"
+                                                    "Selecciona el tipo de oferta"
                                                 }
                                             />
                                         )}
                                         control={control}
                                         rules={{
                                             required:
-                                                "Por favor, selecciona el tipo de actividad",
+                                                "Por favor, selecciona el tipo de oferta",
                                         }}
                                     />
                                 </Grid>
@@ -572,7 +572,7 @@ const CUSesion = ({
                                             field: { name, value, onChange },
                                         }) => (
                                             <DropdownAreas
-                                                label="Área responsable"
+                                                label="Componente responsable"
                                                 name={name}
                                                 value={value}
                                                 disabled={isPreview || loading}

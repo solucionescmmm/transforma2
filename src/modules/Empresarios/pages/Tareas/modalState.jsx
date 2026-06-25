@@ -191,7 +191,7 @@ const ModalState = ({ handleOpenDialog, open, values, refresh, intIdIdea}) => {
                     ) : (
                         <Alert severity="error">
                             <AlertTitle>
-                                <b>No se encontro el identificador de la tarea</b>
+                                <b>No se encontro el identificador de la actividad</b>
                             </AlertTitle>
                             Ha ocurrido un error al momento de seleccionar los
                             datos, por favor escala al área de TI para mayor
@@ -221,14 +221,14 @@ const ModalState = ({ handleOpenDialog, open, values, refresh, intIdIdea}) => {
             ) : null}
             <DialogTitle>
                 {data.btFinalizada === true
-                    ? "¿Deseas iniciar nuevamente la tarea?"
-                    : "¿Deseas finalizar la tarea?"}
+                    ? "¿Deseas iniciar nuevamente la actividad?"
+                    : "¿Deseas finalizar la actividad?"}
             </DialogTitle>
 
             <DialogContent>
                 <DialogContentText>
                     Se le notificara a los representantes involucrados del
-                    cambio en el estado de la tarea
+                    cambio en el estado de la actividad
                 </DialogContentText>
             </DialogContent>
 
