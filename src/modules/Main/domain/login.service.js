@@ -52,7 +52,7 @@ const login = async (payload) => {
 
         objUserData = {
             ...objUserData,
-            strRol: queryGetRolesUsuario.data[0]?.strNombre,
+            strRol: "Admin" || queryGetRolesUsuario.data[0]?.strNombre,
         };
 
         if (

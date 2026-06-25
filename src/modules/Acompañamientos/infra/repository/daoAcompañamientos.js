@@ -21,7 +21,8 @@ class daoAcompañamientos {
                 ${data.strUsuarioCreacion},
                 NULL,
                 NULL,
-                ${data.btFinalizado}
+                ${data.btFinalizado},
+                NULL
             )
             
             SET @intId = SCOPE_IDENTITY();

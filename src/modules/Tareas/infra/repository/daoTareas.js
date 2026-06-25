@@ -27,7 +27,8 @@ class daoTareas {
                 GETDATE(),
                 ${data.strUsuarioCreacion},
                 NULL,
-                NULL
+                NULL,
+                ${data.intIdTipoActividad}
             )
             
             SET @intId = SCOPE_IDENTITY();
@@ -68,6 +69,7 @@ class daoTareas {
                 btFinalizada            = COALESCE(${data.btFinalizada}, btFinalizada),
                 intIdAreaResponsable    = COALESCE(${data.intIdAreaResponsable}, intIdAreaResponsable),
                 intIdEstadoTarea        = COALESCE(${data.intIdEstadoTarea}, intIdEstadoTarea),
+                intIdTipoActividad      = COALESCE(${data.intIdTipoActividad}, intIdTipoActividad),
                 strObservaciones        = COALESCE(${data.strObservaciones}, strObservaciones),
                 strResponsables         = COALESCE(${data.strResponsable}, strResponsables),
                 dtFechaAtencion         = COALESCE(${data.dtFechaAtencion}, dtFechaAtencion),
@@ -148,6 +150,7 @@ class daoTareas {
             Tarea.dtFechaAtencion,
             Tarea.dtFechaFinTentativa,
             Tarea.btFinalizada,
+            Tarea.intIdTipoActividad,
             Tarea.dtmFechaCreacion,
             Tarea.strUsuarioCreacion,
             Tarea.dtmFechaActualizacion,

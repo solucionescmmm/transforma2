@@ -76,6 +76,7 @@ class updateTarea {
             strUsuarioActualizacion: this.#objUser.strEmail,
             intIdEstadoTarea: this.#objData.intIdEstado,
             intIdAreaResponsable: this.#objData.strArea?.intId,
+            intIdTipoActividad: this.#objData.intIdTipoActividad || null,
             strResponsable: JSON.stringify(this.#objData?.strResponsable)
         };
 
