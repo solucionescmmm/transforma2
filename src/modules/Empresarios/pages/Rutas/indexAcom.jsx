@@ -76,6 +76,11 @@ const ReadRutas = ({ onChangeRoute, intIdIdea, openModalCreate }) => {
             field: "objInfoPrincipal.dtmCreacion",
             type: "date",
         },
+        {
+            title: "Fecha Finalización",
+            field: "objInfoPrincipal.dtmFechaFinal",
+            type: "date",
+        },
     ]);
 
     //===============================================================================================================================================
