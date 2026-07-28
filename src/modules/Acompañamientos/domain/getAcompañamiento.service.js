@@ -71,6 +71,7 @@ const getAcompañamiento = async (objParams, strDataUser) => {
                     dtmActualizacion: array[i]?.dtmActualizacion,
                     strUsuarioActualizacion: array[i]?.strUsuarioActualizacion,
                     strEstadoRuta: array[i]?.strEstadoRuta,
+                    dtmFechaFinal: array[i]?.dtmFechaFinal
                 };
 
                 let arrSesionAcompañamiento = array[i]?.arrSesionAcompañamiento

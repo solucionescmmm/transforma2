@@ -134,6 +134,7 @@ class daoAcompañamientos {
             Acompañamientos.dtmActualizacion,
             Acompañamientos.strUsuarioActualizacion,
             TipoAcompañamiento.strNombre as strTipoAcompañamiento,
+            Acompañamientos.dtmFechaFinal,
             (
                 SELECT 
 
